@@ -1,0 +1,137 @@
+<HTML>
+<HEAD>
+<script language="VBScript">
+	'Prevent Window flickering on load.
+	Me.ResizeTo 370,410
+	'Move Window off screen.
+    Me.MoveTo ((Screen.Width)),((Screen.Height))
+</script>
+
+<TITLE>Reparar Conexões de rede</title>
+<HTA:APPLICATION
+  APPLICATIONNAME="reparo.HTA"
+  ID="Reparo"
+  VERSION="0.1"
+  BORDER="thin"
+  CAPTION="yes"
+  SYSMENU="yes"
+  MAXIMIZEBUTTON="yes"
+  MINIMIZEBUTTON="yes"
+  SCROLL="no"
+  SINGLEINSTANCE="no"
+  SHOWINTASKBAR="yes"
+  NAVIGABLE="yes"/>
+</HEAD>
+
+<SCRIPT LANGUAGE="VBScript">
+
+Sub Default_Buttons
+If Window.Event.KeyCode = 13 Then
+btRunScript.Click
+End If
+End Sub
+
+Sub Window_Onload
+'# Size Window
+sHorizontal = 370
+sVertical = 410
+Window.resizeTo sHorizontal, sVertical
+'# Get Monitor Details
+Set objWMIService = GetObject _
+("winmgmts:root\cimv2")
+intHorizontal = sHorizontal *2
+intVertical = sVertical *2
+Set colItems = objWMIService.ExecQuery( _
+"Select ScreenWidth, ScreenHeight from" _
+& " Win32_DesktopMonitor", , 48)
+For Each objItem In colItems
+sWidth= objItem.ScreenWidth
+sHeight = objItem.ScreenHeight
+If sWidth > sHorizontal _
+then intHorizontal = sWidth
+If sHeight > sVertical _
+then intVertical = sHeight
+Next
+Set objWMIService = Nothing
+'# Center window on the screen
+intLeft = (intHorizontal - sHorizontal) /2
+intTop = (intVertical - sVertical) /2
+Window.moveTo intLeft, intTop
+'# default window content
+window.location.href="#Top"
+End Sub
+
+
+Sub RunScript
+Set objnet = CreateObject("WScript.Network")
+Set objShell = CreateObject("WScript.Shell")
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+
+dim strComp
+strComp = computador.value
+user = "cemusa\informatica"
+senha = "654321"
+ipconf = "c:\PsTools\psexec.exe -h -u " & user & " -p " & senha & " -d \\" & strComp & " ipconfig /flushdns"
+rep = "c:\PsTools\psexec.exe -h -u " & user & " -p " & senha & " -d \\" & strComp & " c:\ti\suporte\reparo.bat"
+gpupda = "c:\PsTools\psexec.exe -h -u " & user & " -p " & senha & " -d \\" & strComp & " gpupdate"
+gpupda2 = "c:\PsTools\psexec.exe -h -u " & user & " -p " & senha & " -d \\" & strComp & " gpupdate /force /boot"
+psshut = "c:\PsTools\psshutdown.exe -f -r -u " & user & " -p " & senha & " \\" & strComp
+
+StatusArea0.innerHTML = "<center>Processando Solicitação<BR><img src=IMG\carregando.gif border=0 /></center>"
+StatusArea1.innerHTML = "   <img src=IMG\enviando.gif border=0 />"
+objShell.Run ipconf, 0, True
+StatusArea1.innerHTML = "   <img src=IMG\pronto.png border=0 />"
+StatusArea2.innerHTML = "   <img src=IMG\enviando.gif border=0 />"
+objShell.Run rep, 0, True
+StatusArea2.innerHTML = "   <img src=IMG\pronto.png border=0 />"
+StatusArea3.innerHTML = "   <img src=IMG\enviando.gif border=0 />"
+objShell.Run ipconf, 0, True
+objShell.Run gpupda, 0, True
+StatusArea3.innerHTML = "   <img src=IMG\pronto.png border=0 />"
+StatusArea4.innerHTML = "   <img src=IMG\enviando.gif border=0 />"
+objShell.Run gpupda2, 0, True
+objShell.Run ipconf, 0, True
+objShell.Run psshut, 0, True
+StatusArea4.innerHTML = "   <img src=IMG\pronto.png border=0 />"
+StatusArea0.innerHTML = "Processo Concluido.<br> A Maquina Sera Reiniciada"
+Set objShell = Nothing 
+Set WshEn = Nothing 
+End Sub
+	
+Sub CancelScript
+Set oShell = Nothing
+Set objNetwork = Nothing
+Self.Close()
+End Sub
+
+</SCRIPT>
+
+
+<BODY STYLE="font:14 pt arial; color:light-blue;" onkeypress='vbs:Default_Buttons'>
+<a name="Top"></a><CENTER>
+Repara as Conexoes de Rede e Sync do Script de Logon.<P>
+<table border="0" cellpadding="0" cellspacing="0"><font size="2" color="black" face="Arial">
+<tr>
+<td height="30">
+<p align="right">Computador:</p>
+</td>
+<td height="30">&nbsp;&nbsp; <input type="text" name="computador" size="20"></td><td>&nbsp;&nbsp;&nbsp;<Input id=runbutton class="button" type="button" value=" OK " name="btRunScript" onClick="RunScript"><td></tr>
+</table><BR>
+<HR color="#0000FF">
+</CENTER>
+<div id="MyContentArea" style="height: 75%">
+	<table class="bodytext" align="middle" cellpadding="10" cellspacing="10" border="0" style="width: 100%">
+		<tr><td>			
+<span id="StatusArea"><center>Acompanhe abaixo<BR>as etapas do processo.</center></span><br>
+<span id="StatusArea0"></span><br><p>
+Limpando Cache do DNS <span id="StatusArea1"></span><br>
+Reparando as Conexoes de Rede <span id="StatusArea2"></span><br>
+Atualizando Politicas de Usuario <span id="StatusArea3"></span><br>
+Resincronizando o Logon do Usuario <span id="StatusArea4"></span><br>
+			</td>
+		</tr>
+	</table>
+</div>
+</BODY>
+
+</HTML>

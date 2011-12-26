@@ -1,0 +1,231 @@
+<head>
+<title>Desbloqueio de Conta v1.2</title>
+<HTA:APPLICATION 
+     APPLICATIONNAME="Unlock"
+     SCROLL="no"
+     SINGLEINSTANCE="yes"
+     SysMenu="no"
+>
+</head>
+
+<script language="VBScript">
+
+'========================================================================== 
+' 
+' NAME: Unlock Tool
+' AUTOR: Leonardo Vivas
+' DATE: V1.0 01/08/2008 
+'       V1.2 08/09/2008 
+'========================================================================== 
+
+    Sub Window_OnLoad
+        iTimerID = window.setInterval("ShowSplash", 2000)
+    End Sub
+
+    Sub ShowSplash
+        Splash.Style.Display = "None"
+        Main.Style.Display = "Inline"
+    End Sub
+
+
+'Dimensionando a janela
+window.resizeTo 420,430
+
+'Encerra a aplicação
+Sub ExitProgram
+	window.close()
+End Sub
+
+
+Const ADS_NAME_INITTYPE_GC = 3
+Const ADS_NAME_TYPE_NT4 = 3
+Const ADS_NAME_TYPE_1779 =  1
+Const ADS_NAME_TYPE_DISPLAY = 4
+
+set WshNetwork = CreateObject("Wscript.Network")
+strUserName1 = WshNetwork.UserName
+strUserDomain = WshNetwork.UserDomain
+
+
+' Verifica login
+sub go
+On error resume next
+strUserName = LogUser.value
+
+
+login=split(strUserName,"\")
+
+
+Set objTranslator = CreateObject("NameTranslate")
+
+objTranslator.Init ADS_NAME_INITTYPE_GC, ""
+
+' Convert user NT name to Distinguished Name.
+	On Error Resume Next
+objTranslator.Set ADS_NAME_TYPE_NT4, strUserName
+	If (Err.Number <> 0) Then
+	    strHTML = "<p align='center'><font color='white' size='3'><b>Usuario não localizado!</b></font></p>"
+End If
+
+
+strUserDN = objTranslator.Get(ADS_NAME_TYPE_1779)
+Usuario = objTranslator.Get(ADS_NAME_TYPE_DISPLAY)
+
+Set objUser = GetObject("LDAP://" & strUserDN)
+If (Err.Number <> 0) Then
+strHTML = "<p align='center'><font color='white' size='3'><b>Usuario não localizado!</b></font></p>"
+else
+
+' Bind to domain.
+Set objDomain = GetObject("LDAP://" &login(0))
+
+	If objUser.IsAccountLocked = False then
+	strHTML = "<p align='center'><font color='white' size='3'><b>Login não está bloqueado!</b></font></p><b>Nome: </b>"&Ucase(usuario)&"<br><b>Login: </b>"&UCASE(Login(1))&"<br> <b>Domínio: </b>"&UCASE(Login(0))
+	else
+	
+
+	strHTML ="<p align='center'><font color='white' size='3'><b>Login bloqueado! </b></font></p><b>Nome: </b>"&Ucase(usuario)&"<br><b>Login: </b>"&UCASE(Login(1))&"<br> <b>Domínio: </b>"&UCASE(Login(0))&"<br><br><table border='0'><tr><td><input type='button' id='desbl' value='Desbloquear  ' name='run_button'STyle='background-color: darkred;'   STyle='color:white;' onClick='go1'></TD></tr><tr><td><input type='button' id='Expir' value='Expirar Senha' name='run_button' STyle='background-color: darkred;'   STyle='color:white;' onClick='go2'></TD></tr><tr><td><input type='button' id='pass' value='Alterar Senha ' name='run_button' STyle='background-color: darkred;'   STyle='color:white;' onClick='go3'></TD></tr></table>"
+	End If
+
+End If
+
+DataArea.InnerHTML = strHTML 
+
+end sub
+
+
+'desbloqueia
+sub go1
+On Error Resume Next
+strUserName = LogUser.value
+login=split(strUserName,"\")
+Set objTranslator = CreateObject("NameTranslate")
+objTranslator.Init ADS_NAME_INITTYPE_GC, ""
+objTranslator.Set ADS_NAME_TYPE_NT4, strUserName
+strUserDN = objTranslator.Get(ADS_NAME_TYPE_1779)
+Usuario = objTranslator.Get(ADS_NAME_TYPE_DISPLAY)
+Set objUser = GetObject("LDAP://" & strUserDN)
+Set objDomain = GetObject("LDAP://" &login(0))
+
+        objUser.IsAccountLocked = False
+        objUser.SetInfo
+       	If Err.Number <> 0 Then
+            strHTML= "<p align='center'><font color='white' size='3'><b>Não foi possível desbloquear o <br>login: "&UCASE(Login(1))&".<br><br>Acesso negado!</b></font></p>"
+        Else
+            strHTML= "<p align='center'><font color='white' size='3'><b>Login desbloqueado com sucesso! </b></font></p>"
+        End If
+DataArea.InnerHTML = strHTML
+
+end sub
+
+'Expira
+sub go2
+On Error Resume Next
+strUserName = LogUser.value
+login=split(strUserName,"\")
+Set objTranslator = CreateObject("NameTranslate")
+objTranslator.Init ADS_NAME_INITTYPE_GC, ""
+objTranslator.Set ADS_NAME_TYPE_NT4, strUserName
+strUserDN = objTranslator.Get(ADS_NAME_TYPE_1779)
+Usuario = objTranslator.Get(ADS_NAME_TYPE_DISPLAY)
+Set objUser = GetObject("LDAP://" & strUserDN)
+Set objDomain = GetObject("LDAP://" &login(0))
+
+	objUser.pwdLastSet = 0
+	objUser.SetInfo
+	If Err.Number <> 0 Then
+            strHTML= "<p align='center'><font color='white' size='3'><b>Não foi possível expirar a senha<br>do login: "&UCASE(Login(1))&".<br><br>Acesso negado!</b></font></p>"
+        Else
+            strHTML= "<p align='center'><font color='white' size='3'><b>Senha expirada com sucesso!</b></font></p>"
+        End If
+
+DataArea.InnerHTML = strHTML
+
+
+end sub
+
+sub go3
+On Error Resume Next
+strUserName = LogUser.value
+login=split(strUserName,"\")
+Set objTranslator = CreateObject("NameTranslate")
+objTranslator.Init ADS_NAME_INITTYPE_GC, ""
+objTranslator.Set ADS_NAME_TYPE_NT4, strUserName
+strUserDN = objTranslator.Get(ADS_NAME_TYPE_1779)
+Usuario = objTranslator.Get(ADS_NAME_TYPE_DISPLAY)
+Set objUser = GetObject("LDAP://" & strUserDN)
+Set objDomain = GetObject("LDAP://" &login(0))
+
+	intHNumber = 40
+	intLNumber = 1
+	word = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z"
+	sword = Split(word, ",")
+	    Randomize
+	    intNumber = sword(Int((intHNumber - intLNumber + 1) * Rnd + intLNumber)) &Int((intHNumber - intLNumber + 1) * Rnd + intLNumber) & sword(Int((intHNumber - intLNumber + 1) * Rnd + intLNumber)) &Int((intHNumber - intLNumber + 1) * Rnd + intLNumber) & sword(Int((intHNumber - intLNumber + 1) * Rnd + intLNumber)) &Int((intHNumber - intLNumber + 1) * Rnd + intLNumber)
+	objUser.SetPassword(intNumber)
+	objUser.pwdLastSet = 0
+	objUser.IsAccountLocked = False
+	objUser.SetInfo
+	If Err.Number <> 0 Then
+            strHTML= "<p align='center'><font color='white' size='3'><b>Não foi possível alterar a senha <br>do login: "&UCASE(Login(1))&".<br><br>Acesso negado!</b></font></p>"
+        Else
+            strHTML= "<p align='center'><font color='white' size='3'><b>A nova senha para o login: "&UCASE(Login(1))&" é "&intNumber&".</b></font></p>"
+        End If
+
+DataArea.InnerHTML = strHTML
+
+end sub
+
+
+</script>
+<body STYLE="font:14pt arial; color:white;
+ filter:progid:DXImageTransform.Microsoft.Gradient
+(GradientType=0, StartColorStr='#800000', EndColorStr='#DB7093')">
+
+<DIV id="Splash" STYLE="Height:150;Width:350;Border:0.1mm solid black;
+position:relative;top:70;left:20;font:14pt arial;
+ filter:progid:DXImageTransform.Microsoft.Gradient
+(GradientType=0, StartColorStr='#800000', EndColorStr='#DB7093')
+progid:DXImageTransform.Microsoft.dropshadow(OffX=10, OffY=10, 
+        Color='black', Positive='true')">
+
+
+<CENTER>
+<br>
+<font size="4" color="white">Desbloqueio de Conta<br>
+Desbloqueio de Login<br><br></font>
+<font size="2" color="white">vivasleo@gmail.com</font>
+</CENTER>
+</DIV>
+
+<DIV id="Main" STYLE="display:none;position:absolute">
+
+
+<p></p>
+<p></p>
+
+<p align=center><font face="Arial" size="3"><b>Unlock Tool</b></font></p>
+<table width="340" align="center">
+	<tr>
+
+		<td width="100"><font size="2" face="Arial"> <b>Domínio\Login:</b></font></td>
+		<td width="50"><input type="text" name="logUser" size="20"></td>
+		<td><input type="button" value=" Ok " name="run_button" onClick="go" STyle='background-color: darkred;'   STyle='color:white;'></td>
+		<td><input id=runbutton type="button" value="Sair" onClick="ExitProgram" STyle='background-color: darkred;'   STyle='color:white;'></td>
+
+	</tr>
+	<tr>
+		<td></td>
+		<td colspan="2"><font size="1" face="arial">Ex:testdomain\testuser</font></td>
+		
+	</tr>
+</table>
+<p>
+<font face="arial" size="2">
+<hr>
+<span id = "DataArea"></span>
+</font>
+	
+</div>
+</body>
+

@@ -1,0 +1,39 @@
+<Html>
+<Head>
+<Title>Remote Desktop </Title>
+<Style>
+Body {Background-Color: CornSilk}
+</Style>
+ 
+<HTA:Application
+Caption = Yes
+Border = Thick
+Scroll = No
+ShowInTaskBar = No
+MaximizeButton = Yes
+MinimizeButton = Yes>
+ 
+<script Language = VBScript>
+Sub Window_OnLoad
+Window.ResizeTo 400,250
+End Sub
+ 
+Sub WindowsLoad
+For Each objButton in RadioOption
+If objButton.Checked Then
+Set wshShell = CreateObject("WScript.Shell")
+WshShell.Run "Mstsc /V " & objButton.Value & " /F"
+End If
+Next
+Self.Close()
+End Sub
+ 
+</script><Body>
+<p><h3 align = center><font color='Orange'>Remote Desktop</font></h3>
+<div></div>
+<table align='center'>
+<input type="radio" name="RadioOption" value="CSRV01">CSRV01<BR>
+<input type="radio" name="RadioOption" value="CSRV02">CSRV02<BR>
+<input type="radio" name="RadioOption" value="CSRV04">CSRV04<P>
+<input id=runbutton  class="button" type="button" value="Run Script" name="run_button"  onClick="WindowsLoad">
+<Span Id = "DataArea"></Span></Body>
