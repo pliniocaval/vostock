@@ -1,0 +1,25 @@
+- arquvivos e pasta necessarios para funcionamento do script.
+**************************************************************
+
+scrpit de logon com tela de acompanhamento.
+
+
+o que faz:
+
+- Carrega variaveis de arquivo externo (logon.ini)
+- Remove drivers mapeados
+- Tela de Logon para acompanhamento (hta\logon.hta)
+- Mapeia pastas na rede baseado na UO do usuario
+- Altera Registro (bloqueio PENDRIVE)
+- Cria pastas (vide logon.ini)
+- Altera segurança de arquivos e pastas (invoca vbs\xcalcs.vbs)
+- Copia de arquivos (invoca vbs\copia.vbs)
+- Criticas de saida (de acordo com o nome do computador - em andamento)
+- define ass de email (invoca vbs\ass.vbs)
+- carrega BGinfo
+- realiza o Recadastramento dos usuario (invoca cad.vbs)
+- realiza um breve Inventario da Estação e grava em um txt na rede(invoca vbs\inventario.vbs  - vide logon.ini)
+-instala progs (instalações automaticas de progamas)
+-remove progs (remoções automaticas de progamas)
+
+
