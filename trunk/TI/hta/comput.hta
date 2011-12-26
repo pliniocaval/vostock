@@ -1,0 +1,228 @@
+<HTML>
+<HEAD>
+<style type="text/css">
+body
+ {
+ font-family:Trebuchet MS;
+ font-size:18px;
+ background-color:#1e77d3;
+ filter:progid:DXImageTransform.Microsoft.Gradient(startColorStr='#ffffff',endColorStr='#1e77d3',gradientType='1');
+ }
+.Itens
+ {
+ font-family:Trebuchet MS;
+ font-size:10px;
+ }
+div
+{
+border: solid 1px #f00;
+}
+
+</style>
+<script language="VBScript">
+	'Prevent Window flickering on load.
+	Me.ResizeTo 800,600
+	'Move Window off screen.
+    Me.MoveTo ((Screen.Width)),((Screen.Height))
+</script>
+<title>Detalhes da Estação</title>
+<HTA:APPLICATION
+  APPLICATIONNAME="Estação & User"
+  ID="Estção"
+  VERSION="0.1"
+  BORDER="thin"
+  CAPTION="yes"
+  SYSMENU="yes"
+  MAXIMIZEBUTTON="yes"
+  MINIMIZEBUTTON="yes"
+  SCROLL="no"
+  SINGLEINSTANCE="no"
+  SHOWINTASKBAR="yes"
+  NAVIGABLE="yes"/>
+</head>
+ 
+<script language="VBScript">
+ 
+Sub Window_onLoad
+'# Size Window
+sHorizontal = 600
+sVertical = 800
+Window.resizeTo sHorizontal, sVertical
+'# Get Monitor Details
+Set objWMIService = GetObject _
+("winmgmts:root\cimv2")
+intHorizontal = sHorizontal *2
+intVertical = sVertical *2
+Set colItems = objWMIService.ExecQuery( _
+"Select ScreenWidth, ScreenHeight from" _
+& " Win32_DesktopMonitor", , 48)
+For Each objItem In colItems
+sWidth= objItem.ScreenWidth
+sHeight = objItem.ScreenHeight
+If sWidth > sHorizontal _
+then intHorizontal = sWidth
+If sHeight > sVertical _
+then intVertical = sHeight
+Next
+Set objWMIService = Nothing
+'# Center window on the screen
+intLeft = (intHorizontal - sHorizontal) /2
+intTop = (intVertical - sVertical) /2
+Window.moveTo intLeft, intTop
+'# default window content
+window.location.href="#Top"
+End Sub
+ 
+Sub Default_Buttons
+If Window.Event.KeyCode = 13 Then
+btn_logindetails.Click
+End If
+End Sub
+ 
+Sub Get_Login_Details
+StatusArea0.innerHTML = "<input id=runbutton class=button type=button value='Outra ?' name=cancel_button onClick=ReloadScript>"
+StatusArea1.innerHTML = "Processando Solicitação"
+strComputer = txt_computer.value
+if strComputer = "" Then
+StatusArea1.innerHTML = "Estação ou IP não informados"
+'msgbox "Digite o IP ou nome da Estação",vbOKOnly,"Estação ou IP não informados"
+Exit Sub
+End If
+ 
+Set objPing = GetObject("winmgmts:{impersonationLevel=impersonate}")._
+        ExecQuery("select * from Win32_PingStatus where address = '"& strComputer & "'")
+    
+    For Each objStatus in objPing
+     
+      If IsNull(objStatus.StatusCode) or objStatus.StatusCode<>0 Then 
+   
+   StatusArea1.innerHTML = "<font color='Red'>Estação OffLine</font>"
+   exit sub
+ else
+ 
+    StatusArea1.innerHTML = "<font color='green'>Estação OnLine</font><br>"
+ end if
+
+ Set objWMIService = GetObject("winmgmts:" & "{impersonationLevel=impersonate}!\\" & strComputer & "\root\cimv2")
+   
+  
+	   Set colComputer = objWMIService.ExecQuery _
+("Select * from Win32_ComputerSystem")
+
+Set colComputerIP = objWMIService.ExecQuery _
+("Select * from Win32_NetworkAdapterConfiguration")
+ 
+Set colSystemInfo = objWMIService.ExecQuery _
+("Select * from Win32_OperatingSystem",,48)
+ 
+For Each objComputer in colComputer
+strUserName = "<BR>Usuário Logado: " & objComputer.UserName
+strHostName = "<BR>Estação: " & objComputer.Name
+PC_Type = "<BR>Tipo do sistema: " & objComputer.SystemType
+PC_Mem = "<BR>Memória do sistema: " & FormatValue(objComputer.TotalPhysicalMemory)
+Next
+ 
+For Each IPConfig in colComputerIP
+If Not IsNull(IPConfig.IPAddress) Then
+For intIPCount = LBound(IPConfig.IPAddress) _
+to UBound(IPConfig.IPAddress)
+strIPAddress = strIPAddress & "<br>End. de IP: " & IPConfig.IPAddress(intIPCount) & "~"
+next
+end if
+Next
+ 
+If Right(strIPAddress, 1) = "~" Then
+strIPAddress = Left(strIPAddress, Len(strIPAddress) - 1)
+End If
+strIPAddress = Replace(strIPAddress, "~", vbCrLf)
+ 
+For Each objItem in colSystemInfo
+strOS_Caption = "<BR>S.O.: " & objItem.Caption
+strOS_SPVersion = "<BR>Service Pack: " & objItem.CSDVersion
+strOS_VerNumber = "<BR>Versão do S.O.: " & objItem.Version
+SO_Serial = "<BR>Número serial: " & objItem.SerialNumber
+
+Next
+ 
+StatusArea2.innerHTML = strHostName
+StatusArea3.innerHTML = strIPAddress
+StatusArea4.innerHTML = strOS_Caption
+StatusArea5.innerHTML = PC_Type
+StatusArea6.innerHTML = strOS_SPVersion
+StatusArea7.innerHTML = strOS_VerNumber
+StatusArea8.innerHTML = SO_Serial
+StatusArea9.innerHTML = strUserName
+StatusArea10.innerHTML = PC_Mem
+
+
+     Next
+ 
+End Sub
+ Sub ReloadScript
+    Location.Reload(True)
+End Sub
+
+':::::::::::::::::::::::::::::::::::::
+':: ::
+':: Função Formatar Valor Memória ::
+':: ::
+':::::::::::::::::::::::::::::::::::::
+Function FormatValue(objFormatMem)
+If objFormatMem <> 0 then 
+If CDbl(objFormatMem) < 1024^3 Then 
+If CDbl(objFormatMem) < 1024^2 Then 
+Mem_Divisor = 1024
+Mem_Unit = " KB" 
+Else
+Mem_Divisor = 1024^2 
+Mem_Unit = " MB" 
+End If 
+Else 
+Mem_Divisor = 1024^3 
+Mem_Unit = " GB" 
+End If
+If Mem_Divisor = 1024 Then
+FormatValue = FormatNumber(objFormatMem / Mem_Divisor, 0) & Mem_Unit
+ElseIf Mem_Divisor = 1024^2 Then
+FormatValue = FormatNumber(objFormatMem / Mem_Divisor, 0) & Mem_Unit
+Else
+FormatValue = FormatNumber(objFormatMem / Mem_Divisor, 1) & Mem_Unit
+End If
+Else
+FormatValue = "-" 
+End If 
+End Function
+</script>
+ 
+<body onkeypress='vbs:Default_Buttons'>
+<a name="Top"></a>
+<P align="center">Sistema de inventario</P><P>
+<div align="center">
+<table border="0" cellpadding="0" cellspacing="0" >
+<td height="30" width="100"><P align="left"><font size="1,5" color="black" face="Arial">End.de IP<br>Nome da Estação:</font></p></td>
+<td height="30" width="195"><P align="left"><input type="text" value="10.10.1.1" name="txt_computer" maxlength='20' size='25'></td>
+<td height="30" width="100"><P align="left"><span id="StatusArea0"><input type="button" value="Consultar" name="btn_logindetails"  onClick="Get_Login_Details"></span></td>
+</tr></table></div>
+<HR color="#0000FF">
+<div id="MyContentArea" style="height: 75%">
+<table align="middle" cellpadding="10" cellspacing="10" border="0" style="width: 100%">
+<tr><td>			
+<span id="StatusArea" class="Itens"></span><center>Inventário</center><br>
+<span id="StatusArea1" class="Itens"></span>
+<span id="StatusArea2" class='Itens'></span>
+<span id="StatusArea3" class='Itens'></span>
+<span id="StatusArea4" class='Itens'></span>
+<span id="StatusArea5" class='Itens'></span>
+<span id="StatusArea6" class='Itens'></span>
+<span id="StatusArea7" class='Itens'></span>
+<span id="StatusArea8" class='Itens'></span>
+<span id="StatusArea9" class='Itens'></span>
+<span id="StatusArea10" class='Itens'></span>
+</fonte>
+			</td>
+		</tr>
+	</table>
+</div>
+</BODY>
+
+</HTML>
