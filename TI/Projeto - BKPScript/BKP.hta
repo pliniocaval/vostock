@@ -1,0 +1,565 @@
+<head>
+<title>Backup Script</title>
+ 
+<HTA:APPLICATION
+  APPLICATIONNAME="Backup Script"
+  ID="Backup Script"
+  VERSION="1.1"
+  ICON="BKPScript.ico"
+  BORDER="none"
+  SCROLL="no"
+  CAPTION="no"
+  SYSMENU="no"
+  MAXIMIZEBUTTON="no"
+  MINIMIZEBUTTON="no"
+  SINGLEINSTANCE="yes"
+  NAVIGABLE="yes"/>
+</head>
+ 
+<SCRIPT LANGUAGE="VBScript">
+Sub Window_OnLoad
+      intWidth = 450
+      intHeight = 670
+      Me.ResizeTo intWidth, intHeight
+      Me.MoveTo ((Screen.Width / 2) - (intWidth / 2)),((Screen.Height / 2) - (intHeight / 2))
+
+strComputer = "."
+Set objWMIService = GetObject("winmgmts:"  & "{impersonationLevel=impersonate}!\\" & strComputer & "\root\cimv2")
+Set colOSes = objWMIService.ExecQuery("Select * from Win32_OperatingSystem")
+For Each objOS in colOSes
+OSName =  objOS.Caption
+StatusArea0.innerHTML = "Voce esta executando o " & OSName
+Next
+End Sub 
+
+sub load(strfile)   'strfile é a string com o nome do arquivo
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+  Set f = objFSO.OpenTextFile(strfile)
+  constantes =   f.ReadAll
+  f.close
+  execute constantes
+end sub
+
+Sub RunBKP
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+If not objFSO.FileExists("c:\BKPScript\BKP.ini") Then	
+lRet = 2
+Do While lRet = 2
+   Msg = VbCrLf
+   Msg = Msg & "Esta é a primeira vez que executa o BKPScript." & chr(10) & VbCrLf
+   Msg = Msg & "são necessarias algumas informações antes de continuarmos." & chr(10)& VbCrLf
+   Msg = Msg & "Favor Responder as perguntas a seguir" & Chr(10)
+   
+lRet  =   MsgBox(msg,0,"Cemusa Informa")
+Loop
+If Not objFso.FolderExists("c:\BKPScript\") Then objFso.CreateFolder("c:\BKPScript\")
+strINIFile = "c:\BKPScript\BKP.ini"
+'strBKPSERVER = inputbox("DIGITE O NOME DO SERVIDOR DE BKP")
+strShare = inputbox("DIGITE A LETRA DA UNIDADE QUE IRA REPRESENTAR O SERVIDOR DE BKP")
+'strPasta = inputbox("CAMINHO ONDE SERÃO ARMAZENADOS OS ARQUIVOS. (AQUI SERA CRIADA UMA PASTA COM O NOME DO USUARIO).")
+strBKP = inputbox("PASTA DO BKP.")
+arrTipos = split(arrTipos,";")
+Set strINIFile = objFSO.OpenTextFile(strINIFile, 8, True, 0)
+strINIFile.WriteLine  VBCRLF
+strINIFile.WriteLine "'==================================================="  
+strINIFile.WriteLine  VBCRLF
+strINIFile.WriteLine "'ARQUIVO DE CONFIGURAÇÃO DO BKPSricpt."
+strINIFile.WriteLine "'caso queira alterar qualquer configuração, apague este arquivo e responda novamente as perguntas."
+strINIFile.WriteLine "strBKPSERVER = " & Chr(34) & strBKPSERVER & Chr(34)
+strINIFile.WriteLine "strShare = " & Chr(34) & strShare  & Chr(34)
+strINIFile.WriteLine "strPasta = " & Chr(34) & strPasta & Chr(34)
+strINIFile.WriteLine "strBKP = " & Chr(34) & strBKP & Chr(34)
+strINIFile.WriteLine  VBCRLF
+strINIFile.WriteLine "'==================================================="
+strINIFile.WriteLine  VBCRLF
+strINIFile.Close
+else
+'rotina principal
+load("c:\BKPScript\BKP.ini")
+End If
+'Adicionar Rotina de ping para verificar se servidor esta online (pendente).
+
+'======> Mapear Drive de BKP
+	On Error Resume Next
+	Set objnet = createobject("WSCRIPT.Network")
+	'objNet.RemoveNetworkDrive strShare, True, True
+    strUsername = objnet.UserName            
+	'objnet.MapNetworkDrive strShare, "\\" & strBKPSERVER & "\" & strPasta  '======> Mapear Unidade de Rede
+    strPath = strShare & "\" & strBKP & "\" & strUsername   '======> Caminho para o BKP
+
+'On Error Resume Next
+'Apagar log se tiver mais de 10MB
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+If objFSO.FileExists(strPath & "\Backup.log") Then
+set file = objFSO.GetFile(strPath & "\Backup.log")
+  if file.Size >= 10485760 Then
+    objFSO.DeleteFile(strPath & "\Backup.log")
+  End If
+End If
+	
+strComputer = "."
+Set objWMIService = GetObject("winmgmts:"  & "{impersonationLevel=impersonate}!\\" & strComputer & "\root\cimv2")
+Set colOSes = objWMIService.ExecQuery("Select * from Win32_OperatingSystem")
+For Each objOS in colOSes
+OSName =  objOS.Caption
+StatusArea0.innerHTML = "Voce esta executando o " & OSName
+Next
+
+'Create Backup Path
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+	If Not objFso.FolderExists(strPath) Then objFso.CreateFolder(strPath)
+	If Not objFso.FolderExists(strPath & "\Contatos") Then objFso.CreateFolder(strPath & "\Contatos")
+    If Not objFso.FolderExists(strPath & "\Desktop") Then objFso.CreateFolder(strPath & "\Desktop")
+    If Not objFso.FolderExists(strPath & "\Documentos") Then objFso.CreateFolder(strPath & "\Documentos")
+	If Not objFso.FolderExists(strPath & "\Downloads") Then objFso.CreateFolder(strPath & "\Downloads")
+    If Not objFso.FolderExists(strPath & "\Favoritos") Then objFso.CreateFolder(strPath & "\Favoritos")
+	If Not objFso.FolderExists(strPath & "\Imagens") Then objFso.CreateFolder(strPath & "\Imagens")
+	If Not objFso.FolderExists(strPath & "\Musicas") Then objFso.CreateFolder(strPath & "\Musicas")
+	If Not objFso.FolderExists(strPath & "\Videos") Then objFso.CreateFolder(strPath & "\Videos")
+	If Not objFso.FolderExists(strPath & "\Jogos Salvos") Then objFso.CreateFolder(strPath & "\Jogos Salvos")
+    If Not objFso.FolderExists(strPath & "\Outlook - Assinaturas") Then objFso.CreateFolder(strPath & "\Outlook - Assinaturas")
+    If Not objFso.FolderExists(strPath & "\Outlook - Arquivos PST") Then objFso.CreateFolder(strPath & "\Outlook - Arquivos PST")
+    If Not objFso.FolderExists(strPath & "\Outlook - App Settings") Then objFso.CreateFolder(strPath & "\Outlook - App Settings")
+    
+'Set Backup Path
+    strContatS = strPath & "\Contatos"
+	strDesktoS = strPath & "\Desktop"
+    strMyDocsS = strPath & "\Documentos"
+	strDownloS = strPath & "\Downloads"
+    strFavoriS = strPath & "\Favoritos"
+	strPicturS = strPath & "\Imagens"
+	strMusicS = strPath & "\Musicas"
+	strVideosS = strPath & "\Videos"
+	strGamesS = strPath & "\Jogos Salvos"
+    strSignatS = strPath & "\Outlook - Assinaturas"
+    strPSTfilS = strPath & "\Outlook - Arquivos PST"
+    strAppSetS = strPath & "\Outlook - App Settings"	
+	
+IF OSName = "Microsoft Windows XP Professional" or OSName = "Microsoft Windows 2000 Professional" then
+StatusArea0.innerHTML = "Voce esta executando o " & OSName & ".<br>Este script ainda nao esta completamente testado em seu SO favor utilizar com cuidado."
+
+Set objShell=CreateObject("Wscript.Shell")
+	strContacts = objShell.ExpandEnvironmentStrings("%userprofile%") & "\Contacts"
+    strDesktop = objShell.ExpandEnvironmentStrings("%userprofile%") & "\Desktop"
+    strMyDocuments = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Meus Documentos"
+	strMyDownloads = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Downloads"
+    strFavorites = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Favoritos"
+	strPictures = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Pictures"
+	strMusic = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Music"
+	strVideos = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Videos"
+	strGames = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Saved Games"
+    strSignature = objShell.ExpandEnvironmentStrings("%APPDATA%") & "\Microsoft\assinaturas"
+    strPSTfile = "c:\outlook\" & strUsername
+    strOutSet = objShell.ExpandEnvironmentStrings("%APPDATA%") & "\Microsoft\Outlook"
+
+If objFSO.FileExists(strPicturS&"\Porque nao tenho arquivos aqui.txt") Then	
+'wscript.echo "ja existe"
+else
+strLogFile = strPicturS&"\Porque nao tenho arquivos aqui.txt"
+arrTipos = split(arrTipos,";")
+Set strLogFile = objFSO.OpenTextFile(strLogFile, 8, True, 0)
+strLogFile.WriteLine  VBCRLF
+strLogFile.WriteLine "==================================================="  
+strLogFile.WriteLine  VBCRLF
+strLogFile.WriteLine "Se voce esta utilizando Windows XP ou anterior"
+strLogFile.WriteLine "Seus arquivos estao em U:\Documentos\"  
+strLogFile.WriteLine  VBCRLF
+strLogFile.WriteLine "==================================================="
+strLogFile.WriteLine  VBCRLF
+objFSO.CopyFile strPicturS&"\Porque nao tenho arquivos aqui.txt" , strMusicS&"\Porque nao tenho arquivos aqui.txt", True
+objFSO.CopyFile strPicturS&"\Porque nao tenho arquivos aqui.txt" , strVideosS&"\Porque nao tenho arquivos aqui.txt", True
+objFSO.CopyFile strPicturS&"\Porque nao tenho arquivos aqui.txt" , strGamesS&"\Porque nao tenho arquivos aqui.txt", True
+objFSO.CopyFile strPicturS&"\Porque nao tenho arquivos aqui.txt" , strDownloS&"\Porque nao tenho arquivos aqui.txt", True
+
+end if	
+else
+'Source Path
+Set objShell=CreateObject("Wscript.Shell")
+	strContacts = objShell.ExpandEnvironmentStrings("%userprofile%") & "\Contacts"
+    strDesktop = objShell.ExpandEnvironmentStrings("%userprofile%") & "\Desktop"
+    strMyDocuments = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Documents"
+	strMyDownloads = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Downloads"
+    strFavorites = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Favorites"
+	strPictures = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Pictures"
+	strMusic = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Music"
+	strVideos = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Videos"
+	strGames = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Saved Games"
+    strSignature = objShell.ExpandEnvironmentStrings("%APPDATA%") & "\Microsoft\assinaturas"
+    strPSTfile = "c:\outlook\" & strUsername
+    strOutSet = objShell.ExpandEnvironmentStrings("%APPDATA%") & "\Microsoft\Outlook"
+end if  
+
+'Robocopy Options
+strCopyOptions = " /E /COPY:DAT /R:100 /W:30 /TEE /XF *.rdp *.db /LOG+:c:\BKPScript\Backup.log"
+ 
+ 
+'This is where the backup starts
+Set objnet = CreateObject("WScript.Network")
+Set objShell = CreateObject("WScript.Shell")
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+Const OverwriteExisting = TRUE
+RoboCopy = objShell.ExpandEnvironmentStrings("%WinDir%") & "\RoboCopy.exe"
+
+StatusArea20.innerHTML = "<Table cellpadding=20 cellspacing=0 border=0 style=width: 100%><tr valign=bottom><td>Por favor aguarde Backup em andamento <img src=carregando.gif border=0 /></td><td><input class=botao id=cancela type=button  value=Cancelar name=Executar onClick=RunCancelar></td></tr></table>"
+
+document.body.style.cursor = "wait"
+
+StatusArea1.innerHTML = " - Copiando <img src=enviando.gif border=0 />"
+objContacts = RoboCopy & " " & chr(34) & strContacts & chr(34) & " " & Chr(34) & strContatS & chr(34) & " " & strCopyOptions & chr(34)
+objShell.Run objContacts, 0, True
+StatusArea1.innerHTML = " - Copiados <img src=pronto.png border=0 />"
+
+StatusArea2.innerHTML = " - Copiando <img src=enviando.gif border=0 />"
+objDesktop = RoboCopy & " " & chr(34) & strDesktop & chr(34) & " " & Chr(34) & strDesktoS & chr(34) & " " & strCopyOptions & chr(34)
+objShell.Run objDesktop, 0, True
+StatusArea2.innerHTML = " - Copiado <img src=pronto.png border=0 />"
+
+StatusArea3.innerHTML = " - Copiando <img src=enviando.gif border=0 />" 
+objMyDocuments = RoboCopy & " " & chr(34) & strMyDocuments & chr(34) & " " & Chr(34) & strMyDocsS & chr(34) & " " & strCopyOptions & chr(34)
+objShell.Run objMyDocuments, 0, True
+StatusArea3.innerHTML = "- Copiados <img src=pronto.png border=0 />"
+
+StatusArea4.innerHTML = " - Copiando <img src=enviando.gif border=0 />" 
+objMyDownloads = RoboCopy & " " & chr(34) & strMyDownloads & chr(34) & " " & Chr(34) & strDownloS & chr(34) & " " & strCopyOptions & chr(34)
+objShell.Run objMyDownloads, 0, True
+StatusArea4.innerHTML = " - Copiados <img src=pronto.png border=0 />"
+
+StatusArea5.innerHTML = " - Copiando <img src=enviando.gif border=0 />" 
+objFavorites = RoboCopy & " " & chr(34) & strFavorites & chr(34) & " " & Chr(34) & strFavoriS & chr(34) & " " & strCopyOptions & chr(34)
+objShell.Run objFavorites, 0, True
+StatusArea5.innerHTML = " - Copiados <img src=pronto.png border=0 />"
+
+StatusArea6.innerHTML = " - Copiando <img src=enviando.gif border=0 />"
+objPictures = RoboCopy & " " & chr(34) & strPictures & chr(34) & " " & Chr(34) & strPicturS & chr(34) & " " & strCopyOptions & chr(34)
+objShell.Run objPictures, 0, True
+StatusArea6.innerHTML = " - Copiados <img src=pronto.png border=0 />"
+
+StatusArea7.innerHTML = " - Copiando <img src=enviando.gif border=0 />"
+objMusic = RoboCopy & " " & chr(34) & strMusic & chr(34) & " " & Chr(34) & strMusicS & chr(34) & " " & strCopyOptions & chr(34)
+objShell.Run objMusic, 0, True
+StatusArea7.innerHTML = " - Copiadas <img src=pronto.png border=0 />"
+
+StatusArea8.innerHTML = " - Copiando <img src=enviando.gif border=0 />"
+objVideos = RoboCopy & " " & chr(34) & strVideos & chr(34) & " " & Chr(34) & strVideosS & chr(34) & " " & strCopyOptions & chr(34)
+objShell.Run objVideos, 0, True
+StatusArea8.innerHTML = " - Copiados <img src=pronto.png border=0 />"
+
+StatusArea9.innerHTML = " - Copiando <img src=enviando.gif border=0 />"
+objGames = RoboCopy & " " & chr(34) & strGames & chr(34) & " " & Chr(34) & strGamesS & chr(34) & " " & strCopyOptions & chr(34)
+objShell.Run objGames, 0, True
+StatusArea9.innerHTML = " - Copiados <img src=pronto.png border=0 />"
+
+StatusArea10.innerHTML = " - Copiandos <img src=enviando.gif border=0 />"  
+objSignature = RoboCopy & " " & chr(34) & strSignature & chr(34) & " " & Chr(34) & strSignatS & chr(34) & " " & strCopyOptions & chr(34)
+objShell.Run objSignature, 0, True
+StatusArea10.innerHTML = " - Copiados <img src=pronto.png border=0 />" 
+
+StatusArea11.innerHTML = " - Copiando <img src=enviando.gif border=0 />"  
+objOutSet = RoboCopy & " " & chr(34) & strOutSet & chr(34) & " " & Chr(34) & strAppSetS & chr(34) & " " & strCopyOptions & chr(34)
+objShell.Run objOutSet, 0, True
+StatusArea11.innerHTML = " - Copiados <img src=pronto.png border=0 />" 
+
+StatusArea12.innerHTML = " - Copiando <img src=enviando.gif border=0 />" 
+objPSTfile = RoboCopy & " " & chr(34) & strPSTfile & chr(34) & " " & Chr(34) & strPSTfilS & chr(34) & " " & strCopyOptions & chr(34)
+objShell.Run objPSTfile, 0, True
+StatusArea12.innerHTML = " - Copiados <img src=pronto.png border=0 />"
+ 
+StatusArea13.innerHTML = "Backup Terminado"
+
+'StatusArea14.innerHTML = "Iniciando compactação do Backup"
+'objRAR = objShell.ExpandEnvironmentStrings("%WinDir%") & "\rar.exe" a -t -df u:\new\"& strUsername &".rar u:\new"
+'objShell.Run objRAR, 0, True
+'StatusArea14.innerHTML = "Compactação do Backup Finalizada <img src=pronto.png border=0 />"
+document.body.style.cursor = "default"
+StatusArea20.innerHTML = "<Table cellpadding=20 cellspacing=0 border=0 style=width: 100%><tr valign=bottom><td><input class=botao id=runbutton class=button type=button value=Fechar name=cancel_button onClick=CancelScript></td><br></tr></table>"
+'objnet.RemoveNetworkDrive strShare, true, true
+Set ObjWsShell = Nothing
+Set objBrowser = Nothing
+Set fs = Nothing
+Set objUsername = Nothing
+Set objShell = Nothing
+Set objFSO = Nothing
+Set objFSO = Nothing
+Set objShell = Nothing
+
+End Sub
+
+Sub RunRestore
+'rotina principal
+load("c:\BKPScript\BKP.ini")
+'Adicionar Rotina de ping para verificar se servidor esta online (pendente).
+
+'======> Mapear Drive de BKP
+	On Error Resume Next
+	Set objnet = createobject("WSCRIPT.Network")
+	'objNet.RemoveNetworkDrive strShare, True, True
+    strUsername = objnet.UserName            
+	'objnet.MapNetworkDrive strShare, "\\" & strBKPSERVER & "\" & strPasta  '======> Mapear Unidade de Rede
+    strPath = strShare & "\" & strUsername & "\" & strBKP   '======> Caminho para o BKP
+
+'On Error Resume Next
+
+'Apagar log se tiver mais de 10MB
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+If objFSO.FileExists(strPath & "c:\BKPScript\Restore.log") Then
+set file = objFSO.GetFile(strPath & "c:\BKPScript\Restore.log")
+  if file.Size >= 10485760 Then
+    objFSO.DeleteFile(strPath & "c:\BKPScript\Restore.log")
+  End If
+End If
+	
+strComputer = "."
+Set objWMIService = GetObject("winmgmts:"  & "{impersonationLevel=impersonate}!\\" & strComputer & "\root\cimv2")
+Set colOSes = objWMIService.ExecQuery("Select * from Win32_OperatingSystem")
+For Each objOS in colOSes
+OSName =  objOS.Caption
+StatusArea0.innerHTML = "Voce esta executando o " & OSName
+Next
+
+'Create Backup Path
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+	If Not objFso.FolderExists(strPath) Then wscript.echo "pasta de BKP não encontrada" & strPath
+	If Not objFso.FolderExists(strPath & "\Contatos") Then wscript.echo "pasta de BKP não encontrada" & strPath & "\Contatos"
+    If Not objFso.FolderExists(strPath & "\Desktop") Then wscript.echo "pasta de BKP não encontrada" & strPath & "\Desktop"
+    If Not objFso.FolderExists(strPath & "\Documentos") Then  wscript.echo "pasta de BKP não encontrada" & strPath & "\Documentos"
+	If Not objFso.FolderExists(strPath & "\Downloads") Then  wscript.echo "pasta de BKP não encontrada" & strPath & "\Downloads"
+    If Not objFso.FolderExists(strPath & "\Favoritos") Then  wscript.echo "pasta de BKP não encontrada" & strPath & "\Favoritos"
+	If Not objFso.FolderExists(strPath & "\Imagens") Then wscript.echo "pasta de BKP não encontrada" & strPath & "\Imagens"
+	If Not objFso.FolderExists(strPath & "\Musicas") Then wscript.echo "pasta de BKP não encontrada" & strPath & "\Musicas"
+	If Not objFso.FolderExists(strPath & "\Videos") Then wscript.echo "pasta de BKP não encontrada" & strPath & "\Videos"
+	If Not objFso.FolderExists(strPath & "\Jogos Salvos") Then wscript.echo "pasta de BKP não encontrada" & strPath & "\Jogos Salvos"
+    If Not objFso.FolderExists(strPath & "\Outlook - Assinaturas") Then wscript.echo "pasta de BKP não encontrada" & strPath & "\Outlook - Assinaturas"
+    If Not objFso.FolderExists(strPath & "\Outlook - Arquivos PST") Then wscript.echo "pasta de BKP não encontrada" & strPath & "\Outlook - Arquivos PST"
+    If Not objFso.FolderExists(strPath & "\Outlook - App Settings") Then wscript.echo "pasta de BKP não encontrada" & strPath & "\Outlook - App Settings"
+    
+'Set Backup Path
+    strContatS = strPath & "\Contatos"
+	strDesktoS = strPath & "\Desktop"
+    strMyDocsS = strPath & "\Documentos"
+	strDownloS = strPath & "\Downloads"
+    strFavoriS = strPath & "\Favoritos"
+	strPicturS = strPath & "\Imagens"
+	strMusicS = strPath & "\Musicas"
+	strVideosS = strPath & "\Videos"
+	strGamesS = strPath & "\Jogos Salvos"
+    strSignatS = strPath & "\Outlook - Assinaturas"
+    strPSTfilS = strPath & "\Outlook - Arquivos PST"
+    strAppSetS = strPath & "\Outlook - App Settings"	
+	
+IF OSName = "Microsoft Windows XP Professional" or OSName = "Microsoft Windows 2000 Professional" then
+StatusArea0.innerHTML = "Voce esta executando o " & OSName & ".<br>Este script ainda nao esta completamente testado em seu SO favor utilizar com cuidado."
+
+Set objShell=CreateObject("Wscript.Shell")
+	strContacts = objShell.ExpandEnvironmentStrings("%userprofile%") & "\Contacts"
+    strDesktop = objShell.ExpandEnvironmentStrings("%userprofile%") & "\Desktop"
+    strMyDocuments = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Meus Documentos"
+	strMyDownloads = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Downloads"
+    strFavorites = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Favoritos"
+	strPictures = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Pictures"
+	strMusic = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Music"
+	strVideos = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Videos"
+	strGames = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Saved Games"
+    strSignature = objShell.ExpandEnvironmentStrings("%APPDATA%") & "\Microsoft\assinaturas"
+    strPSTfile = "c:\outlook\" & strUsername
+    strOutSet = objShell.ExpandEnvironmentStrings("%APPDATA%") & "\Microsoft\Outlook"
+
+else
+'Source Path
+Set objShell=CreateObject("Wscript.Shell")
+	strContacts = objShell.ExpandEnvironmentStrings("%userprofile%") & "\Contacts"
+    strDesktop = objShell.ExpandEnvironmentStrings("%userprofile%") & "\Desktop"
+    strMyDocuments = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Documents"
+	strMyDownloads = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Downloads"
+    strFavorites = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Favorites"
+	strPictures = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Pictures"
+	strMusic = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Music"
+	strVideos = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Videos"
+	strGames = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Saved Games"
+    strSignature = objShell.ExpandEnvironmentStrings("%APPDATA%") & "\Microsoft\assinaturas"
+    strPSTfile = "c:\outlook\" & strUsername
+    strOutSet = objShell.ExpandEnvironmentStrings("%APPDATA%") & "\Microsoft\Outlook"
+end if  
+
+'Robocopy Options
+strCopyOptions = " /E /COPY:DAT /R:100 /W:30 /TEE /XF *.rdp *.db /LOG+:" & strPath & "\Restore.log"
+ 
+'This is where the backup starts
+Set objnet = CreateObject("WScript.Network")
+Set objShell = CreateObject("WScript.Shell")
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+Const OverwriteExisting = TRUE
+RoboCopy = objShell.ExpandEnvironmentStrings("%WinDir%") & "\RoboCopy.exe"
+
+StatusArea20.innerHTML = "<Table cellpadding=20 cellspacing=0 border=0 style=width: 100%><tr valign=bottom><td>Por favor aguarde Restore em andamento</td><td><input class=botao id=cancela type=button  value=Cancelar name=Executar onClick=RunCancelar></td><br></tr></table>"
+
+document.body.style.cursor = "wait"
+
+StatusArea1.innerHTML = " - Copiando <img src=enviando.gif border=0 />"
+objContacts = RoboCopy & " " & chr(34) & strContactS & chr(34) & " " & Chr(34) & strContats & chr(34) & " " & strCopyOptions & chr(34)
+objShell.Run objContacts, 0, True
+StatusArea1.innerHTML = " - Copiados <img src=pronto.png border=0 />"
+
+StatusArea2.innerHTML = " - Copiando <img src=enviando.gif border=0 />"
+objDesktop = RoboCopy & " " & chr(34) & strDesktoS & chr(34) & " " & Chr(34) & strDesktop & chr(34) & " " & strCopyOptions & chr(34)
+objShell.Run objDesktop, 0, True
+StatusArea2.innerHTML = " - Copiados <img src=pronto.png border=0 />"
+
+StatusArea3.innerHTML = " - Copiando <img src=enviando.gif border=0 />" 
+objMyDocuments = RoboCopy & " " & chr(34) & strMyDocsS & chr(34) & " " & Chr(34) & strMyDocuments & chr(34) & " " & strCopyOptions & chr(34)
+objShell.Run objMyDocuments, 0, True
+StatusArea3.innerHTML = " - Copiados <img src=pronto.png border=0 />"
+
+StatusArea4.innerHTML = " - Copiando <img src=enviando.gif border=0 />" 
+objMyDownloads = RoboCopy & " " & chr(34) & strDownloS & chr(34) & " " & Chr(34) & strMyDownloads & chr(34) & " " & strCopyOptions & chr(34)
+objShell.Run objMyDownloads, 0, True
+StatusArea4.innerHTML = " - Copiados <img src=pronto.png border=0 />"
+
+StatusArea5.innerHTML = " - Copiando <img src=enviando.gif border=0 />" 
+objFavorites = RoboCopy & " " & chr(34) & strFavoriS & chr(34) & " " & Chr(34) & strFavorites & chr(34) & " " & strCopyOptions & chr(34)
+objShell.Run objFavorites, 0, True
+StatusArea5.innerHTML = " - Copiados <img src=pronto.png border=0 />"
+
+StatusArea6.innerHTML = " - Copiando <img src=enviando.gif border=0 />"
+objPictures = RoboCopy & " " & chr(34) & strPicturS & chr(34) & " " & Chr(34) & strPictures & chr(34) & " " & strCopyOptions & chr(34)
+objShell.Run objPictures, 0, True
+StatusArea6.innerHTML = " - Copiados <img src=pronto.png border=0 />"
+
+StatusArea7.innerHTML = " - Copiando <img src=enviando.gif border=0 />"
+objMusic = RoboCopy & " " & chr(34) & strMusicS & chr(34) & " " & Chr(34) & strMusic & chr(34) & " " & strCopyOptions & chr(34)
+objShell.Run objMusic, 0, True
+StatusArea7.innerHTML = " - Copiados <img src=pronto.png border=0 />"
+
+StatusArea8.innerHTML = " - Copiando <img src=enviando.gif border=0 />"
+objVideos = RoboCopy & " " & chr(34) & strVideosS & chr(34) & " " & Chr(34) & strVideos & chr(34) & " " & strCopyOptions & chr(34)
+objShell.Run objVideos, 0, True
+StatusArea8.innerHTML = " - Copiados <img src=pronto.png border=0 />"
+
+StatusArea9.innerHTML = " - Copiando <img src=enviando.gif border=0 />"
+objGames = RoboCopy & " " & chr(34) & strGamesS & chr(34) & " " & Chr(34) & strGames & chr(34) & " " & strCopyOptions & chr(34)
+objShell.Run objGames, 0, True
+StatusArea9.innerHTML = " - Copiados <img src=pronto.png border=0 />"
+
+StatusArea10.innerHTML = " - Copiando <img src=enviando.gif border=0 />"  
+objSignature = RoboCopy & " " & chr(34) & strSignatS & chr(34) & " " & Chr(34) & strSignature & chr(34) & " " & strCopyOptions & chr(34)
+objShell.Run objSignature, 0, True
+StatusArea10.innerHTML = " - Copiados <img src=pronto.png border=0 />" 
+
+StatusArea11.innerHTML = " - Copiando <img src=enviando.gif border=0 />"  
+objOutSet = RoboCopy & " " & chr(34) & strOutSetS & chr(34) & " " & Chr(34) & strAppSet & chr(34) & " " & strCopyOptions & chr(34)
+objShell.Run objOutSet, 0, True
+StatusArea11.innerHTML = " - Copiados <img src=pronto.png border=0 />" 
+
+StatusArea12.innerHTML = " - Copiando <img src=enviando.gif border=0 />" 
+objPSTfile = RoboCopy & " " & chr(34) & strPSTfilS & chr(34) & " " & Chr(34) & strPSTfile & chr(34) & " " & strCopyOptions & chr(34)
+objShell.Run objPSTfile, 0, True
+StatusArea12.innerHTML = " - Copiados <img src=pronto.png border=0 />"
+ 
+StatusArea13.innerHTML = "Backup Terminado"
+
+'StatusArea14.innerHTML = "Iniciando compactação do Backup"
+'objRAR = objShell.ExpandEnvironmentStrings("%WinDir%") & "\rar.exe" a -t -df u:\new\"& strUsername &".rar u:\new"
+'objShell.Run objRAR, 0, True
+'StatusArea14.innerHTML = "Compactação do Backup Finalizada"
+document.body.style.cursor = "default"
+StatusArea20.innerHTML = "<Table cellpadding=20 cellspacing=0 border=0 style=width: 100%><tr valign=bottom><td><input class=botao id=runbutton class=button type=button value=Fechar name=cancel_button onClick=CancelScript></td><br></tr></table>"
+
+objnet.RemoveNetworkDrive strShare, true, true
+Set ObjWsShell = Nothing
+Set objBrowser = Nothing
+Set fs = Nothing
+Set objUsername = Nothing
+Set objShell = Nothing
+Set objFSO = Nothing
+Set objFSO = Nothing
+Set objShell = Nothing
+End Sub
+
+Sub CancelScript
+'Remove Drive de BKP
+On Error Resume Next
+Set objnet = createobject("WSCRIPT.Network")
+'strShare = "Z:"
+'objnet.RemoveNetworkDrive strShare, true, true
+Set oShell = Nothing
+Set objNetwork = Nothing
+Set ObjWsShell = Nothing
+Set objBrowser = Nothing
+Set fs = Nothing
+Set objUsername = Nothing
+Set objShell = Nothing
+Set objFSO = Nothing
+Set objFSO = Nothing
+Set objShell = Nothing
+Self.Close()
+End Sub
+
+Sub RunCancelar
+Set objShell = CreateObject("WScript.Shell")
+mata = "taskkill /IM RoboCopy.exe"
+objShell.Run mata, 0, True
+end sub
+</SCRIPT>
+ 
+<BODY language="vbscript" type="text/vbscript">
+<style type="text/css">
+  .botao{
+        font-size:10px;
+        font-family:Verdana,Helvetica;
+        font-weight:bold;
+        color:white;
+        background:#638cb5;
+        border:0px;
+        ;width:100px;
+        height:22px;
+       }
+</style>
+<!--<div id="header" class="bodytext" style="height: 15%">-->
+	<table cellpadding="10" cellspacing="0" border="0" style="width: 100%">
+		<tr>
+			<td style="width: 95%" class="bodyHeader" align="Center"><img src=BKPScript.png border=0 /></td>
+			<td style="width: 5%" align="right"></td>
+		</tr>
+	</table>
+<!--</div>-->
+
+<div id="MyContentArea" style="height: 75%">
+	<table class="bodytext" align="middle" cellpadding="10" cellspacing="10" border="0" style="width: 100%">
+		<tr>
+			<td>
+			
+<span id="StatusArea">Feche Todos os programas antes de iniciar.<P>O BKP dos arquivos o feito levando em conta os locais padrão de armazenamento dos Itens Abaixo.<BR></span><br>
+<span id="StatusArea0"></span><br><P>
+
+Contatos <span id="StatusArea1"></span><br>
+Desktop <span id="StatusArea2"></span><br>
+Documentos <span id="StatusArea3"></span><br>
+Downloads <span id="StatusArea4"></span><br>
+Favoritos <span id="StatusArea5"></span><br>
+Imagens <span id="StatusArea6"></span><br>
+Musicas <span id="StatusArea7"></span><br>
+Videos <span id="StatusArea8"></span><br>
+Jogos Salvos <span id="StatusArea9"></span><br>
+Outlook - Assinaturas <span id="StatusArea10"></span><br>
+Outlook - App Settings <span id="StatusArea11"></span><br>
+Outlook - Arquivos PST <span id="StatusArea12"></span><br>
+<span id="StatusArea13"></span><br>
+<span id="StatusArea14"></span><br>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<!-- Footer of Wizard -->
+<span id="StatusArea20">
+<Table cellpadding="20" cellspacing="0" border="0" style="width: 100%">
+	<tr valign="bottom">
+	<td><input class=botao id=bt_Backup type="button"  value="Executar Backup" name="Executar" onClick="RunBKP"></td>
+	<td><input class=botao id=bt_Sair type="button"  value="Fechar" name="Executar" onClick="CancelScript"></td>
+	<td><input class=botao id=bt_Restore type="button"  value="Executar Restore" name="Executar" onClick="RunRestore"></td>
+	<br>
+	</tr>
+</table>
+</span>
+
+</BODY>
+</HTML>

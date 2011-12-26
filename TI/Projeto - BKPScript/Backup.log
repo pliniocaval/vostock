@@ -1,0 +1,1896 @@
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Wed May 11 09:02:35 2011
+
+   Source : C:\Users\lvivas\Contacts\
+     Dest : u:\bkp\lvivas\Contatos\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir         58	C:\Users\lvivas\Contacts\
+	    New File  		    2934	Adriana Rosi.vcf  0%  100%  
+	    New File  		    3311	Alex Melo.vcf  0%  100%  
+	    New File  		    3514	Alexandre Penalber (CEMUSA RJ).vcf  0%  100%  
+	    New File  		    3646	Alexandre Penalber.vcf  0%  100%  
+	    New File  		    3568	Ana Gabriela B  Xavier Souza.vcf  0%  100%  
+	    New File  		    3408	Ana Ruth Monassa (MN).vcf  0%  100%  
+	    New File  		    3462	Andreia Cristina Araujo.vcf  0%  100%  
+	    New File  		    3515	Bia Franáa.vcf  0%  100%  
+	    New File  		    3338	Carlos Alberto de Almeida.vcf  0%  100%  
+	    New File  		    3564	Carlos Augusto.vcf  0%  100%  
+	    New File  		    3465	Chirley Domingues.vcf  0%  100%  
+	    New File  		    3602	Cintia Cristina Carvalho Lima.vcf  0%  100%  
+	    New File  		    3292	Clau Cavalcante.vcf  0%  100%  
+	    New File  		    3431	Dalcy R  da Costa Sobrinho.vcf  0%  100%  
+	    New File  		    2873	Danielle Padrenosso (CEMUSA BR).vcf  0%  100%  
+	    New File  		    2927	Danielle Padrenosso.vcf  0%  100%  
+	    New File  		     412	desktop.ini  0%  100%  
+	    New File  		    3339	Diana Falc∆o.vcf  0%  100%  
+	    New File  		    3469	Eduardo Silva.vcf  0%  100%  
+	    New File  		    3243	Elisangela Freire.vcf  0%  100%  
+	    New File  		    3400	Everton.vcf  0%  100%  
+	    New File  		    3085	Farias.vcf  0%  100%  
+	    New File  		    3015	Gilberto.vcf  0%  100%  
+	    New File  		    3262	Guta - Maria Augusta Coelho.vcf  0%  100%  
+	    New File  		    3424	Heleno Afonso Nobre.vcf  0%  100%  
+	    New File  		    3124	Jansen Klajman.vcf  0%  100%  
+	    New File  		    3368	Jo∆o.vcf  0%  100%  
+	    New File  		    3370	Jorge Mendes.vcf  0%  100%  
+	    New File  		    3696	Leonardo Vivas.vcf  0%  100%  
+	    New File  		    3473	Lucia Helena Porcino.vcf  0%  100%  
+	    New File  		    3502	Luiz Antonio de Oliveira.vcf  0%  100%  
+	    New File  		    3318	Luiz Antonio Reguengo (CEMUSA BR - LUAR).vcf  0%  100%  
+	    New File  		    3363	Luiz Antonio Reguengo.vcf  0%  100%  
+	    New File  		    3107	Luiz Carlos Duque (CEMUSA BR).vcf  0%  100%  
+	    New File  		    3092	Luiz Carlos Duque.vcf  0%  100%  
+	    New File  		    3474	Mairalice Teixeira.vcf  0%  100%  
+	    New File  		    3481	Marco Antonio Moraes.vcf  0%  100%  
+	    New File  		    3095	Marcos Neubert.vcf  0%  100%  
+	    New File  		    3476	M†rio Lu°s da Costa Ribeiro.vcf  0%  100%  
+	    New File  		    3585	Michelle Rodrigues.vcf  0%  100%  
+	    New File  		    3225	Nelson Alvarenga.vcf  0%  100%  
+	    New File  		    3088	Noedson Gomes Reis.vcf  0%  100%  
+	    New File  		    3409	Paloma Gonzales Garcia.vcf  0%  100%  
+	    New File  		    3468	Patricia Rodrigues.vcf  0%  100%  
+	    New File  		    3001	Patricia Salgado.vcf  0%  100%  
+	    New File  		    3590	Patricia Vasconcelos (CEMUSA BR).vcf  0%  100%  
+	    New File  		    3575	Patricia Vasconcelos.vcf  0%  100%  
+	    New File  		    3460	Paulo Borges.vcf  0%  100%  
+	    New File  		    6453	Pedro Villaáa.vcf  0%  100%  
+	    New File  		    3463	Ricardo Bonim Menezes (CEMUSA SP).vcf  0%  100%  
+	    New File  		    3448	Ricardo Bonim Menezes.vcf  0%  100%  
+	    New File  		    3389	Roberto Castilho.vcf  0%  100%  
+	    New File  		    3390	Roseli Ramos.vcf  0%  100%  
+	    New File  		    3473	Sandro Alves.vcf  0%  100%  
+	    New File  		    3418	Simone Felix dos Santos.vcf  0%  100%  
+	    New File  		    3093	Simone Martins.vcf  0%  100%  
+	    New File  		    3422	Suporte.vcf  0%  100%  
+	    New File  		    2828	Washington Narciso.vcf  0%  100%  
+
+------------------------------------------------------------------------------
+
+                Total    Copied   Skipped  Mismatch    FAILED    Extras
+     Dirs :         1         1         0         0         0         0
+    Files :        58        58         0         0         0         0
+    Bytes :   189.6 k   189.6 k         0         0         0         0
+    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+
+    Speed :              351204 Bytes/sec.
+    Speed :              20.096 MegaBytes/min.
+
+    Ended : Wed May 11 09:02:35 2011
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Wed May 11 09:02:36 2011
+
+   Source : C:\Users\lvivas\Desktop\
+     Dest : u:\bkp\lvivas\Desktop\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir         64	C:\Users\lvivas\Desktop\
+	    New File  		     165	~$Controle Claro.xlsx  0%  100%  
+	    New File  		   34908	08304710730-IRPF-2011-2010-origi-imagem-declaracao.pdf  0%  100%  
+	    New File  		    3381	2010.pdf  0%  100%  
+	    New File  		    1423	Angry IP Scanner.lnk  0%  100%  
+	    New File  		    1666	ass.vbs  0%  100%  
+	    New File  		     472	band.wpl  0%  100%  
+	    New File  		  844648	Bginfo.exe  0%   31%   62%   93%  100%  
+	    New File  		    1894	BKP.lnk  0%  100%  
+	    New File  		  391178	BKP.rar  0%   33%   67%  100%  
+	    New File  		    9195	BKPScript.iip  0%  100%  
+	    New File  		   10027	Brasilia.xlsx  0%  100%  
+	    New File  		    1883	Cadastro.lnk  0%  100%  
+	    New File  		   53323	Celulares.xlsx  0%  100%  
+	    New File  		    1160	Cemusa.bgi  0%  100%  
+	    New File  		   15292	cemusa.xlsx  0%  100%  
+	    New File  		 468.0 m	cemusa.zip  0.0%  0.2%  0.4%  0.6%  0.8%  1.0%  1.2%  1.4%  1.7%  1.9%  2.1%  2.3%  2.5%  2.7%  2.9%  3.2%  3.4%  3.6%  3.8%  4.0%  4.2%  4.4%  4.7%  4.9%  5.1%  5.3%  5.5%  5.7%  5.9%  6.1%  6.4%  6.6%  6.8%  7.0%  7.2%  7.4%  7.6%  7.9%  8.1%  8.3%  8.5%  8.7%  8.9%  9.1%  9.4%  9.6%  9.8% 10.0% 10.2% 10.4% 10.6% 10.8% 11.1% 11.3% 11.5% 11.7% 11.9% 12.1% 12.3% 12.6% 12.8% 13.0% 13.2% 13.4% 13.6% 13.8% 14.1% 14.3% 14.5% 14.7% 14.9% 15.1% 15.3% 15.5% 15.8% 16.0% 16.2% 16.4% 16.6% 16.8% 17.0% 17.3% 17.5% 17.7% 17.9% 18.1% 18.3% 18.5% 18.8% 19.0% 19.2% 19.4% 19.6% 19.8% 20.0% 20.2% 20.5% 20.7% 20.9% 21.1% 21.3% 21.5% 21.7% 22.0% 22.2% 22.4% 22.6% 22.8% 23.0% 23.2% 23.5% 23.7% 23.9% 24.1% 24.3% 24.5% 24.7% 24.9% 25.2% 25.4% 25.6% 25.8% 26.0% 26.2% 26.4% 26.7% 26.9% 27.1% 27.3% 27.5% 27.7% 27.9% 28.2% 28.4% 28.6% 28.8% 29.0% 29.2% 29.4% 29.6% 29.9% 30.1% 30.3% 30.5% 30.7% 30.9% 31.1% 31.4% 31.6% 31.8% 32.0% 32.2% 32.4% 32.6% 32.9% 33.1% 33.3% 33.5% 33.7% 33.9% 34.1% 34.3% 34.6% 34.8% 35.0% 35.2% 35.4% 35.6% 35.8% 36.1% 36.3% 36.5% 36.7% 36.9% 37.1% 37.3% 37.6% 37.8% 38.0% 38.2% 38.4% 38.6% 38.8% 39.1% 39.3% 39.5% 39.7% 39.9% 40.1% 40.3% 40.5% 40.8% 41.0% 41.2% 41.4% 41.6% 41.8% 42.0% 42.3% 42.5% 42.7% 42.9% 43.1% 43.3% 43.5% 43.8% 44.0% 44.2% 44.4% 44.6% 44.8% 45.0% 45.2% 45.5% 45.7% 45.9% 46.1% 46.3% 46.5% 46.7% 47.0% 47.2% 47.4% 47.6% 47.8% 48.0% 48.2% 48.5% 48.7% 48.9% 49.1% 49.3% 49.5% 49.7% 49.9% 50.2% 50.4% 50.6% 50.8% 51.0% 51.2% 51.4% 51.7% 51.9% 52.1% 52.3% 52.5% 52.7% 52.9% 53.2% 53.4% 53.6% 53.8% 54.0% 54.2% 54.4% 54.6% 54.9% 55.1% 55.3% 55.5% 55.7% 55.9% 56.1% 56.4% 56.6% 56.8% 57.0% 57.2% 57.4% 57.6% 57.9% 58.1% 58.3% 58.5% 58.7% 58.9% 59.1% 59.3% 59.6% 59.8% 60.0% 60.2% 60.4% 60.6% 60.8% 61.1% 61.3% 61.5% 61.7% 61.9% 62.1% 62.3% 62.6% 62.8% 63.0% 63.2% 63.4% 63.6% 63.8% 64.0% 64.3% 64.5% 64.7% 64.9% 65.1% 65.3% 65.5% 65.8% 66.0% 66.2% 66.4% 66.6% 66.8% 67.0% 67.3% 67.5% 67.7% 67.9% 68.1% 68.3% 68.5% 68.7% 69.0% 69.2% 69.4% 69.6% 69.8% 70.0% 70.2% 70.5% 70.7% 70.9% 71.1% 71.3% 71.5% 71.7% 72.0% 72.2% 72.4% 72.6% 72.8% 73.0% 73.2% 73.5% 73.7% 73.9% 74.1% 74.3% 74.5% 74.7% 74.9% 75.2% 75.4% 75.6% 75.8% 76.0% 76.2% 76.4% 76.7% 76.9% 77.1% 77.3% 77.5% 77.7% 77.9% 78.2% 78.4% 78.6% 78.8% 79.0% 79.2% 79.4% 79.6% 79.9% 80.1% 80.3% 80.5% 80.7% 80.9% 81.1% 81.4% 81.6% 81.8% 82.0% 82.2% 82.4% 82.6% 82.9% 83.1% 83.3% 83.5% 83.7% 83.9% 84.1% 84.3% 84.6% 84.8% 85.0% 85.2% 85.4% 85.6% 85.8% 86.1% 86.3% 86.5% 86.7% 86.9% 87.1% 87.3% 87.6% 87.8% 88.0% 88.2% 88.4% 88.6% 88.8% 89.0% 89.3% 89.5% 89.7% 89.9% 90.1% 90.3% 90.5% 90.8% 91.0% 91.2% 91.4% 91.6% 91.8% 92.0% 92.3% 92.5% 92.7% 92.9% 93.1% 93.3% 93.5% 93.7% 94.0% 94.2% 94.4% 94.6% 94.8% 95.0% 95.2% 95.5% 95.7% 95.9% 96.1% 96.3% 96.5% 96.7% 97.0% 97.2% 97.4% 97.6% 97.8% 98.0% 98.2% 98.4% 98.7% 98.9% 99.1% 99.3% 99.5% 99.7% 99.9%100%  
+	    New File  		   1.4 m	Clientes - Cemusa.xls  0%   17%   35%   52%   70%   87%  100%  
+	    New File  		  203696	clientes.xlsx  0%   64%  100%  
+	    New File  		   75169	Controle Claro.xlsx  0%  100%  
+	    New File  		    4351	copia.hta  0%  100%  
+	    New File  		   2.6 m	CS_Requirements Document_CEMUSA.doc  0%   18%   37%   56%   75%   93%  100%  
+	    New File  		    1140	DameWare.lnk  0%  100%  
+	    New File  		     749	desbloqueio.lnk  0%  100%  
+	    New File  		     466	desktop.ini  0%  100%  
+	    New File  		     273	dgdfgd.txt  0%  100%  
+	    New File  		     231	dpadrenosso.bat  0%  100%  
+	    New File  		    2294	embratel.txt  0%  100%  
+	    New File  		    1728	exportar users.vbs  0%  100%  
+	    New File  		   49152	FileDate.exe  0%  100%  
+	    New File  		   1.5 m	Flash Player.exe  0%   16%   33%   49%   66%   82%   99%  100%  
+	    New File  		    2058	Google Chrome.lnk  0%  100%  
+	    New File  		    1514	GP.lnk  0%  100%  
+	    New File  		    4972	Instalar em Todos.vbs  0%  100%  
+	    New File  		  111104	Ipscan.exe  0%  100%  
+	    New File  		    2382	IPSCAN.lnk  0%  100%  
+	    New File  		    2762	IRPF2010.zip  0%  100%  
+	    New File  		   1.8 m	lansearch.exe  0%   13%   26%   40%   53%   67%   80%   94%  100%  
+	    New File  		     747	lansearch.ini  0%  100%  
+	    New File  		   10987	lista.xlsx  0%  100%  
+	    New File  		    1902	Logon.hta.lnk  0%  100%  
+	    New File  		    9853	manaus.xlsx  0%  100%  
+	    New File  		    2075	Maps.lnk  0%  100%  
+	    New File  		    5605	Monitora.hta  0%  100%  
+	    New File  		     464	MXM.lnk  0%  100%  
+	    New File  		   22399	MyExport.xls  0%  100%  
+	    New File  		     765	MyPhoneExplorer portable.lnk  0%  100%  
+	    New File  		    1135	NT Util.lnk  0%  100%  
+	    New File  		    2508	pLoader.lnk  0%  100%  
+	    New File  		   27136	Projeto de sistema de comunicaá∆o unificada.doc  0%  100%  
+	    New File  		     762	PuTTY.lnk  0%  100%  
+	    New File  		   19398	Query Cemusa Pos Renovaá∆o.xlsx  0%  100%  
+	    New File  		    1597	Remote Desktop Connection.lnk  0%  100%  
+	    New File  		   10303	Repara.hta  0%  100%  
+	    New File  		   29135	rh24h-demonstrativo-eds-f.pdf  0%  100%  
+	    New File  		   10794	salvador.xlsx  0%  100%  
+	    New File  		      34	senhas.txt  0%  100%  
+	    New File  		     622	serial.txt  0%  100%  
+	    New File  		  494711	Setup.exe  0%   26%   52%   79%  100%  
+	    New File  		   23552	SP.xls  0%  100%  
+	    New File  		    1676	Task Scheduler.lnk  0%  100%  
+	    New File  		     778	Telefonia.xlsx.lnk  0%  100%  
+	    New File  		     970	VirtualBox.lnk  0%  100%  
+	    New File  		     526	WinHider.lnk  0%  100%  
+	    New File  		    1707	WinSCP.lnk  0%  100%  
+	  New Dir          0	C:\Users\lvivas\Desktop\cemusa\
+	  New Dir          0	C:\Users\lvivas\Desktop\cemusa\Files\
+	  New Dir         92	C:\Users\lvivas\Desktop\cemusa\Files\Best\
+	    New File  		  780144	01082010038.jpg  0%   33%   67%  100%  
+	    New File  		  454114	01122010599.jpg  0%   28%   57%   86%  100%  
+	    New File  		  344151	02022009(011).jpg  0%   38%   76%  100%  
+	    New File  		  672664	02032011024.jpg  0%   38%   77%  100%  
+	    New File  		  534669	02032011045.jpg  0%   49%   98%  100%  
+	    New File  		  483554	02122010626.jpg  0%   27%   54%   81%  100%  
+	    New File  		  552682	02122010673.jpg  0%   47%   94%  100%  
+	    New File  		  549716	02122010679.jpg  0%   47%   95%  100%  
+	    New File  		  459023	02122010696.jpg  0%   28%   57%   85%  100%  
+	    New File  		  387210	03052010871.jpg  0%   33%   67%  100%  
+	    New File  		  343757	03092009(036).jpg  0%   38%   76%  100%  
+	    New File  		  469616	03122010733.jpg  0%   27%   55%   83%  100%  
+	    New File  		  336343	04032010401.jpg  0%   38%   77%  100%  
+	    New File  		  391897	04032010407.jpg  0%   33%   66%  100%  
+	    New File  		   1.3 m	04032011077.jpg  0%   18%   37%   56%   75%   94%  100%  
+	    New File  		  609355	04032011080.jpg  0%   43%   86%  100%  
+	    New File  		  349276	04052010896.jpg  0%   37%   75%  100%  
+	    New File  		  334565	04052010901.jpg  0%   39%   78%  100%  
+	    New File  		  355424	04052010903.jpg  0%   36%   73%  100%  
+	    New File  		  488363	05072009(031).jpg  0%   26%   53%   80%  100%  
+	    New File  		  365771	05122008(011).jpg  0%   35%   71%  100%  
+	    New File  		  367986	06032010454.jpg  0%   35%   71%  100%  
+	    New File  		  439488	06032010456.jpg  0%   29%   59%   89%  100%  
+	    New File  		  399023	06052010940.jpg  0%   32%   65%   98%  100%  
+	    New File  		  758935	06092010241.jpg  0%   34%   69%  100%  
+	    New File  		  289513	07012008059.jpg  0%   45%   90%  100%  
+	    New File  		  311308	07022009(040).jpg  0%   42%   84%  100%  
+	    New File  		  358596	07032010469.jpg  0%   36%   73%  100%  
+	    New File  		  361504	07042010262.jpg  0%   36%   72%  100%  
+	    New File  		  380071	07082009(001).jpg  0%   34%   68%  100%  
+	    New File  		  408831	08042010304.jpg  0%   32%   64%   96%  100%  
+	    New File  		  177561	08062010152.jpg  0%   73%  100%  
+	    New File  		  341973	09032009(042).jpg  0%   38%   76%  100%  
+	    New File  		  309278	09032009(048).jpg  0%   42%   84%  100%  
+	    New File  		  384497	09042010337.jpg  0%   34%   68%  100%  
+	    New File  		  344690	10032010575.jpg  0%   38%   76%  100%  
+	    New File  		  256974	10052010004.jpg  0%   51%  100%  
+	    New File  		  323864	10052010008.jpg  0%   40%   80%  100%  
+	    New File  		  327969	10052010009.jpg  0%   39%   79%  100%  
+	    New File  		  495631	10062010040.jpg  0%   26%   52%   79%  100%  
+	    New File  		  330526	10122009191.jpg  0%   39%   79%  100%  
+	    New File  		  297849	11112009528.jpg  0%   44%   88%  100%  
+	    New File  		  289464	14052010107.jpg  0%   45%   90%  100%  
+	    New File  		  367111	15042010444.jpg  0%   35%   71%  100%  
+	    New File  		  329404	16042010494.jpg  0%   39%   79%  100%  
+	    New File  		  400104	16122008(021).jpg  0%   32%   65%   98%  100%  
+	    New File  		  527220	17022011299.jpg  0%   49%   99%  100%  
+	    New File  		  340368	17112009682.jpg  0%   38%   77%  100%  
+	    New File  		  445483	17122009391.jpg  0%   29%   58%   88%  100%  
+	    New File  		  245057	18082009(007).jpg  0%   53%  100%  
+	    New File  		  382904	18122009621.jpg  0%   34%   68%  100%  
+	    New File  		  434169	19012010476.jpg  0%   30%   60%   90%  100%  
+	    New File  		  329213	19042010530_2.jpg  0%   39%   79%  100%  
+	    New File  		  258436	19052010145.jpg  0%   50%  100%  
+	    New File  		  312598	19052010156.jpg  0%   41%   83%  100%  
+	    New File  		  331975	21052010192.jpg  0%   39%   78%  100%  
+	    New File  		  273477	21052010193.jpg  0%   47%   95%  100%  
+	    New File  		  317825	21052010212.jpg  0%   41%   82%  100%  
+	    New File  		  640950	21092010038.jpg  0%   40%   81%  100%  
+	    New File  		  626101	21092010040.jpg  0%   41%   83%  100%  
+	    New File  		  334214	21112009816.jpg  0%   39%   78%  100%  
+	    New File  		  351603	21122009816.jpg  0%   37%   74%  100%  
+	    New File  		  360351	22042010664.jpg  0%   36%   72%  100%  
+	    New File  		  388594	22042010670.jpg  0%   33%   67%  100%  
+	    New File  		  346504	22042010671.jpg  0%   37%   75%  100%  
+	    New File  		  794231	220720101230.jpg  0%   33%   66%   99%  100%  
+	    New File  		  414818	220720101249-1.jpg  0%   31%   63%   94%  100%  
+	    New File  		  471365	22092010071.jpg  0%   27%   55%   83%  100%  
+	    New File  		  827210	23022011016.jpg  0%   31%   63%   95%  100%  
+	    New File  		  692011	25022011019.jpg  0%   37%   75%  100%  
+	    New File  		  365008	25042010733.jpg  0%   35%   71%  100%  
+	    New File  		  457769	25082010186.jpg  0%   28%   57%   85%  100%  
+	    New File  		  571460	25112010509.jpg  0%   45%   91%  100%  
+	    New File  		  776249	25112010519.jpg  0%   33%   67%  100%  
+	    New File  		  482414	25112010525.jpg  0%   27%   54%   81%  100%  
+	    New File  		  304820	26022009(011).jpg  0%   43%   86%  100%  
+	    New File  		  334812	26042010765.jpg  0%   39%   78%  100%  
+	    New File  		  491847	260720101269.jpg  0%   26%   53%   79%  100%  
+	    New File  		  430013	260720101286-1.jpg  0%   30%   60%   91%  100%  
+	    New File  		  586676	26082010195.jpg  0%   44%   89%  100%  
+	    New File  		  368363	26082010199.jpg  0%   35%   71%  100%  
+	    New File  		  502211	29092010159.jpg  0%   26%   52%   78%  100%  
+	    New File  		  319586	30042010821.jpg  0%   41%   82%  100%  
+	    New File  		  399002	30042010830.jpg  0%   32%   65%   98%  100%  
+	    New File  		  651121	30092010173.jpg  0%   40%   80%  100%  
+	    New File  		  792491	30112010550.jpg  0%   33%   66%   99%  100%  
+	    New File  		  537749	30112010584.jpg  0%   48%   97%  100%  
+	    New File  		   1.3 m	REC_0003.JPG  0%   18%   37%   55%   74%   93%  100%  
+	    New File  		   1.4 m	REC_0009.JPG  0%   16%   33%   50%   67%   83%  100%  
+	    New File  		   1.3 m	REC_0178.JPG  0%   18%   36%   54%   72%   90%  100%  
+	    New File  		   1.2 m	REC_0239.JPG  0%   20%   40%   60%   80%  100%  
+	    New File  		  973994	REC_0410.JPG  0%   26%   53%   80%  100%  
+	  New Dir         14	C:\Users\lvivas\Desktop\cemusa\Files\Dani\
+	    New File  		  327275	17012010341.jpg  0%   40%   80%  100%  
+	    New File  		   3.1 m	Dani01.mp4  0%   15%   31%   47%   63%   79%   95%  100%  
+	    New File  		  18.4 m	Dani02.mp4  0.0%  5.4% 10.8% 16.2% 21.7% 27.1% 32.5% 37.9% 43.4% 48.8% 54.2% 59.6% 65.1% 70.5% 75.9% 81.3% 86.8% 92.2% 97.6%100%  
+	    New File  		  10.2 m	Dani03.mp4  0.0%  9.7% 19.5% 29.3% 39.1% 48.9% 58.7% 68.5% 78.3% 88.1% 97.9%100%  
+	    New File  		   14280	Daniele (2).jpg  0%  100%  
+	    New File  		   10178	Daniele (3).jpg  0%  100%  
+	    New File  		   14099	Daniele (4).jpg  0%  100%  
+	    New File  		   16203	Daniele (5).jpg  0%  100%  
+	    New File  		   53539	Daniele (6).jpg  0%  100%  
+	    New File  		   14639	Daniele.jpg  0%  100%  
+	    New File  		  167213	DSC00047.JPG  0%   78%  100%  
+	    New File  		   24063	Sem t°tulo 8.jpg  0%  100%  
+	    New File  		  921654	TimerCap.bmp  0%   28%   56%   85%  100%  
+	    New File  		   25652	TimerCap.jpg  0%  100%  
+	  New Dir          6	C:\Users\lvivas\Desktop\cemusa\Files\dpadrenosso\
+	    New File  		  819909	100_1407.JPG  0%   31%   63%   95%  100%  
+	    New File  		  692823	100_1408.JPG  0%   37%   75%  100%  
+	    New File  		  729120	100_1413.JPG  0%   35%   71%  100%  
+	    New File  		  759308	100_1414.JPG  0%   34%   69%  100%  
+	    New File  		  637831	100_1455.JPG  0%   41%   82%  100%  
+	    New File  		  780320	100_1523.JPG  0%   33%   67%  100%  
+	  New Dir         28	C:\Users\lvivas\Desktop\cemusa\Files\Edu\
+	    New File  		   1.3 m	08082010043.jpg  0%   18%   37%   55%   74%   93%  100%  
+	    New File  		   1.4 m	08082010046.jpg  0%   17%   34%   51%   68%   85%  100%  
+	    New File  		   1.3 m	12102010077.jpg  0%   18%   36%   55%   73%   92%  100%  
+	    New File  		  150956	DSC00123.JPG  0%   86%  100%  
+	    New File  		  147982	DSC00148.JPG  0%   88%  100%  
+	    New File  		   75603	DSC00180.JPG  0%  100%  
+	    New File  		  155358	DSC00270.JPG  0%   84%  100%  
+	    New File  		  625248	DSC00315.JPG  0%   41%   83%  100%  
+	    New File  		   60391	DSC00500.JPG  0%  100%  
+	    New File  		   58221	DSC00513.JPG  0%  100%  
+	    New File  		   58034	DSC00521.JPG  0%  100%  
+	    New File  		  593599	DSC00783.JPG  0%   44%   88%  100%  
+	    New File  		  595768	DSC01622.JPG  0%   44%   88%  100%  
+	    New File  		  604986	DSC01625.JPG  0%   43%   86%  100%  
+	    New File  		  523017	DSC01633.JPG  0%   25%   50%   75%  100%  
+	    New File  		  562997	DSC01634.JPG  0%   46%   93%  100%  
+	    New File  		   1.1 m	DSC01806.JPG  0%   22%   45%   67%   90%  100%  
+	    New File  		  870535	DSC01821.JPG  0%   30%   60%   90%  100%  
+	    New File  		  585194	DSC02348.JPG  0%   44%   89%  100%  
+	    New File  		  624140	DSC02435.JPG  0%   42%   84%  100%  
+	    New File  		  605706	DSC02436.JPG  0%   43%   86%  100%  
+	    New File  		  597061	DSC02438.JPG  0%   43%   87%  100%  
+	    New File  		  614212	DSC02440.JPG  0%   42%   85%  100%  
+	    New File  		   1.1 m	DSC03151.JPG  0%   21%   43%   64%   86%  100%  
+	    New File  		  572362	DSC07876.JPG  0%   45%   91%  100%  
+	    New File  		  612377	DSC07927.JPG  0%   42%   85%  100%  
+	    New File  		  571807	DSC07928.JPG  0%   45%   91%  100%  
+	    New File  		  566539	DSC07934.JPG  0%   46%   92%  100%  
+	  New Dir         14	C:\Users\lvivas\Desktop\cemusa\Files\Internet\
+	    New File  		   20399	11_MVG_sp_meninasgiov.jpg  0%   99%   99%  100%  
+	    New File  		   24258	11_MVG_sp_meninaslivia.jpg  0%   99%   99%  100%  
+	    New File  		   47987	1846170-4555-atm14.jpg  0%   99%   99%  100%  
+	    New File  		    6684	Beatriz mederios.jpg  0%   99%   99%  100%  
+	    New File  		  109148	hanads0.jpg  0%   99%   99%  100%  
+	    New File  		  148924	hanaes4.jpg  0%   87%   99%   99%  100%  
+	    New File  		   21602	J£lia de Oliveira Figueiredo.jpg  0%   99%   99%  100%  
+	    New File  		   34817	Marcela Rodriguàs Teixeira.jpg  0%   99%   99%  100%  
+	    New File  		  245344	Miley_Cyrus_naked_nude_04.jpg  0%   53%   99%   99%  100%  
+	    New File  		   21140	mileyet3.jpg  0%   99%   99%  100%  
+	    New File  		   28909	Pietra.jpg  0%   99%   99%  100%  
+	    New File  		   12861	Pietra2.jpg  0%   99%   99%  100%  
+	    New File  		   54530	Selena-Gomez-Fakes-2-5-500x582.jpg  0%   99%   99%  100%  
+	    New File  		  136272	vanessa4zac2.jpg  0%   96%   99%   99%  100%  
+	  New Dir         73	C:\Users\lvivas\Desktop\cemusa\Files\Luiza\
+	    New File  		  551243	16012011.jpg  0%   47%   95%  100%  
+	    New File  		  18.6 m	16012011.mp4  0.0%  5.3% 10.7% 16.1% 21.5% 26.8% 32.2% 37.6% 43.0% 48.3% 53.7% 59.1% 64.5% 69.8% 75.2% 80.6% 86.0% 91.3% 96.7%100%  
+	    New File  		  648175	16012011001.jpg  0%   40%   80%  100%  
+	    New File  		  15.1 m	16012011001.mp4  0.0%  6.6% 13.2% 19.8% 26.4% 33.0% 39.6% 46.2% 52.8% 59.4% 66.0% 72.6% 79.3% 85.9% 92.5% 99.1%100%  
+	    New File  		  599026	16012011002.jpg  0%   43%   87%  100%  
+	    New File  		  613715	16012011003.jpg  0%   42%   85%  100%  
+	    New File  		   5.6 m	16012011003.mp4  0%    8%   17%   26%   35%   43%   52%   61%   70%   79%   87%   96%  100%  
+	    New File  		  584654	16012011004.jpg  0%   44%   89%  100%  
+	    New File  		  625241	16012011005.jpg  0%   41%   83%  100%  
+	    New File  		  611919	16012011006.jpg  0%   42%   85%  100%  
+	    New File  		  21.8 m	16012011006.mp4  0.0%  4.5%  9.1% 13.6% 18.2% 22.8% 27.3% 31.9% 36.5% 41.0% 45.6% 50.2% 54.7% 59.3% 63.9% 68.4% 73.0% 77.6% 82.1% 86.7% 91.3% 95.8%100%  
+	    New File  		  667454	16012011007.jpg  0%   39%   78%  100%  
+	    New File  		  18.7 m	16012011007.mp4  0.0%  5.3% 10.6% 15.9% 21.2% 26.6% 31.9% 37.2% 42.5% 47.9% 53.2% 58.5% 63.8% 69.1% 74.5% 79.8% 85.1% 90.4% 95.8%100%  
+	    New File  		  650373	16012011008.jpg  0%   40%   80%  100%  
+	    New File  		  652920	16012011009.jpg  0%   40%   80%  100%  
+	    New File  		  626320	16012011010.jpg  0%   41%   83%  100%  
+	    New File  		  639383	16012011011.jpg  0%   40%   81%  100%  
+	    New File  		  665420	16012011012.jpg  0%   39%   78%  100%  
+	    New File  		  551017	16012011013.jpg  0%   47%   95%  100%  
+	    New File  		  617456	16012011014.jpg  0%   42%   84%  100%  
+	    New File  		  686285	16012011015.jpg  0%   38%   76%  100%  
+	    New File  		  567632	16012011016.jpg  0%   46%   92%  100%  
+	    New File  		  572071	16012011017.jpg  0%   45%   91%  100%  
+	    New File  		  589532	16012011018.jpg  0%   44%   88%  100%  
+	    New File  		  556437	16012011019.jpg  0%   47%   94%  100%  
+	    New File  		  592858	16012011020.jpg  0%   44%   88%  100%  
+	    New File  		  566080	16012011021.jpg  0%   46%   92%  100%  
+	    New File  		  553749	16012011022.jpg  0%   47%   94%  100%  
+	    New File  		  558800	16012011023.jpg  0%   46%   93%  100%  
+	    New File  		  542625	16012011024.jpg  0%   48%   96%  100%  
+	    New File  		  541620	16012011025.jpg  0%   48%   96%  100%  
+	    New File  		  552475	16012011026.jpg  0%   47%   94%  100%  
+	    New File  		  546591	16012011027.jpg  0%   47%   95%  100%  
+	    New File  		  525145	16012011028.jpg  0%   49%   99%  100%  
+	    New File  		  525849	16012011029.jpg  0%   49%   99%  100%  
+	    New File  		  535544	16012011030.jpg  0%   48%   97%  100%  
+	    New File  		  536170	16012011031.jpg  0%   48%   97%  100%  
+	    New File  		  526860	16012011032.jpg  0%   49%   99%  100%  
+	    New File  		  533427	16012011033.jpg  0%   49%   98%  100%  
+	    New File  		  438553	19012010488.jpg  0%   29%   59%   89%  100%  
+	    New File  		  485645	19012010491.jpg  0%   26%   53%   80%  100%  
+	    New File  		  464028	19012010493.jpg  0%   28%   56%   84%  100%  
+	    New File  		  507414	19012010512.jpg  0%   25%   51%   77%  100%  
+	    New File  		  499229	19012010513.jpg  0%   26%   52%   78%  100%  
+	    New File  		  519885	19012010521.jpg  0%   25%   50%   75%  100%  
+	    New File  		   6.8 m	27022011005.mp4  0.0%  7.2% 14.5% 21.8% 29.1% 36.4% 43.6% 50.9% 58.2% 65.5% 72.8% 80.0% 87.3% 94.6%100%  
+	    New File  		   4.2 m	27022011007.mp4  0%   11%   23%   35%   47%   59%   70%   82%   94%  100%  
+	    New File  		   2.8 m	27022011008.mp4  0%   17%   34%   52%   69%   87%  100%  
+	    New File  		   1.7 m	27022011009.mp4  0%   14%   28%   42%   56%   70%   84%   98%  100%  
+	    New File  		  13.7 m	28012011008.mp4  0.0%  7.2% 14.5% 21.7% 29.0% 36.2% 43.5% 50.8% 58.0% 65.3% 72.5% 79.8% 87.0% 94.3%100%  
+	    New File  		   2.9 m	28012011010.mp4  0%   16%   33%   50%   67%   84%  100%  
+	    New File  		   4.7 m	28012011011.mp4  0%   10%   21%   31%   42%   52%   63%   73%   84%   94%  100%  
+	    New File  		  10.6 m	28012011013.mp4  0.0%  9.3% 18.7% 28.1% 37.4% 46.8% 56.2% 65.5% 74.9% 84.3% 93.7%100%  
+	    New File  		  38.2 m	28012011015.mp4  0.0%  2.6%  5.2%  7.8% 10.4% 13.0% 15.6% 18.3% 20.9% 23.5% 26.1% 28.7% 31.3% 34.0% 36.6% 39.2% 41.8% 44.4% 47.0% 49.7% 52.3% 54.9% 57.5% 60.1% 62.7% 65.3% 68.0% 70.6% 73.2% 75.8% 78.4% 81.0% 83.7% 86.3% 88.9% 91.5% 94.1% 96.7% 99.4%100%  
+	    New File  		  47.7 m	28012011016.mp4  0.0%  2.0%  4.1%  6.2%  8.3% 10.4% 12.5% 14.6% 16.7% 18.8% 20.9% 23.0% 25.1% 27.2% 29.2% 31.3% 33.4% 35.5% 37.6% 39.7% 41.8% 43.9% 46.0% 48.1% 50.2% 52.3% 54.4% 56.5% 58.5% 60.6% 62.7% 64.8% 66.9% 69.0% 71.1% 73.2% 75.3% 77.4% 79.5% 81.6% 83.7% 85.7% 87.8% 89.9% 92.0% 94.1% 96.2% 98.3%100%  
+	    New File  		  17.2 m	29012011020.mp4  0.0%  5.7% 11.5% 17.3% 23.1% 28.9% 34.7% 40.5% 46.3% 52.1% 57.9% 63.7% 69.5% 75.3% 81.1% 86.9% 92.7% 98.5%100%  
+	    New File  		  15.3 m	29012011021.mp4  0.0%  6.5% 13.0% 19.5% 26.0% 32.5% 39.0% 45.6% 52.1% 58.6% 65.1% 71.6% 78.1% 84.7% 91.2% 97.7%100%  
+	    New File  		  37.4 m	31012011024.mp4  0.0%  2.6%  5.3%  8.0% 10.6% 13.3% 16.0% 18.6% 21.3% 24.0% 26.7% 29.3% 32.0% 34.7% 37.3% 40.0% 42.7% 45.4% 48.0% 50.7% 53.4% 56.0% 58.7% 61.4% 64.1% 66.7% 69.4% 72.1% 74.7% 77.4% 80.1% 82.8% 85.4% 88.1% 90.8% 93.4% 96.1% 98.8%100%  
+	    New File  		  23.5 m	31012011025.mp4  0.0%  4.2%  8.5% 12.7% 17.0% 21.2% 25.5% 29.7% 34.0% 38.2% 42.5% 46.7% 51.0% 55.2% 59.5% 63.8% 68.0% 72.3% 76.5% 80.8% 85.0% 89.3% 93.5% 97.8%100%  
+	    New File  		  16.7 m	31012011026.mp4  0.0%  5.9% 11.9% 17.8% 23.8% 29.7% 35.7% 41.6% 47.6% 53.6% 59.5% 65.5% 71.4% 77.4% 83.3% 89.3% 95.3%100%  
+	    New File  		   3.9 m	luiza01.mp4  0%   12%   25%   37%   50%   63%   75%   88%  100%  
+	    New File  		   3.8 m	luiza02.mp4  0%   13%   26%   39%   52%   65%   78%   91%  100%  
+	    New File  		  14.7 m	Luiza03.mp4  0.0%  6.7% 13.5% 20.3% 27.1% 33.8% 40.6% 47.4% 54.2% 60.9% 67.7% 74.5% 81.3% 88.0% 94.8%100%  
+	    New File  		   2.4 m	SAM_0215.JPG  0%   20%   40%   60%   80%  100%  
+	    New File  		   2.5 m	SAM_0285.JPG  0%   19%   39%   58%   78%   97%  100%  
+	    New File  		    7590	Snap01.jpg  0%  100%  
+	    New File  		    7631	snap02.jpg  0%  100%  
+	    New File  		    7112	snap03.jpg  0%  100%  
+	    New File  		  409125	snap04.jpg  0%   32%   64%   96%  100%  
+	    New File  		   18792	snap05.jpg  0%  100%  
+	    New File  		  437653	snap06.jpg  0%   29%   59%   89%  100%  
+	    New File  		  555274	snap07.jpg  0%   47%   94%  100%  
+	    New File  		   67858	snap08.jpg  0%  100%  
+	  New Dir          1	C:\Users\lvivas\Desktop\cemusa\Files\Prima\
+	    New File  		   2.5 m	SAM_0286.JPG  0%   19%   39%   58%   78%   98%  100%  
+	  New Dir         11	C:\Users\lvivas\Desktop\cemusa\Files\PV\
+	    New File  		  788310	03072010012.jpg  0%   33%   66%   99%  100%  
+	    New File  		  677939	05112010072.jpg  0%   38%   77%  100%  
+	    New File  		  504738	05112010073.jpg  0%   25%   51%   77%  100%  
+	    New File  		  392466	05112010074.jpg  0%   33%   66%  100%  
+	    New File  		  717528	08082010050.jpg  0%   36%   73%  100%  
+	    New File  		  558234	11092010064.jpg  0%   46%   93%  100%  
+	    New File  		  536729	12072010035.jpg  0%   48%   97%  100%  
+	    New File  		  705159	20082010054.jpg  0%   37%   74%  100%  
+	    New File  		  720734	22082010055.jpg  0%   36%   72%  100%  
+	    New File  		  605462	26062010005.jpg  0%   43%   86%  100%  
+	    New File  		  419829	IMG00035-20100424-1455.jpg  0%   31%   62%   93%  100%  
+	  New Dir         27	C:\Users\lvivas\Desktop\cemusa\Files\Rose\
+	    New File  		  368456	01082010(001).jpg  0%   35%   71%  100%  
+	    New File  		  409357	01082010(002).jpg  0%   32%   64%   96%  100%  
+	    New File  		  343739	01082010(003).jpg  0%   38%   76%  100%  
+	    New File  		  309535	01082010(004).jpg  0%   42%   84%  100%  
+	    New File  		  326882	01082010(005).jpg  0%   40%   80%  100%  
+	    New File  		  358849	01082010(006).jpg  0%   36%   73%  100%  
+	    New File  		  422683	01082010.jpg  0%   31%   62%   93%  100%  
+	    New File  		  219594	05072010(002).jpg  0%   59%  100%  
+	    New File  		  261937	06062010(001).jpg  0%   50%  100%  
+	    New File  		  461539	06062010(006).jpg  0%   28%   56%   85%  100%  
+	    New File  		  448303	06062010(008).jpg  0%   29%   58%   87%  100%  
+	    New File  		  267566	06062010.jpg  0%   48%   97%  100%  
+	    New File  		  354778	08102010(003).jpg  0%   36%   73%  100%  
+	    New File  		  448495	15082010(004).jpg  0%   29%   58%   87%  100%  
+	    New File  		  466933	15082010(005).jpg  0%   28%   56%   84%  100%  
+	    New File  		  446322	23102010(001).jpg  0%   29%   58%   88%  100%  
+	    New File  		  444489	23102010(002).jpg  0%   29%   58%   88%  100%  
+	    New File  		  441688	23102010(003).jpg  0%   29%   59%   89%  100%  
+	    New File  		  208509	25072010(001).jpg  0%   62%  100%  
+	    New File  		  219718	25072010.jpg  0%   59%  100%  
+	    New File  		  333658	25092010(001).jpg  0%   39%   78%  100%  
+	    New File  		  441969	25092010.jpg  0%   29%   59%   88%  100%  
+	    New File  		  416961	27092010(001).jpg  0%   31%   62%   94%  100%  
+	    New File  		  380101	27092010(005).jpg  0%  
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Wed May 11 09:04:21 2011
+
+   Source : C:\Users\lvivas\Documents\
+     Dest : u:\bkp\lvivas\Documentos\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir          9	C:\Users\lvivas\Documents\
+	    New File  		   13906	Cemusa Brasil_Listado emails.xlsx  0%  100%  
+	    New File  		   62187	cont.CSV  0%  100%  
+	    New File  		     402	desktop.ini  0%  100%  
+	    New File  		     317	favicon.ico  0%  100%  
+	    New File  		   54546	Folha de Rosto de Fax.pdf  0%  100%  
+	    New File  		   10827	my_config.php  0%  100%  
+	    New File  		     863	my_style.css  0%  100%  
+	    New File  		      20	private.txt  0%  100%  
+	  New Dir          2	C:\Users\lvivas\Documents\2009\
+	    New File  		    3661	08304710730-IRPF-2010-2009-ORIGI.DEC  0%  100%  
+	    New File  		     252	08304710730-IRPF-2010-2009-ORIGI.REC  0%  100%  
+	  New Dir         38	C:\Users\lvivas\Documents\Cemusa\
+	    New File  		       0	.fsLockFile100%  
+	    New File  		     165	~$Controle Telefonia 2011.xlsx  0%  100%  
+	    New File  		   2.1 m	01.pst  0%   22%   45%   68%   91%  100%  
+	    New File  		    2407	08304710730-IRPF-2010-2009-ORIGI.DBK  0%  100%  
+	    New File  		   22265	12508 - CEMUSA DO BRASIL.pdf  0%  100%  
+	    New File  		 1036288	20080130 Cemusa - Proposta Comercial - Hardware - 3 Servid.doc  0%   25%   50%   75%  100%  
+	    New File  		   15360	comparativo1.xls  0%  100%  
+	    New File  		   76288	computadores.xls  0%  100%  
+	    New File  		  181209	Consorcio Cemusa.pdf  0%   72%  100%  
+	    New File  		  199168	Controle Gastos Suministros.xls  0%   65%  100%  
+	    New File  		   41270	Controle Telefonia 2011.xlsx  0%  100%  
+	    New File  		   41984	C¢pia de Linha e Sim Card (6).xls  0%  100%  
+	    New File  		   29190	DO.xlsx  0%  100%  
+	    New File  		   40960	Empresas.doc  0%  100%  
+	    New File  		   15445	External Storage  Database Inventory Template v01 Cemusa Brasil.xlsx  0%  100%  
+	    New File  		   28326	Formulario de Solicitaá∆o de Expans∆o1.xlsx  0%  100%  
+	    New File  		     151	ftp.txt  0%  100%  
+	    New File  		      51	gestor online.txt
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Wed May 11 09:04:21 2011
+
+   Source : C:\Users\lvivas\Downloads\
+     Dest : u:\bkp\lvivas\Downloads\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir         29	C:\Users\lvivas\Downloads\
+	    New File  		  12.0 m	ActivClient x86 6.2.msi  0.0%  8.3% 16.6% 24.9% 33.2% 41.5% 49.8% 58.1% 66.5% 74.8% 83.1% 91.4% 99.7%100%  100%  100%  
+	    New File  		    1106	AppInventorForAndroidCodeblocks (1).jnlp  0%   97%   97%  100%  
+	    New File  		    1106	AppInventorForAndroidCodeblocks (2).jnlp  0%   97%   97%  100%  
+	    New File  		    1106	AppInventorForAndroidCodeblocks (3).jnlp  0%   97%   97%  100%  
+	    New File  		    1106	AppInventorForAndroidCodeblocks.jnlp  0%   97%   97%  100%  
+	    New File  		  887072	chromeinstall-6u25.exe  0%  
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Wed May 11 09:04:23 2011
+
+   Source : C:\Users\lvivas\Favorites\
+     Dest : u:\bkp\lvivas\Favoritos\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir          3	C:\Users\lvivas\Favorites\
+	    New File  		     402	desktop.ini  0%  100%  
+	    New File  		     254	Guia de referància de comando do Word 2003 para Word 2007.url  0%  100%  
+	    New File  		     192	In°cio - Cemusa Brasil.url  0%  100%  
+	  New Dir          2	C:\Users\lvivas\Favorites\Cemusa\
+	    New File  		     160	Troca de Senha e Mensagem de ferias.url  0%  100%  
+	    New File  		     156	WebMail.url  0%  100%  
+	  New Dir          6	C:\Users\lvivas\Favorites\Links\
+	    New File  		     152	Agenda.url  0%  100%  
+	    New File  		     316	Cemusa Brasil  Administraá∆o Piwigo.url  0%  100%  
+	    New File  		      80	desktop.ini  0%  100%  
+	    New File  		     150	Documentos OnLine.url  0%  100%  
+	    New File  		     226	Galeria do Web Slice.url  0%  100%  
+	    New File  		     302	Sites Sugeridos.url  0%   25%   25%  100%  
+
+------------------------------------------------------------------------------
+
+                Total    Copied   Skipped  Mismatch    FAILED    Extras
+     Dirs :         3         3         0         0         0         0
+    Files :        11        11         0         0         0         0
+    Bytes :     2.3 k     2.3 k         0         0         0         0
+    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+
+    Speed :               22761 Bytes/sec.
+    Speed :               1.302 MegaBytes/min.
+
+    Ended : Wed May 11 09:04:23 2011
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Wed May 11 09:04:23 2011
+
+   Source : C:\Users\lvivas\Pictures\
+     Dest : u:\bkp\lvivas\Imagens\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir          2	C:\Users\lvivas\Pictures\
+	    New File  		     674	desktop.ini  0%  100%  
+	    New File  		     676	Sample Pictures.lnk  0%  100%  
+	  New Dir          8	C:\Users\lvivas\Pictures\TAB LEO\
+	    New File  		  484044	2011-04-17 17.33.49.jpg  0%   27%   54%   81%  100%  
+	    New File  		  573847	2011-04-17 17.33.53.jpg  0%   45%   91%  100%  
+	    New File  		  657235	2011-04-17 20.34.18.jpg  0%   39%   79%  100%  
+	    New File  		  691725	2011-04-17 20.34.20.jpg  0%   37%   75%  100%  
+	    New File  		  730286	2011-04-17 20.34.23.jpg  0%   35%   71%  100%  
+	    New File  		  666108	2011-04-17 20.34.25.jpg  0%   39%   78%  100%  
+	    New File  		  668550	2011-04-17 20.34.29.jpg  0%   39%   78%  100%  
+	    New File  		  725039	2011-04-17 20.34.33.jpg  0%   36%   72%  100%  
+
+------------------------------------------------------------------------------
+
+                Total    Copied   Skipped  Mismatch    FAILED    Extras
+     Dirs :         2         2         0         0         0         0
+    Files :        10        10         0         0         0         0
+    Bytes :    4.95 m    4.95 m         0         0         0         0
+    Times :   0:00:01   0:00:01                       0:00:00   0:00:00
+
+    Speed :             4844533 Bytes/sec.
+    Speed :             277.206 MegaBytes/min.
+
+    Ended : Wed May 11 09:04:24 2011
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Wed May 11 09:04:24 2011
+
+   Source : C:\Users\lvivas\Music\
+     Dest : u:\bkp\lvivas\Musicas\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir          2	C:\Users\lvivas\Music\
+	    New File  		     668	desktop.ini  0%  100%  
+	    New File  		     642	Sample Music.lnk  0%  100%  
+
+------------------------------------------------------------------------------
+
+                Total    Copied   Skipped  Mismatch    FAILED    Extras
+     Dirs :         1         1         0         0         0         0
+    Files :         2         2         0         0         0         0
+    Bytes :     1.2 k     1.2 k         0         0         0         0
+    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+
+    Speed :               62380 Bytes/sec.
+    Speed :               3.569 MegaBytes/min.
+
+    Ended : Wed May 11 09:04:24 2011
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Wed May 11 09:04:24 2011
+
+   Source : C:\Users\lvivas\Videos\
+     Dest : u:\bkp\lvivas\Videos\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir          2	C:\Users\lvivas\Videos\
+	    New File  		     670	desktop.ini  0%  100%  
+	    New File  		     654	Sample Videos.lnk  0%  100%  
+
+------------------------------------------------------------------------------
+
+                Total    Copied   Skipped  Mismatch    FAILED    Extras
+     Dirs :         1         1         0         0         0         0
+    Files :         2         2         0         0         0         0
+    Bytes :     1.2 k     1.2 k         0         0         0         0
+    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+
+    Speed :               66200 Bytes/sec.
+    Speed :               3.787 MegaBytes/min.
+
+    Ended : Wed May 11 09:04:24 2011
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Wed May 11 09:04:24 2011
+
+   Source : C:\Users\lvivas\Saved Games\
+     Dest : u:\bkp\lvivas\Jogos Salvos\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir          1	C:\Users\lvivas\Saved Games\
+	    New File  		     282	desktop.ini  0%  100%  
+
+------------------------------------------------------------------------------
+
+                Total    Copied   Skipped  Mismatch    FAILED    Extras
+     Dirs :         1         1         0         0         0         0
+    Files :         1         1         0         0         0         0
+    Bytes :       282       282         0         0         0         0
+    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+
+    Speed :               23500 Bytes/sec.
+    Speed :               1.344 MegaBytes/min.
+
+    Ended : Wed May 11 09:04:24 2011
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Wed May 11 09:04:24 2011
+
+   Source : C:\Users\lvivas\AppData\Roaming\Microsoft\assinaturas\
+     Dest : u:\bkp\lvivas\Outlook - Assinaturas\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir          9	C:\Users\lvivas\AppData\Roaming\Microsoft\assinaturas\
+	    New File  		   26534	cemusa.htm  0%  100%  
+	    New File  		  967409	cemusa.rtf  0%   27%   54%   81%  100%  
+	    New File  		    3060	cemusa.txt  0%  100%  
+	    New File  		   25287	Cemusa-ext.htm  0%  100%  
+	    New File  		  789609	Cemusa-ext.rtf  0%   33%   66%   99%  100%  
+	    New File  		    4300	Cemusa-ext.txt  0%  100%  
+	    New File  		   21347	Cemusa-int.htm  0%  100%  
+	    New File  		   27896	Cemusa-int.rtf  0%  100%  
+	    New File  		     216	Cemusa-int.txt  0%  100%  
+	  New Dir          4	C:\Users\lvivas\AppData\Roaming\Microsoft\assinaturas\cemusa_arquivos\
+	    New File  		     314	colorschememapping.xml  0%  100%  
+	    New File  		     240	filelist.xml  0%  100%  
+	    New File  		   42124	image001.jpg  0%  100%  
+	    New File  		    3092	themedata.thmx  0%  100%  
+	  New Dir          5	C:\Users\lvivas\AppData\Roaming\Microsoft\assinaturas\Cemusa-ext_arquivos\
+	    New File  		     314	colorschememapping.xml  0%  100%  
+	    New File  		     276	filelist.xml  0%  100%  
+	    New File  		   47949	image001.png  0%  100%  
+	    New File  		    7279	image002.jpg  0%  100%  
+	    New File  		    3092	themedata.thmx  0%  100%  
+	  New Dir          3	C:\Users\lvivas\AppData\Roaming\Microsoft\assinaturas\Cemusa-int_arquivos\
+	    New File  		     314	colorschememapping.xml  0%  100%  
+	    New File  		     212	filelist.xml  0%  100%  
+	    New File  		    3092	themedata.thmx  0%  100%  
+
+------------------------------------------------------------------------------
+
+                Total    Copied   Skipped  Mismatch    FAILED    Extras
+     Dirs :         4         4         0         0         0         0
+    Files :        21        21         0         0         0         0
+    Bytes :    1.88 m    1.88 m         0         0         0         0
+    Times :   0:00:01   0:00:01                       0:00:00   0:00:00
+
+    Speed :             1531385 Bytes/sec.
+    Speed :              87.626 MegaBytes/min.
+
+    Ended : Wed May 11 09:04:25 2011
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Wed May 11 09:04:25 2011
+
+   Source : C:\Users\lvivas\AppData\Roaming\Microsoft\Outlook\
+     Dest : u:\bkp\lvivas\Outlook - App Settings\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir          5	C:\Users\lvivas\AppData\Roaming\Microsoft\Outlook\
+	    New File  		   27750	outcmd.dat  0%  100%  
+	    New File  		   70775	Outlook.NK2  0%  100%  
+	    New File  		   16384	Outlook.srs  0%  100%  
+	    New File  		    3197	Outlook.xml  0%  100%  
+	    New File  		   39744	OutlPrnt  0%  100%  
+
+------------------------------------------------------------------------------
+
+                Total    Copied   Skipped  Mismatch    FAILED    Extras
+     Dirs :         1         1         0         0         0         0
+    Files :         5         5         0         0         0         0
+    Bytes :   154.1 k   154.1 k         0         0         0         0
+    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+
+    Speed :             2587704 Bytes/sec.
+    Speed :             148.069 MegaBytes/min.
+
+    Ended : Wed May 11 09:04:26 2011
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Wed May 11 09:04:26 2011
+
+   Source : C:\Users\lvivas\AppData\Local\Microsoft\Outlook\
+     Dest : u:\bkp\lvivas\Outlook - Arquivos PST\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir         17	C:\Users\lvivas\AppData\Local\Microsoft\Outlook\
+	    New File  		    1317	~last~.sharing.xml.obi  0%  100%  
+	    New File  		  131072	~outlook.ost.tmp  0%  100%  
+	    New File  		  74.3 m	BITA97C.tmp  0.0%  1.3%  2.6%  4.0%  5.3%  6.7%  8.0%  9.4% 10.7% 12.0% 13.4% 14.7% 16.1% 17.4% 18.8% 20.1% 21.5% 22.8% 24.1% 25.5% 26.8% 28.2% 29.5% 30.9% 32.2%
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Wed Dec 21 09:42:29 2011
+
+   Source : C:\Users\lvivas\Contacts\
+     Dest : u:\bkp\lvivas\Contatos\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir         58	C:\Users\lvivas\Contacts\
+	    New File  		    2934	Adriana Rosi.vcf  0%  100%  
+	    New File  		    3311	Alex Melo.vcf  0%  100%  
+	    New File  		    3514	Alexandre Penalber (CEMUSA RJ).vcf  0%  100%  
+	    New File  		    3646	Alexandre Penalber.vcf  0%  100%  
+	    New File  		    3568	Ana Gabriela B  Xavier Souza.vcf  0%  100%  
+	    New File  		    3408	Ana Ruth Monassa (MN).vcf  0%  100%  
+	    New File  		    3462	Andreia Cristina Araujo.vcf  0%  100%  
+	    New File  		    3515	Bia Franáa.vcf  0%  100%  
+	    New File  		    3338	Carlos Alberto de Almeida.vcf  0%  100%  
+	    New File  		    3564	Carlos Augusto.vcf  0%  100%  
+	    New File  		    3465	Chirley Domingues.vcf  0%  100%  
+	    New File  		    3602	Cintia Cristina Carvalho Lima.vcf  0%  100%  
+	    New File  		    3292	Clau Cavalcante.vcf  0%  100%  
+	    New File  		    3431	Dalcy R  da Costa Sobrinho.vcf  0%  100%  
+	    New File  		    2873	Danielle Padrenosso (CEMUSA BR).vcf  0%  100%  
+	    New File  		    2927	Danielle Padrenosso.vcf  0%  100%  
+	    New File  		     412	desktop.ini  0%  100%  
+	    New File  		    3339	Diana Falc∆o.vcf  0%  100%  
+	    New File  		    3469	Eduardo Silva.vcf  0%  100%  
+	    New File  		    3243	Elisangela Freire.vcf  0%  100%  
+	    New File  		    3400	Everton.vcf  0%  100%  
+	    New File  		    3085	Farias.vcf  0%  100%  
+	    New File  		    3015	Gilberto.vcf  0%  100%  
+	    New File  		    3262	Guta - Maria Augusta Coelho.vcf  0%  100%  
+	    New File  		    3424	Heleno Afonso Nobre.vcf  0%  100%  
+	    New File  		    3124	Jansen Klajman.vcf  0%  100%  
+	    New File  		    3368	Jo∆o.vcf  0%  100%  
+	    New File  		    3370	Jorge Mendes.vcf  0%  100%  
+	    New File  		    3696	Leonardo Vivas.vcf  0%  100%  
+	    New File  		    3473	Lucia Helena Porcino.vcf  0%  100%  
+	    New File  		    3502	Luiz Antonio de Oliveira.vcf  0%  100%  
+	    New File  		    3318	Luiz Antonio Reguengo (CEMUSA BR - LUAR).vcf  0%  100%  
+	    New File  		    3363	Luiz Antonio Reguengo.vcf  0%  100%  
+	    New File  		    3107	Luiz Carlos Duque (CEMUSA BR).vcf  0%  100%  
+	    New File  		    3092	Luiz Carlos Duque.vcf  0%  100%  
+	    New File  		    3474	Mairalice Teixeira.vcf  0%  100%  
+	    New File  		    3481	Marco Antonio Moraes.vcf  0%  100%  
+	    New File  		    3095	Marcos Neubert.vcf  0%  100%  
+	    New File  		    3476	M†rio Lu°s da Costa Ribeiro.vcf  0%  100%  
+	    New File  		    3585	Michelle Rodrigues.vcf  0%  100%  
+	    New File  		    3225	Nelson Alvarenga.vcf  0%  100%  
+	    New File  		    3088	Noedson Gomes Reis.vcf  0%  100%  
+	    New File  		    3409	Paloma Gonzales Garcia.vcf  0%  100%  
+	    New File  		    3468	Patricia Rodrigues.vcf  0%  100%  
+	    New File  		    3001	Patricia Salgado.vcf  0%  100%  
+	    New File  		    3590	Patricia Vasconcelos (CEMUSA BR).vcf  0%  100%  
+	    New File  		    3575	Patricia Vasconcelos.vcf  0%  100%  
+	    New File  		    3460	Paulo Borges.vcf  0%  100%  
+	    New File  		    6453	Pedro Villaáa.vcf  0%  100%  
+	    New File  		    3463	Ricardo Bonim Menezes (CEMUSA SP).vcf  0%  100%  
+	    New File  		    3448	Ricardo Bonim Menezes.vcf  0%  100%  
+	    New File  		    3389	Roberto Castilho.vcf  0%  100%  
+	    New File  		    3390	Roseli Ramos.vcf  0%  100%  
+	    New File  		    3473	Sandro Alves.vcf  0%  100%  
+	    New File  		    3418	Simone Felix dos Santos.vcf  0%  100%  
+	    New File  		    3093	Simone Martins.vcf  0%  100%  
+	    New File  		    3422	Suporte.vcf  0%  100%  
+	    New File  		    2828	Washington Narciso.vcf  0%  100%  
+
+------------------------------------------------------------------------------
+
+                Total    Copied   Skipped  Mismatch    FAILED    Extras
+     Dirs :         1         1         0         0         0         0
+    Files :        58        58         0         0         0         0
+    Bytes :   189.6 k   189.6 k         0         0         0         0
+    Times :   0:00:01   0:00:01                       0:00:00   0:00:00
+
+    Speed :              141556 Bytes/sec.
+    Speed :               8.099 MegaBytes/min.
+
+    Ended : Wed Dec 21 09:42:30 2011
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Wed Dec 21 09:42:30 2011
+
+   Source : C:\Users\lvivas\Desktop\
+     Dest : u:\bkp\lvivas\Desktop\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir        105	C:\Users\lvivas\Desktop\
+	    New File  		     165	~$Controle Claro.xlsx  0%  100%  
+	    New File  		      74	000.txt  0%  100%  
+	    New File  		   34908	08304710730-IRPF-2011-2010-origi-imagem-declaracao.pdf  0%  100%  
+	    New File  		  103804	2011137 Cemusa - Proposta Comercial - Produtos - Hardware HP - vs2 com Desconto.pdf  0%  100%  
+	    New File  		    1423	Angry IP Scanner.lnk  0%  100%  
+	    New File  		    1752	ass-new.vbs  0%  100%  
+	    New File  		     472	band.wpl  0%  100%  
+	    New File  		   27022	BKP.hta  0%  100%  
+	    New File  		    1894	BKP.lnk  0%  100%  
+	    New File  		    1704	BKP-DIARIO.vbs  0%  100%  
+	    New File  		    9195	BKPScript.iip  0%  100%  
+	    New File  		   10027	Brasilia.xlsx  0%  100%  
+	    New File  		    1121	bt  0%  100%  
+	    New File  		    1889	Cadastro.lnk  0%  100%  
+	    New File  		  142977	Celta Preto KYI 3487.pdf  0%   91%  100%  
+	    New File  		   55719	Celulares.xlsx  0%  100%  
+	    New File  		   14381	Cemusa Brasil_Listado emails_PARA REVISION  (3).xlsx  0%  100%  
+	    New File  		   15292	cemusa.xlsx  0%  100%  
+	    New File  		   20719	Cemusa-Celulares.xlsx  0%  100%  
+	    New File  		   20480	Cemusas.xls  0%  100%  
+	    New File  		   39936	claro.xls  0%  100%  
+	    New File  		   18124	claro.xlsx  0%  100%  
+	    New File  		    6720	comput.hta  0%  100%  
+	    New File  		   18944	C¢pia de Cemusa.xls  0%  100%  
+	    New File  		   18412	C¢pia de claro.xlsx  0%  100%  
+	    New File  		    4394	copia.hta  0%  100%  
+	    New File  		  622520	Cotaá∆o.pdf  0%   42%   84%  100%  
+	    New File  		  326656	CRIAÄ«O OU ALTERAÄ«O DE PERFIS DE ACESSO.doc  0%   40%   80%  100%  
+	    New File  		    1140	DameWare.lnk  0%  100%  
+	    New File  		    1259	Departamentos Copacabana.lnk  0%  100%  
+	    New File  		    2268	Desert Operations.lnk  0%  100%  
+	    New File  		     466	desktop.ini  0%  100%  
+	    New File  		   5.5 m	Detalle Produccion Pendente de Facturar.xls.xlsx  0%    8%   17%   26%   35%   44%   53%   62%   71%   80%   89%   98%  100%  
+	    New File  		     273	dgdfgd.txt  0%  100%  
+	    New File  		   30359	DO.xlsx  0%  100%  
+	    New File  		     206	dpadrenosso.bat  0%  100%  
+	    New File  		    1127	driver.vbs  0%  100%  
+	    New File  		    2336	embratel.txt  0%  100%  
+	    New File  		    1728	exportar users.vbs  0%  100%  
+	    New File  		  445440	FCCDaVinci-ApplicationsArquitecture-v1.2.doc  0%   29%   58%   88%  100%  
+	    New File  		   60802	FCCDaVinci-QApp-v1.0 CEMUSA_BRASIL.xlsx  0%  100%  
+	    New File  		   49152	FileDate.exe  0%  100%  
+	    New File  		   1.5 m	Flash Player.exe  0%   16%   33%   49%   66%   82%   99%  100%  
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Wed Dec 21 09:42:34 2011
+
+   Source : C:\Users\lvivas\Documents\
+     Dest : u:\bkp\lvivas\Documentos\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir          7	C:\Users\lvivas\Documents\
+	    New File  		  989459	APM-PG-03.dwg  0%   26%   52%   79%  100%  
+	    New File  		     402	desktop.ini  0%  100%  
+	    New File  		  137680	DUMPSEC20111028 CEMUSA_BRASIL.txt  0%   95%  100%  
+	    New File  		  910700	LoaderBackup-(2011-08-15).ipd  0%   28%   57%   86%  100%  
+	    New File  		    1608	mesca.txt  0%  100%  
+	    New File  		  37.0 g	MXM.vmdk
+2011/12/21 09:42:34 ERROR 112 (0x00000070) Copying File C:\Users\lvivas\Documents\MXM.vmdk
+Espaáo insuficiente no disco.
+Waiting 30 seconds...
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Wed Dec 21 09:42:34 2011
+
+   Source : C:\Users\lvivas\Downloads\
+     Dest : u:\bkp\lvivas\Downloads\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir         40	C:\Users\lvivas\Downloads\
+	    New File  		  271781	1.2.X-HUI-Classic-R2.zip  0%   48%   96%   99%   99%  100%  
+	    New File  		  11.5 m	2008ADMX.msi  0.0%  8.6% 17.3% 26.0% 34.7% 43.4% 52.1% 60.8% 69.5% 78.2%
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Wed Dec 21 09:42:36 2011
+
+   Source : C:\Users\lvivas\Favorites\
+     Dest : u:\bkp\lvivas\Favoritos\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir          8	C:\Users\lvivas\Favorites\
+	    New File  		     402	desktop.ini  0%  100%  
+	    New File  		     212	Guia de referància de comando do Excel 2003 para Excel 2007.url  0%  100%  
+	    New File  		     254	Guia de referància de comando do Word 2003 para Word 2007.url  0%  100%  
+	    New File  		     192	In°cio - Cemusa Brasil.url  0%  100%  
+	    New File  		     411	interativo guia de referància de comando do Excel 2003 para Excel 2007 - Excel - Microsoft Office.url  0%   12%   12%  100%  
+	    New File  		     158	Lolicon Share Porque es mejor dar que recibir..url  0%  100%  
+	    New File  		     354	Scripting for HTAs.url  0%   28%   28%  100%  
+	    New File  		     194	Site to Zone Assignment List GPO = trusted site.url  0%  100%  
+	  New Dir          3	C:\Users\lvivas\Favorites\Cemusa\
+	    New File  		     160	Troca de Senha & Mensagem de Ferias.url  0%  100%  
+	    New File  		     160	Troca de Senha e Mensagem de ferias.url  0%  100%  
+	    New File  		     156	WebMail.url  0%  100%  
+	  New Dir          6	C:\Users\lvivas\Favorites\Links\
+	    New File  		     152	Agenda.url  0%  100%  
+	    New File  		     292	Cemusa Brasil  Administraá∆o Piwigo.url  0%   20%   20%  100%  
+	    New File  		      80	desktop.ini  0%  100%  
+	    New File  		     150	Documentos OnLine.url  0%  100%  
+	    New File  		     226	Galeria do Web Slice.url  0%  100%  
+	    New File  		     302	Sites Sugeridos.url  0%   25%   25%  100%  
+	  New Dir         18	C:\Users\lvivas\Favorites\Marcadores do celular\
+	    New File  		      56	Applications  Nokia Beta Labs.url  0%  100%  
+	    New File  		      51	Google.url  0%  100%  
+	    New File  		      92	Google+.url  0%  100%  
+	    New File  		     264	live.com.url  0%  100%  
+	    New File  		      53	Lookout Mobile Security Made Simple..url  0%  100%  
+	    New File  		      49	Nokia mobile.url  0%  100%  
+	    New File  		      48	Nokia Music Store.url  0%  100%  
+	    New File  		     100	Nokia Nseries Support.url  0%  100%  
+	    New File  		      51	O Globo.url  0%  100%  
+	    New File  		      38	Ovi.url  0%  100%  
+	    New File  		      68	Phonelocator.url  0%  100%  
+	    New File  		      49	Portal Claro.url  0%  100%  
+	    New File  		     174	Radio.url  0%  100%  
+	    New File  		      73	Sua galeria.url  0%  100%  
+	    New File  		      73	Taxas de CÉmbio do Real Brasileiro - Atuais Taxas.url  0%  100%  
+	    New File  		      74	Travian br4.url  0%  100%  
+	    New File  		      54	vostock.mymedia.url  0%  100%  
+	    New File  		      69	YouTube Mobile.url  0%  100%  
+	  New Dir          1	C:\Users\lvivas\Favorites\Marcadores do celular\Download Applications\
+	    New File  		      55	Mais Jogos.url  0%  100%  
+	  New Dir          1	C:\Users\lvivas\Favorites\Marcadores do celular\Download Audio\
+	    New File  		      54	Mais Hits.url  0%  100%  
+	  New Dir          1	C:\Users\lvivas\Favorites\Marcadores do celular\Download Images\
+	    New File  		      57	Mais Imagens.url  0%  100%  
+	  New Dir          1	C:\Users\lvivas\Favorites\Marcadores do celular\Download Music\
+	    New File  		      55	IdÇias Music Store.url  0%  100%  
+	  New Dir          2	C:\Users\lvivas\Favorites\Marcadores do celular\Download Videos\
+	    New File  		      56	Mais Videos.url  0%  100%  
+	    New File  		      60	Video Maker.url  0%  100%  
+	  New Dir          6	C:\Users\lvivas\Favorites\MSN\
+	    New File  		     160	MSN Autom¢vel.url  0%  100%  
+	    New File  		     160	MSN Entretenimento.url  0%  100%  
+	    New File  		     160	MSN Esportes.url  0%  100%  
+	    New File  		     160	MSN Not°cias.url  0%  100%  
+	    New File  		     160	MSN Seu Dinheiro.url  0%  100%  
+	    New File  		     160	MSN.url  0%  100%  
+	  New Dir          4	C:\Users\lvivas\Favorites\Sites da Microsoft na Web\
+	    New File  		     160	Marketplace.url  0%  100%  
+	    New File  		     160	Microsoft Brasil.url  0%  100%  
+	    New File  		     160	Ofertas da Microsoft.url  0%  100%  
+	    New File  		     160	Site do IE na Microsoft.com.url  0%  100%  
+	  New Dir          4	C:\Users\lvivas\Favorites\Windows Live\
+	    New File  		     160	Obtenha o Windows Live.url  0%  100%  
+	    New File  		     160	Windows Live Gallery.url  0%  100%  
+	    New File  		     160	Windows Live Mail.url  0%  100%  
+	    New File  		     160	Windows Live Spaces.url  0%  100%  
+
+------------------------------------------------------------------------------
+
+                Total    Copied   Skipped  Mismatch    FAILED    Extras
+     Dirs :        12        12         0         0         0         0
+    Files :        55        55         0         0         0         0
+    Bytes :     7.6 k     7.6 k         0         0         0         0
+    Times :   0:00:01   0:00:01                       0:00:00   0:00:00
+
+    Speed :                7638 Bytes/sec.
+    Speed :               0.437 MegaBytes/min.
+
+    Ended : Wed Dec 21 09:42:37 2011
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Wed Dec 21 09:42:37 2011
+
+   Source : C:\Users\lvivas\Pictures\
+     Dest : u:\bkp\lvivas\Imagens\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir         15	C:\Users\lvivas\Pictures\
+	    New File  		  232267	06042010029.jpg  0%   56%  100%  
+	    New File  		  178254	06042010030.jpg  0%   73%  100%  
+	    New File  		  204534	08042010031.jpg  0%   64%  100%  
+	    New File  		  201173	08042010032.jpg  0%   65%  100%  
+	    New File  		  191726	08042010033.jpg  0%   68%  100%  
+	    New File  		  263919	08042010034.jpg  0%   49%   99%  100%  
+	    New File  		  248732	08042010035.jpg  0%   52%  100%  
+	    New File  		  351758	11022010028.jpg  0%   37%   74%  100%  
+	    New File  		  536963	16022010140-001.jpg  0%   48%   97%  100%  
+	    New File  		  262498	20012010020.jpg  0%   49%   99%  100%  
+	    New File  		  408094	20012010020-001.jpg  0%   32%   64%   96%  100%  
+	    New File  		  394174	29052010086.jpg  0%   33%   66%   99%  100%  
+	    New File  		     674	desktop.ini  0%  100%  
+	    New File  		     676	Sample Pictures.lnk  0%  100%  
+	    New File  		   39338	sms.jpg  0%  100%  
+	  New Dir          4	C:\Users\lvivas\Pictures\2010-01\
+	    New File  		   82313	Blue Streak.jpg  0%  100%  
+	    New File  		   86724	Green Streak.jpg  0%  100%  
+	    New File  		  101956	Pink Streak.jpg  0%  100%  
+	    New File  		   89334	Purple Streak.jpg  0%  100%  
+	  New Dir          0	C:\Users\lvivas\Pictures\201002\
+	  New Dir        101	C:\Users\lvivas\Pictures\201002\201002A0\
+	    New File  		    4723	.picasa.ini  0%  100%  
+	    New File  		  619472	13022010.jpg  0%   42%  
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Wed Dec 21 09:42:39 2011
+
+   Source : C:\Users\lvivas\Music\
+     Dest : u:\bkp\lvivas\Musicas\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir          2	C:\Users\lvivas\Music\
+	    New File  		     668	desktop.ini  0%  100%  
+	    New File  		     642	Sample Music.lnk  0%  100%  
+	  New Dir          5	C:\Users\lvivas\Music\iTunes\
+	    New File  		   12288	iTunes Library Extras.itdb  0%  100%  
+	    New File  		   32768	iTunes Library Genius.itdb  0%  100%  
+	    New File  		    3815	iTunes Library.itl  0%  100%  
+	    New File  		   11736	iTunes Music Library.xml  0%  100%  
+	    New File  		       8	sentinel  0%  100%  
+	  New Dir          0	C:\Users\lvivas\Music\iTunes\Album Artwork\
+	  New Dir          0	C:\Users\lvivas\Music\iTunes\Album Artwork\Cache\
+	  New Dir          0	C:\Users\lvivas\Music\iTunes\Album Artwork\Download\
+	  New Dir          1	C:\Users\lvivas\Music\iTunes\iTunes Media\
+	    New File  		     305	.iTunes Preferences.plist  0%  100%  
+	  New Dir          0	C:\Users\lvivas\Music\iTunes\iTunes Media\Adicionar Automaticamente ao iTunes\
+
+------------------------------------------------------------------------------
+
+                Total    Copied   Skipped  Mismatch    FAILED    Extras
+     Dirs :         7         7         0         0         0         0
+    Files :         8         8         0         0         0         0
+    Bytes :    60.7 k    60.7 k         0         0         0         0
+    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+
+    Speed :              306551 Bytes/sec.
+    Speed :              17.541 MegaBytes/min.
+
+    Ended : Wed Dec 21 09:42:39 2011
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Wed Dec 21 09:42:39 2011
+
+   Source : C:\Users\lvivas\Videos\
+     Dest : u:\bkp\lvivas\Videos\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir          2	C:\Users\lvivas\Videos\
+	    New File  		     670	desktop.ini  0%  100%  
+	    New File  		     654	Sample Videos.lnk  0%  100%  
+	  New Dir          2	C:\Users\lvivas\Videos\2011-04\
+	    New File  		  33.9 m	24042011.mp4  0.0%  2.9%  5.8%  8.8% 11.7% 14.7% 17.6% 20.6% 23.5% 26.5% 29.4% 32.3% 35.3% 38.2% 41.2% 44.1% 47.1% 50.0% 53.0% 55.9% 58.8% 61.8% 64.7% 67.7% 70.6% 73.6% 76.5% 79.5%
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Wed Dec 21 09:42:42 2011
+
+   Source : C:\Users\lvivas\Saved Games\
+     Dest : u:\bkp\lvivas\Jogos Salvos\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir          1	C:\Users\lvivas\Saved Games\
+	    New File  		     282	desktop.ini  0%  100%  
+
+------------------------------------------------------------------------------
+
+                Total    Copied   Skipped  Mismatch    FAILED    Extras
+     Dirs :         1         1         0         0         0         0
+    Files :         1         1         0         0         0         0
+    Bytes :       282       282         0         0         0         0
+    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+
+    Speed :               18800 Bytes/sec.
+    Speed :               1.075 MegaBytes/min.
+
+    Ended : Wed Dec 21 09:42:42 2011
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Wed Dec 21 09:42:42 2011
+
+   Source : C:\Users\lvivas\AppData\Roaming\Microsoft\assinaturas\
+     Dest : u:\bkp\lvivas\Outlook - Assinaturas\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir          3	C:\Users\lvivas\AppData\Roaming\Microsoft\assinaturas\
+	    New File  		   26613	Cemusa.htm  0%  100%  
+	    New File  		  624658	Cemusa.rtf  0%   41%   83%  100%  
+	    New File  		    3124	Cemusa.txt  0%  100%  
+	  New Dir          4	C:\Users\lvivas\AppData\Roaming\Microsoft\assinaturas\Cemusa_arquivos\
+	    New File  		     314	colorschememapping.xml  0%  100%  
+	    New File  		     240	filelist.xml  0%  100%  
+	    New File  		    7533	image001.jpg  0%  100%  
+	    New File  		    3092	themedata.thmx  0%  100%  
+
+------------------------------------------------------------------------------
+
+                Total    Copied   Skipped  Mismatch    FAILED    Extras
+     Dirs :         2         2         0         0         0         0
+    Files :         7         7         0         0         0         0
+    Bytes :   649.9 k   649.9 k         0         0         0         0
+    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+
+    Speed :             4266500 Bytes/sec.
+    Speed :             244.131 MegaBytes/min.
+
+    Ended : Wed Dec 21 09:42:43 2011
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Wed Dec 21 09:42:43 2011
+
+   Source : C:\Users\lvivas\AppData\Roaming\Microsoft\Outlook\
+     Dest : u:\bkp\lvivas\Outlook - App Settings\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir          5	C:\Users\lvivas\AppData\Roaming\Microsoft\Outlook\
+	    New File  		   81368	outcmd.dat  0%  100%  
+	    New File  		  173662	Outlook.NK2  0%   75%  100%  
+	    New File  		    5632	Outlook.srs  0%  100%  
+	    New File  		    3202	Outlook.xml  0%  100%  
+	    New File  		   39744	OutlPrnt  0%  100%  
+
+------------------------------------------------------------------------------
+
+                Total    Copied   Skipped  Mismatch    FAILED    Extras
+     Dirs :         1         1         0         0         0         0
+    Files :         5         5         0         0         0         0
+    Bytes :   296.4 k   296.4 k         0         0         0         0
+    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+
+    Speed :              389241 Bytes/sec.
+    Speed :              22.272 MegaBytes/min.
+
+    Ended : Wed Dec 21 09:42:43 2011
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Wed Dec 21 09:42:43 2011
+
+   Source : C:\Users\lvivas\AppData\Local\Microsoft\Outlook\
+     Dest : u:\bkp\lvivas\Outlook - Arquivos PST\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir         12	C:\Users\lvivas\AppData\Local\Microsoft\Outlook\
+	    New File  		    1316	~last~.sharing.xml.obi  0%  100%  
+	    New File  		    2593	extend.dat  0%  100%  
+	    New File  		  40.9 m	outlook.ost  0.0%  2.4%  4.8%  7.3%  9.7% 12.2% 14.6% 17.0% 19.5% 21.9% 24.4% 26.8% 29.3% 31.7% 34.1% 36.6% 39.0% 41.5% 43.9% 46.4% 48.8% 51.2% 53.7% 56.1% 58.6% 61.0% 63.4% 65.9% 68.3% 70.8% 73.2% 75.7% 78.1% 80.5% 83.0% 85.4% 87.9% 90.3% 92.8% 95.2% 97.6%100%  
+	    New File  		    1317	Outlook.sharing.xml.obi  0%  100%  
+	    New File  		  66.6 m	outlook0.ost  0.0%  1.5%  3.0%  4.5%  6.0%  7.5%  9.0% 10.5% 12.0% 13.5% 15.0% 16.5% 18.0% 19.5% 21.0% 22.5% 24.0% 25.5% 27.0% 28.5% 30.0% 31.5% 33.0% 34.5% 36.0% 37.5% 39.0% 40.5% 42.0% 43.5% 45.0% 46.5% 48.0% 49.5% 51.0% 52.5% 54.0% 55.5% 57.0% 58.5% 60.0% 61.5% 63.0% 64.5% 66.0% 67.5% 69.0% 70.5% 72.0% 73.5% 75.0% 76.5% 78.0% 79.5% 81.0% 82.5% 84.0% 85.5% 87.0% 88.5% 90.0% 91.5% 93.0% 94.5% 96.0% 97.5% 99.0%100%  
+	    New File  		     287	spscoll.dat  0%  100%  
+	    New File  		  29.3 m	uanrdex.oab  0.0%  3.4%  6.8% 10.2% 13.6% 17.0% 20.4% 23.8% 27.3% 30.7% 34.1% 37.5% 40.9% 44.3% 47.7% 51.1% 54.6% 58.0% 61.4% 64.8% 68.2% 71.6% 75.0% 78.4% 81.9% 85.3% 88.7% 92.1% 95.5% 98.9%100%  
+	    New File  		   5.8 m	ubrowse.oab  0.0%  8.4% 16.9% 25.4% 33.9% 42.3% 50.8% 59.3% 67.8% 76.3% 84.7% 93.2%100%  
+	    New File  		 424.8 m	udetails.oab  0.0%  0.2%  0.4%  0.7%  0.9%  1.1%  1.4%  1.6%  1.8%  2.1%  2.3%  2.5%  2.8%  3.0%  3.2%  3.5%  3.7%  4.0%  4.2%  4.4%  4.7%  4.9%  5.1%  5.4%  5.6%  5.8%  6.1%  6.3%  6.5%  6.8%  7.0%  7.2%  7.5%  7.7%  8.0%  8.2%  8.4%  8.7%  8.9%  9.1%  9.4%  9.6%  9.8% 10.1% 10.3% 10.5% 10.8% 11.0% 11.2% 11.5% 11.7% 12.0% 12.2% 12.4% 12.7% 12.9% 13.1% 13.4% 13.6% 13.8% 14.1% 14.3% 14.5% 14.8% 15.0% 15.3% 15.5% 15.7% 16.0% 16.2% 16.4% 16.7% 16.9% 17.1% 17.4% 17.6% 17.8% 18.1% 18.3% 18.5% 18.8% 19.0% 19.3% 19.5% 19.7% 20.0% 20.2% 20.4% 20.7% 20.9% 21.1% 21.4% 21.6% 21.8% 22.1% 22.3% 22.5% 22.8% 23.0% 23.3% 23.5% 23.7% 24.0% 24.2% 24.4% 24.7% 24.9% 25.1% 25.4% 25.6% 25.8% 26.1% 26.3% 26.5% 26.8% 27.0% 27.3% 27.5% 27.7% 28.0% 28.2% 28.4% 28.7% 28.9% 29.1% 29.4% 29.6% 29.8% 30.1% 30.3% 30.6% 30.8% 31.0% 31.3% 31.5% 31.7% 32.0% 32.2% 32.4% 32.7% 32.9% 33.1% 33.4% 33.6% 33.8% 34.1% 34.3% 34.6% 34.8% 35.0% 35.3% 35.5% 35.7% 36.0% 36.2% 36.4% 36.7% 36.9% 37.1% 37.4% 37.6% 37.8% 38.1% 38.3% 38.6% 38.8% 39.0% 39.3% 39.5% 39.7% 40.0% 40.2% 40.4% 40.7% 40.9% 41.1% 41.4% 41.6% 41.9% 42.1% 42.3% 42.6% 42.8% 43.0% 43.3% 43.5% 43.7% 44.0% 44.2% 44.4% 44.7% 44.9% 45.1% 45.4% 45.6% 45.9% 46.1% 46.3% 46.6% 46.8% 47.0% 47.3% 47.5% 47.7% 48.0% 48.2% 48.4% 48.7% 48.9% 49.1% 49.4% 49.6% 49.9% 50.1% 50.3% 50.6% 50.8% 51.0% 51.3% 51.5% 51.7% 52.0% 52.2% 52.4% 52.7% 52.9% 53.1% 53.4% 53.6% 53.9% 54.1% 54.3% 54.6% 54.8% 55.0% 55.3% 55.5% 55.7% 56.0% 56.2% 56.4% 56.7% 56.9% 57.2% 57.4% 57.6% 57.9% 58.1% 58.3% 58.6% 58.8% 59.0% 59.3% 59.5% 59.7% 60.0% 60.2% 60.4% 60.7% 60.9% 61.2% 61.4% 61.6% 61.9% 62.1% 62.3% 62.6% 62.8% 63.0% 63.3% 63.5% 63.7% 64.0% 64.2% 64.4% 64.7% 64.9% 65.2% 65.4% 65.6% 65.9% 66.1% 66.3% 66.6% 66.8% 67.0% 67.3% 67.5% 67.7% 68.0% 68.2% 68.5% 68.7% 68.9% 69.2% 69.4% 69.6% 69.9% 70.1% 70.3% 70.6% 70.8% 71.0% 71.3% 71.5% 71.7% 72.0% 72.2% 72.5% 72.7% 72.9% 73.2% 73.4% 73.6% 73.9% 74.1% 74.3% 74.6% 74.8% 75.0% 75.3% 75.5% 75.7% 76.0% 76.2% 76.5% 76.7% 76.9% 77.2% 77.4% 77.6% 77.9% 78.1% 78.3% 78.6% 78.8% 79.0% 79.3% 79.5% 79.7% 80.0% 80.2% 80.5% 80.7% 80.9% 81.2% 81.4% 81.6% 81.9% 82.1% 82.3% 82.6% 82.8% 83.0% 83.3% 83.5% 83.8% 84.0% 84.2% 84.5% 84.7%
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Thu Dec 22 11:31:07 2011
+
+   Source : C:\Users\lvivas\Contacts\
+     Dest : u:\bkp\lvivas\Contatos\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir         58	C:\Users\lvivas\Contacts\
+	    New File  		    2934	Adriana Rosi.vcf  0%  100%  
+	    New File  		    3311	Alex Melo.vcf  0%  100%  
+	    New File  		    3514	Alexandre Penalber (CEMUSA RJ).vcf  0%  100%  
+	    New File  		    3646	Alexandre Penalber.vcf  0%  100%  
+	    New File  		    3568	Ana Gabriela B  Xavier Souza.vcf  0%  100%  
+	    New File  		    3408	Ana Ruth Monassa (MN).vcf  0%  100%  
+	    New File  		    3462	Andreia Cristina Araujo.vcf  0%  100%  
+	    New File  		    3515	Bia Franáa.vcf  0%  100%  
+	    New File  		    3338	Carlos Alberto de Almeida.vcf  0%  100%  
+	    New File  		    3564	Carlos Augusto.vcf  0%  100%  
+	    New File  		    3465	Chirley Domingues.vcf  0%  100%  
+	    New File  		    3602	Cintia Cristina Carvalho Lima.vcf  0%  100%  
+	    New File  		    3292	Clau Cavalcante.vcf  0%  100%  
+	    New File  		    3431	Dalcy R  da Costa Sobrinho.vcf  0%  100%  
+	    New File  		    2873	Danielle Padrenosso (CEMUSA BR).vcf  0%  100%  
+	    New File  		    2927	Danielle Padrenosso.vcf  0%  100%  
+	    New File  		     412	desktop.ini  0%  100%  
+	    New File  		    3339	Diana Falc∆o.vcf  0%  100%  
+	    New File  		    3469	Eduardo Silva.vcf  0%  100%  
+	    New File  		    3243	Elisangela Freire.vcf  0%  100%  
+	    New File  		    3400	Everton.vcf  0%  100%  
+	    New File  		    3085	Farias.vcf  0%  100%  
+	    New File  		    3015	Gilberto.vcf  0%  100%  
+	    New File  		    3262	Guta - Maria Augusta Coelho.vcf  0%  100%  
+	    New File  		    3424	Heleno Afonso Nobre.vcf  0%  100%  
+	    New File  		    3124	Jansen Klajman.vcf  0%  100%  
+	    New File  		    3368	Jo∆o.vcf  0%  100%  
+	    New File  		    3370	Jorge Mendes.vcf  0%  100%  
+	    New File  		    3696	Leonardo Vivas.vcf  0%  100%  
+	    New File  		    3473	Lucia Helena Porcino.vcf  0%  100%  
+	    New File  		    3502	Luiz Antonio de Oliveira.vcf  0%  100%  
+	    New File  		    3318	Luiz Antonio Reguengo (CEMUSA BR - LUAR).vcf  0%  100%  
+	    New File  		    3363	Luiz Antonio Reguengo.vcf  0%  100%  
+	    New File  		    3107	Luiz Carlos Duque (CEMUSA BR).vcf  0%  100%  
+	    New File  		    3092	Luiz Carlos Duque.vcf  0%  100%  
+	    New File  		    3474	Mairalice Teixeira.vcf  0%  100%  
+	    New File  		    3481	Marco Antonio Moraes.vcf  0%  100%  
+	    New File  		    3095	Marcos Neubert.vcf  0%  100%  
+	    New File  		    3476	M†rio Lu°s da Costa Ribeiro.vcf  0%  100%  
+	    New File  		    3585	Michelle Rodrigues.vcf  0%  100%  
+	    New File  		    3225	Nelson Alvarenga.vcf  0%  100%  
+	    New File  		    3088	Noedson Gomes Reis.vcf  0%  100%  
+	    New File  		    3409	Paloma Gonzales Garcia.vcf  0%  100%  
+	    New File  		    3468	Patricia Rodrigues.vcf  0%  100%  
+	    New File  		    3001	Patricia Salgado.vcf  0%  100%  
+	    New File  		    3590	Patricia Vasconcelos (CEMUSA BR).vcf  0%  100%  
+	    New File  		    3575	Patricia Vasconcelos.vcf  0%  100%  
+	    New File  		    3460	Paulo Borges.vcf  0%  100%  
+	    New File  		    6453	Pedro Villaáa.vcf  0%  100%  
+	    New File  		    3463	Ricardo Bonim Menezes (CEMUSA SP).vcf  0%  100%  
+	    New File  		    3448	Ricardo Bonim Menezes.vcf  0%  100%  
+	    New File  		    3389	Roberto Castilho.vcf  0%  100%  
+	    New File  		    3390	Roseli Ramos.vcf  0%  100%  
+	    New File  		    3473	Sandro Alves.vcf  0%  100%  
+	    New File  		    3418	Simone Felix dos Santos.vcf  0%  100%  
+	    New File  		    3093	Simone Martins.vcf  0%  100%  
+	    New File  		    3422	Suporte.vcf  0%  100%  
+	    New File  		    2828	Washington Narciso.vcf  0%  100%  
+
+------------------------------------------------------------------------------
+
+                Total    Copied   Skipped  Mismatch    FAILED    Extras
+     Dirs :         1         1         0         0         0         0
+    Files :        58        58         0         0         0         0
+    Bytes :   189.6 k   189.6 k         0         0         0         0
+    Times :   0:00:01   0:00:01                       0:00:00   0:00:00
+
+    Speed :              145045 Bytes/sec.
+    Speed :               8.299 MegaBytes/min.
+
+    Ended : Thu Dec 22 11:31:08 2011
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Thu Dec 22 11:31:08 2011
+
+   Source : C:\Users\lvivas\Desktop\
+     Dest : u:\bkp\lvivas\Desktop\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir        107	C:\Users\lvivas\Desktop\
+	    New File  		     165	~$Controle Claro.xlsx  0%  100%  
+	    New File  		      74	000.txt  0%  100%  
+	    New File  		   34908	08304710730-IRPF-2011-2010-origi-imagem-declaracao.pdf  0%  100%  
+	    New File  		  103804	2011137 Cemusa - Proposta Comercial - Produtos - Hardware HP - vs2 com Desconto.pdf  0%  100%  
+	    New File  		      36	access.log  0%  100%  
+	    New File  		    1423	Angry IP Scanner.lnk  0%  100%  
+	    New File  		    1752	ass-new.vbs  0%  100%  
+	    New File  		     472	band.wpl  0%  100%  
+	    New File  		   27022	BKP.hta  0%  100%  
+	    New File  		    1894	BKP.lnk  0%  100%  
+	    New File  		    1704	BKP-DIARIO.vbs  0%  100%  
+	    New File  		    9195	BKPScript.iip  0%  100%  
+	    New File  		   10027	Brasilia.xlsx  0%  100%  
+	    New File  		    1121	bt  0%  100%  
+	    New File  		    1889	Cadastro.lnk  0%  100%  
+	    New File  		  142977	Celta Preto KYI 3487.pdf  0%   91%  100%  
+	    New File  		   55719	Celulares.xlsx  0%  100%  
+	    New File  		   14381	Cemusa Brasil_Listado emails_PARA REVISION  (3).xlsx  0%  100%  
+	    New File  		   15292	cemusa.xlsx  0%  100%  
+	    New File  		   20719	Cemusa-Celulares.xlsx  0%  100%  
+	    New File  		   20480	Cemusas.xls  0%  100%  
+	    New File  		   39936	claro.xls  0%  100%  
+	    New File  		   18124	claro.xlsx  0%  100%  
+	    New File  		    6720	comput.hta  0%  100%  
+	    New File  		   18944	C¢pia de Cemusa.xls  0%  100%  
+	    New File  		   18412	C¢pia de claro.xlsx  0%  100%  
+	    New File  		    4394	copia.hta  0%  100%  
+	    New File  		  622520	Cotaá∆o.pdf  0%   42%   84%  100%  
+	    New File  		  326656	CRIAÄ«O OU ALTERAÄ«O DE PERFIS DE ACESSO.doc  0%   40%   80%  100%  
+	    New File  		    1140	DameWare.lnk  0%  100%  
+	    New File  		    1259	Departamentos Copacabana.lnk  0%  100%  
+	    New File  		    2268	Desert Operations.lnk  0%  100%  
+	    New File  		     466	desktop.ini  0%  100%  
+	    New File  		   5.5 m	Detalle Produccion Pendente de Facturar.xls.xlsx  0%    8%   17%   26%   35%   44%   53%   62%   71%   80%   89%   98%  100%  
+	    New File  		     273	dgdfgd.txt  0%  100%  
+	    New File  		   30359	DO.xlsx  0%  100%  
+	    New File  		     206	dpadrenosso.bat  0%  100%  
+	    New File  		    1127	driver.vbs  0%  100%  
+	    New File  		    2336	embratel.txt  0%  100%  
+	    New File  		    1728	exportar users.vbs  0%  100%  
+	    New File  		  445440	FCCDaVinci-ApplicationsArquitecture-v1.2.doc  0%   29%   58%   88%  100%  
+	    New File  		   60802	FCCDaVinci-QApp-v1.0 CEMUSA_BRASIL.xlsx  0%  100%  
+	    New File  		   49152	FileDate.exe  0%  100%  
+	    New File  		   1.5 m	Flash Player.exe  0%  
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Thu Dec 22 11:31:12 2011
+
+   Source : C:\Users\lvivas\Documents\
+     Dest : u:\bkp\lvivas\Documentos\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir          7	C:\Users\lvivas\Documents\
+	    New File  		  989459	APM-PG-03.dwg  0%   26%   52%   79%  100%  
+	    New File  		     402	desktop.ini  0%  100%  
+	    New File  		  137680	DUMPSEC20111028 CEMUSA_BRASIL.txt  0%   95%  100%  
+	    New File  		  910700	LoaderBackup-(2011-08-15).ipd  0%   28%   57%   86%  100%  
+	    New File  		    1608	mesca.txt  0%  100%  
+	    New File  		  37.0 g	MXM.vmdk
+2011/12/22 11:31:13 ERROR 112 (0x00000070) Copying File C:\Users\lvivas\Documents\MXM.vmdk
+Espaáo insuficiente no disco.
+Waiting 30 seconds...
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Thu Dec 22 11:31:13 2011
+
+   Source : C:\Users\lvivas\Downloads\
+     Dest : u:\bkp\lvivas\Downloads\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir         46	C:\Users\lvivas\Downloads\
+	    New File  		  271781	1.2.X-HUI-Classic-R2.zip  0%   48%   96%   99%   99%  100%  
+	    New File  		  11.5 m	2008ADMX.msi  0.0%  8.6% 17.3% 26.0% 34.7% 43.4% 52.1% 60.8% 69.5%
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Thu Dec 22 11:31:15 2011
+
+   Source : C:\Users\lvivas\Favorites\
+     Dest : u:\bkp\lvivas\Favoritos\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir          8	C:\Users\lvivas\Favorites\
+	    New File  		     402	desktop.ini  0%  100%  
+	    New File  		     212	Guia de referància de comando do Excel 2003 para Excel 2007.url  0%  100%  
+	    New File  		     254	Guia de referància de comando do Word 2003 para Word 2007.url  0%  100%  
+	    New File  		     192	In°cio - Cemusa Brasil.url  0%  100%  
+	    New File  		     411	interativo guia de referància de comando do Excel 2003 para Excel 2007 - Excel - Microsoft Office.url  0%   12%   12%  100%  
+	    New File  		     158	Lolicon Share Porque es mejor dar que recibir..url  0%  100%  
+	    New File  		     354	Scripting for HTAs.url  0%   28%   28%  100%  
+	    New File  		     194	Site to Zone Assignment List GPO = trusted site.url  0%  100%  
+	  New Dir          3	C:\Users\lvivas\Favorites\Cemusa\
+	    New File  		     160	Troca de Senha & Mensagem de Ferias.url  0%  100%  
+	    New File  		     160	Troca de Senha e Mensagem de ferias.url  0%  100%  
+	    New File  		     156	WebMail.url  0%  100%  
+	  New Dir          6	C:\Users\lvivas\Favorites\Links\
+	    New File  		     152	Agenda.url  0%  100%  
+	    New File  		     292	Cemusa Brasil  Administraá∆o Piwigo.url  0%   20%   20%  100%  
+	    New File  		      80	desktop.ini  0%  100%  
+	    New File  		     150	Documentos OnLine.url  0%  100%  
+	    New File  		     226	Galeria do Web Slice.url  0%  100%  
+	    New File  		     302	Sites Sugeridos.url  0%   25%   25%  100%  
+	  New Dir         18	C:\Users\lvivas\Favorites\Marcadores do celular\
+	    New File  		      56	Applications  Nokia Beta Labs.url  0%  100%  
+	    New File  		      51	Google.url  0%  100%  
+	    New File  		      92	Google+.url  0%  100%  
+	    New File  		     264	live.com.url  0%  100%  
+	    New File  		      53	Lookout Mobile Security Made Simple..url  0%  100%  
+	    New File  		      49	Nokia mobile.url  0%  100%  
+	    New File  		      48	Nokia Music Store.url  0%  100%  
+	    New File  		     100	Nokia Nseries Support.url  0%  100%  
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Thu Dec 22 11:31:15 2011
+
+   Source : C:\Users\lvivas\Pictures\
+     Dest : u:\bkp\lvivas\Imagens\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir         15	C:\Users\lvivas\Pictures\
+	    New File  		  232267	06042010029.jpg  0%   56%  100%  
+	    New File  		  178254	06042010030.jpg  0%   73%  100%  
+	    New File  		  204534	08042010031.jpg  0%   64%  100%  
+	    New File  		  201173	08042010032.jpg  0%   65%  100%  
+	    New File  		  191726	08042010033.jpg  0%   68%  100%  
+	    New File  		  263919	08042010034.jpg  0%   49%   99%  100%  
+	    New File  		  248732	08042010035.jpg  0%   52%  100%  
+	    New File  		  351758	11022010028.jpg  0%   37%   74%  100%  
+	    New File  		  536963	16022010140-001.jpg  0%   48%   97%  100%  
+	    New File  		  262498	20012010020.jpg  0%   49%   99%  100%  
+	    New File  		  408094	20012010020-001.jpg  0%   32%   64%   96%  100%  
+	    New File  		  394174	29052010086.jpg  0%   33%   66%   99%  100%  
+	    New File  		     674	desktop.ini  0%  100%  
+	    New File  		     676	Sample Pictures.lnk  0%  100%  
+	    New File  		   39338	sms.jpg  0%  100%  
+	  New Dir          4	C:\Users\lvivas\Pictures\2010-01\
+	    New File  		   82313	Blue Streak.jpg  0%  100%  
+	    New File  		   86724	Green Streak.jpg  0%  100%  
+	    New File  		  101956	Pink Streak.jpg  0%  100%  
+	    New File  		   89334	Purple Streak.jpg  0%  100%  
+	  New Dir          0	C:\Users\lvivas\Pictures\201002\
+	  New Dir        101	C:\Users\lvivas\Pictures\201002\201002A0\
+	    New File  		    4723	.picasa.ini  0%  100%  
+	    New File  		  619472	13022010.jpg  0%   42%   84%  100%  
+	    New File  		  668988	13022010001.jpg  0%   39%   78%  100%  
+	    New File  		  286999	13022010002.jpg  0%   45%   91%  100%  
+	    New File  		  379551	13022010003.jpg  0%   34%   69%  100%  
+	    New File  		  192370	13022010004.jpg  0%   68%  100%  
+	    New File  		  260414	13022010005.jpg  0%   50%  100%  
+	    New File  		  262031	13022010006.jpg  0%   50%  100%  
+	    New File  		  470459	13022010007.jpg  0%   27%   55%   83%  100%  
+	    New File  		  657923	13022010009.jpg  0%   39%   79%  100%  
+	    New File  		  585257	13022010010.jpg  0%   44%   89%  100%  
+	    New File  		  604359	13022010011.jpg  0%   43%  
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Thu Dec 22 11:31:19 2011
+
+   Source : C:\Users\lvivas\Music\
+     Dest : u:\bkp\lvivas\Musicas\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir          2	C:\Users\lvivas\Music\
+	    New File  		     668	desktop.ini  0%  100%  
+	    New File  		     642	Sample Music.lnk  0%  100%  
+	  New Dir          5	C:\Users\lvivas\Music\iTunes\
+	    New File  		   12288	iTunes Library Extras.itdb  0%  100%  
+	    New File  		   32768	iTunes Library Genius.itdb  0%  100%  
+	    New File  		    3815	iTunes Library.itl  0%  100%  
+	    New File  		   11736	iTunes Music Library.xml  0%  100%  
+	    New File  		       8	sentinel  0%  100%  
+	  New Dir          0	C:\Users\lvivas\Music\iTunes\Album Artwork\
+	  New Dir          0	C:\Users\lvivas\Music\iTunes\Album Artwork\Cache\
+	  New Dir          0	C:\Users\lvivas\Music\iTunes\Album Artwork\Download\
+	  New Dir          1	C:\Users\lvivas\Music\iTunes\iTunes Media\
+	    New File  		     305	.iTunes Preferences.plist  0%  100%  
+	  New Dir          0	C:\Users\lvivas\Music\iTunes\iTunes Media\Adicionar Automaticamente ao iTunes\
+
+------------------------------------------------------------------------------
+
+                Total    Copied   Skipped  Mismatch    FAILED    Extras
+     Dirs :         7         7         0         0         0         0
+    Files :         8         8         0         0         0         0
+    Bytes :    60.7 k    60.7 k         0         0         0         0
+    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+
+    Speed :               97234 Bytes/sec.
+    Speed :               5.563 MegaBytes/min.
+
+    Ended : Thu Dec 22 11:31:20 2011
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Thu Dec 22 11:31:20 2011
+
+   Source : C:\Users\lvivas\Videos\
+     Dest : u:\bkp\lvivas\Videos\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir          2	C:\Users\lvivas\Videos\
+	    New File  		     670	desktop.ini  0%  100%  
+	    New File  		     654	Sample Videos.lnk  0%  100%  
+	  New Dir          2	C:\Users\lvivas\Videos\2011-04\
+	    New File  		  33.9 m	24042011.mp4  0.0%
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Thu Dec 22 11:31:21 2011
+
+   Source : C:\Users\lvivas\Saved Games\
+     Dest : u:\bkp\lvivas\Jogos Salvos\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir          1	C:\Users\lvivas\Saved Games\
+	    New File  		     282	desktop.ini  0%  100%  
+
+------------------------------------------------------------------------------
+
+                Total    Copied   Skipped  Mismatch    FAILED    Extras
+     Dirs :         1         1         0         0         0         0
+    Files :         1         1         0         0         0         0
+    Bytes :       282       282         0         0         0         0
+    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+
+    Speed :               14100 Bytes/sec.
+    Speed :               0.806 MegaBytes/min.
+
+    Ended : Thu Dec 22 11:31:21 2011
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Thu Dec 22 11:31:21 2011
+
+   Source : C:\Users\lvivas\AppData\Roaming\Microsoft\assinaturas\
+     Dest : u:\bkp\lvivas\Outlook - Assinaturas\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir          3	C:\Users\lvivas\AppData\Roaming\Microsoft\assinaturas\
+	    New File  		   26343	Cemusa.htm  0%  100%  
+	    New File  		  624687	Cemusa.rtf  0%   41%   83%  100%  
+	    New File  		    3128	Cemusa.txt  0%  100%  
+	  New Dir          4	C:\Users\lvivas\AppData\Roaming\Microsoft\assinaturas\Cemusa_arquivos\
+	    New File  		     314	colorschememapping.xml  0%  100%  
+	    New File  		     240	filelist.xml  0%  100%  
+	    New File  		    7533	image001.jpg  0%  100%  
+	    New File  		    3092	themedata.thmx  0%  100%  
+
+------------------------------------------------------------------------------
+
+                Total    Copied   Skipped  Mismatch    FAILED    Extras
+     Dirs :         2         2         0         0         0         0
+    Files :         7         7         0         0         0         0
+    Bytes :   649.7 k   649.7 k         0         0         0         0
+    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+
+    Speed :             1868924 Bytes/sec.
+    Speed :             106.940 MegaBytes/min.
+
+    Ended : Thu Dec 22 11:31:21 2011
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Thu Dec 22 11:31:21 2011
+
+   Source : C:\Users\lvivas\AppData\Roaming\Microsoft\Outlook\
+     Dest : u:\bkp\lvivas\Outlook - App Settings\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir          5	C:\Users\lvivas\AppData\Roaming\Microsoft\Outlook\
+	    New File  		   81370	outcmd.dat  0%  100%  
+	    New File  		  173662	Outlook.NK2  0%   75%  100%  
+	    New File  		    5632	Outlook.srs  0%  100%  
+	    New File  		    3202	Outlook.xml  0%  100%  
+	    New File  		   39744	OutlPrnt  0%  100%  
+
+------------------------------------------------------------------------------
+
+                Total    Copied   Skipped  Mismatch    FAILED    Extras
+     Dirs :         1         1         0         0         0         0
+    Files :         5         5         0         0         0         0
+    Bytes :   296.4 k   296.4 k         0         0         0         0
+    Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+
+    Speed :             2710803 Bytes/sec.
+    Speed :             155.113 MegaBytes/min.
+
+    Ended : Thu Dec 22 11:31:21 2011
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows     ::     Version XP010
+-------------------------------------------------------------------------------
+
+  Started : Thu Dec 22 11:31:21 2011
+
+   Source : c:\outlook\lvivas\
+     Dest : u:\bkp\lvivas\Outlook - Arquivos PST\
+
+    Files : *.*
+	    
+Exc Files : *.rdp
+	    *.db
+	    
+  Options : *.* /TEE /S /E /COPY:DAT /R:100 /W:30 
+
+------------------------------------------------------------------------------
+
+	  New Dir          4	c:\outlook\lvivas\
+	    New File  		  917504	~outlookl.pst.tmp  0%   28%   57%   85%  100%  
+	    New File  		   2.2 g	BKP-HP.pst  0.0%  0.0%  0.0%  0.1%  0.1%  0.2%  0.2%  0.3%  0.3%  0.3%  0.4%  0.4%  0.5%  0.5%  0.6%  0.6%  0.7%  0.7%  0.7%  0.8%  0.8%  0.9%  0.9%  1.0%  1.0%  1.0%  1.1%  1.1%  1.2%  1.2%  1.3%  1.3%  1.4%  1.4%  1.4%  1.5%  1.5%  1.6%  1.6%  1.7%  1.7%  1.7%  1.8%  1.8%  1.9%  1.9%  2.0%  2.0%  2.1%  2.1%  2.1%  2.2%  2.2%  2.3%  2.3%  2.4%  2.4%  2.5%  2.5%  2.5%  2.6%  2.6%  2.7%  2.7%  2.8%  2.8%  2.8%  2.9%  2.9%  3.0%  3.0%  3.1%  3.1%  3.2%  3.2%  3.2%  3.3%  3.3%  3.4%  3.4%  3.5%  3.5%  3.5%  3.6%  3.6%  3.7%  3.7%  3.8%  3.8%  3.9%  3.9%  3.9%  4.0%  4.0%  4.1%  4.1%  4.2%  4.2%  4.2%  4.3%  4.3%  4.4%  4.4%  4.5%  4.5%  4.6%  4.6%  4.6%  4.7%  4.7%  4.8%  4.8%  4.9%  4.9%  5.0%  5.0%  5.0%  5.1%  5.1%  5.2%  5.2%  5.3%  5.3%  5.3%  5.4%  5.4%  5.5%  5.5%  5.6%  5.6%  5.7%  5.7%  5.7%  5.8%  5.8%  5.9%  5.9%  6.0%  6.0%  6.0%  6.1%  6.1%  6.2%  6.2%  6.3%  6.3%  6.4%  6.4%  6.4%  6.5%  6.5%  6.6%  6.6%  6.7%  6.7%  6.7%  6.8%  6.8%  6.9%  6.9%  7.0%  7.0%  7.1%  7.1%  7.1%  7.2%  7.2%  7.3%  7.3%  7.4%  7.4%  7.5%  7.5%  7.5%  7.6%  7.6%  7.7%  7.7%  7.8%  7.8%  7.8%  7.9%  7.9%  8.0%  8.0%  8.1%  8.1%  8.2%  8.2%  8.2%  8.3%  8.3%  8.4%  8.4%  8.5%  8.5%  8.5%  8.6%  8.6%  8.7%  8.7%  8.8%  8.8%  8.9%  8.9%  8.9%  9.0%  9.0%  9.1%  9.1%  9.2%  9.2%  9.2%  9.3%  9.3%  9.4%  9.4%  9.5%  9.5%  9.6%  9.6%  9.6%  9.7%  9.7%  9.8%  9.8%  9.9%  9.9% 10.0% 10.0% 10.0% 10.1% 10.1% 10.2% 10.2% 10.3% 10.3% 10.3% 10.4% 10.4% 10.5% 10.5% 10.6% 10.6% 10.7% 10.7% 10.7% 10.8% 10.8% 10.9% 10.9% 11.0% 11.0% 11.0% 11.1% 11.1% 11.2% 11.2% 11.3%

@@ -1,0 +1,208 @@
+<HTML>
+<HEAD>
+<TITLE>Reparar Erros</title>
+<HTA:APPLICATION
+  APPLICATIONNAME="reparo.HTA"
+  ID="Reparo"
+  VERSION="0.1"
+  BORDER="thin"
+  CAPTION="yes"
+  SYSMENU="yes"
+  MAXIMIZEBUTTON="yes"
+  MINIMIZEBUTTON="yes"
+  SCROLL="no"
+  SINGLEINSTANCE="no"
+  SHOWINTASKBAR="yes"
+  NAVIGABLE="yes"/></HEAD>
+
+<SCRIPT LANGUAGE="VBScript">
+
+Sub Window_Onload
+'# Size Window
+sHorizontal = 500
+sVertical = 720
+Window.resizeTo sHorizontal, sVertical
+'# Get Monitor Details
+Set objWMIService = GetObject _
+("winmgmts:root\cimv2")
+intHorizontal = sHorizontal *2
+intVertical = sVertical *2
+Set colItems = objWMIService.ExecQuery( _
+"Select ScreenWidth, ScreenHeight from" _
+& " Win32_DesktopMonitor", , 48)
+For Each objItem In colItems
+sWidth= objItem.ScreenWidth
+sHeight = objItem.ScreenHeight
+If sWidth > sHorizontal _
+then intHorizontal = sWidth
+If sHeight > sVertical _
+then intVertical = sHeight
+Next
+Set objWMIService = Nothing
+'# Center window on the screen
+intLeft = (intHorizontal - sHorizontal) /2
+intTop = (intVertical - sVertical) /2
+Window.moveTo intLeft, intTop
+'# default window content
+window.location.href="#Top"
+End Sub
+
+
+Sub RunScript
+Set objnet = CreateObject("WScript.Network")
+Set objShell = CreateObject("WScript.Shell")
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+
+dim strComp
+strComp = srv.value
+ipconf = "c:\PsTools\psexec.exe -u cemusa\informatica -p 654321 -d \\" & strComp & " ipconfig /flushdns"
+rep = "c:\PsTools\psexec.exe -u cemusa\informatica -p 654321 -d \\" & strComp & " c:\suporte\reparo.bat"
+gpupda = "c:\PsTools\psexec.exe -u cemusa\informatica -p 654321 -d \\" & strComp & " gpupdate /sync /boot"
+gpupda2 = "c:\PsTools\psexec.exe -u cemusa\informatica -p 654321 -d \\" & strComp & " gpupdate /force /boot"
+vmbox1 = "c:\PsTools\psexec.exe -u cemusa\informatica -p 654321 -d \\csrv06 c:\progra~1\Oracle\VirtualBox\VBoxManage.exe controlvm 9d0e88fa-b9bb-4211-b0e5-924fd6d2cb62 reset"
+vmbox1 = "c:\PsTools\psexec.exe -u cemusa\informatica -p 654321 -d \\csrv06 c:\progra~1\Oracle\VirtualBox\VBoxManage.exe controlvm TS-Pedro reset"
+For Each objButton in srv
+select case srv.value
+	case "Todas"
+	  msg = "<font color=red>Este processo é para quando Todos os links com exeção de Copacabana estiverem com Falha</font><br><br><font color=black><b>Entre em contato com a Embratel:<br>0800-704-4695 passar ao atendente o codigo de designação - RJO/IP/07034<br></font><br>"
+	case "10.10.1.254"
+	  msg = "<font color=black><b>Entre em contato com a Embratel:<br>0800-704-4695 passar ao atendente o codigo de designação - RJO/IP/07034<br></font><br><font color=red>!!!ATENÇÂO!!!<br>Caso a falha seja em todos os links menos o de copacabana seguir procedimento: " & Chr(34) & "Todos os Links" & Chr(34) & "</font><br>"
+	case "10.10.2.254"
+	  msg = "<font color=black><b>Entre em contato com a Embratel:<br>0800-704-4695 passar ao atendente o codigo de designação - RJO/IP/07035<br></font><br><font color=red>!!!ATENÇÂO!!!<br>Caso a falha seja em todos os links menos o de copacabana seguir procedimento: " & Chr(34) & "Todos os Links" & Chr(34) & "</font><br>" 
+	case "10.10.3.254"
+	  msg = "<font color=black><b>Entre em contato com a Embratel:<br>0800-704-4695 passar ao atendente o codigo de designação - BSA/IP/02806<br></font><br><font color=red>!!!ATENÇÂO!!!<br>Caso a falha seja em todos os links menos o de copacabana seguir procedimento: " & Chr(34) & "Todos os Links" & Chr(34) & "</font><br>" 
+	case "10.10.4.254"
+	  msg = "<font color=black><b>Entre em contato com a Embratel:<br>0800-704-4695 passar ao atendente o codigo de designação - SPO/IP/11133<br></font><br><font color=red>!!!ATENÇÂO!!!<br>Caso a falha seja em todos os links menos o de copacabana seguir procedimento: " & Chr(34) & "Todos os Links" & Chr(34) & "</font><br>" 
+	case "10.10.5.254"
+	  msg = "<font color=black><b>Entre em contato com a Embratel:<br>0800-704-4695 passar ao atendente o codigo de designação - MNS/IP/00966<br></font><br><font color=red>!!!ATENÇÂO!!!<br>Caso a falha seja em todos os links menos o de copacabana seguir procedimento: " & Chr(34) & "Todos os Links" & Chr(34) & "</font><br>" 
+	case "10.10.6.254"
+	  msg = "<font color=black><b>Entre em contato com a Embratel:<br>0800-704-4695 passar ao atendente o codigo de designação - SDR/IP/04106<br></font><br><font color=red>!!!ATENÇÂO!!!<br>Caso a falha seja em todos os links menos o de copacabana seguir procedimento: " & Chr(34) & "Todos os Links" & Chr(34) & "</font><br>" 
+	case "TS"
+	  StatusArea1.innerHTML = "Limpando Cache do DNS"
+	  objShell.Run ipconf, 0, True
+	  StatusArea2.innerHTML = "Reparando as Conexoes de Rede"
+	  objShell.Run rep, 0, True
+	  StatusArea3.innerHTML = "Atualizando as Politicas"
+	  objShell.Run gpupda, 0, True
+	  StatusArea4.innerHTML = "Reiniciando Servidor"
+	  objShell.Run gpupda2, 0, True
+	  objShell.Run vmbox2, 0, True
+	  StatusArea4.innerHTML = "Servidor Reiniciado Verifique o monitoramento em aproximadamente 2 minutos"
+	case "TS2"
+	  StatusArea1.innerHTML = "Limpando Cache do DNS"
+	  objShell.Run ipconf, 0, True
+	  StatusArea2.innerHTML = "Reparando as Conexoes de Rede"
+	  objShell.Run rep, 0, True
+	  StatusArea3.innerHTML = "Atualizando as Politicas"
+	  objShell.Run gpupda, 0, True
+	  StatusArea4.innerHTML = "Reiniciando Servidor"
+	  objShell.Run gpupda2, 0, True
+	  objShell.Run vmbox1, 0, True
+	  StatusArea4.innerHTML = "Servidor Reiniciado Verifique o monitoramento em aproximadamente 2 minutos"
+	case "csrv01"
+	  StatusArea1.innerHTML = "Limpando Cache do DNS"
+	  objShell.Run ipconf, 0, True
+	  StatusArea2.innerHTML = "Reparando as Conexoes de Rede"
+	  objShell.Run rep, 0, True
+	  StatusArea3.innerHTML = "Atualizando as Politicas"
+	  objShell.Run gpupda, 0, True
+	  StatusArea4.innerHTML = "Reiniciando Servidor"
+	  objShell.Run gpupda2, 0, True
+	  StatusArea4.innerHTML = "Servidor Reiniciado Verifique o monitoramento em aproximadamente 2 minutos"
+	case "csrv02"
+	  StatusArea1.innerHTML = "Limpando Cache do DNS"
+	  objShell.Run ipconf, 0, True
+	  StatusArea2.innerHTML = "Reparando as Conexoes de Rede"
+	  objShell.Run rep, 0, True
+	  StatusArea3.innerHTML = "Atualizando as Politicas"
+	  objShell.Run gpupda, 0, True
+	  StatusArea4.innerHTML = "Reiniciando Servidor"
+	  objShell.Run gpupda2, 0, True
+	  StatusArea4.innerHTML = "Servidor Reiniciado Verifique o monitoramento em aproximadamente 2 minutos"
+	case "10.10.1.9"
+	  msg = "<font color=black><b>Favor contatar o suporte</font><br>"
+	case "10.10.1.2"
+	  msg = "<font color=black><b>Favor contatar o suporte</font><br>"
+	case "csrv04"
+	  StatusArea1.innerHTML = "Limpando Cache do DNS"
+	  objShell.Run ipconf, 0, True
+	  StatusArea2.innerHTML = "Reparando as Conexoes de Rede"
+	  objShell.Run rep, 0, True
+	  StatusArea3.innerHTML = "Atualizando as Politicas"
+	  objShell.Run gpupda, 0, True
+	  StatusArea4.innerHTML = "Reiniciando Servidor"
+	  objShell.Run gpupda2, 0, True
+	  StatusArea4.innerHTML = "Servidor Reiniciado Verifique o monitoramento em aproximadamente 2 minutos"
+	case "mail.cemusadobrasil.com.br"
+	  msg = "<font color=black><b>Entre em contato com a MSP:<br>2121-2392 e abra chamado junto ao atendente.<br><br><font color=red>Caso tambem exista falha no " & Chr(34) & "Link de Internet da Embratel" & Chr(34) & " este deve ser resolvido primeiro.</font><br>"
+	case "google.com.br"
+	  msg = "<font color=black><b>Entre em contato com a Embratel:<br>0800-704-4695 passar ao atendente o codigo de designação - RJO/IP/07036<br></font><br>"
+	  case else
+	 msg = "<font color=black><b>Favor contatar o suporte<br> 021 22448616 ou 021 88147879</font><br>"
+	End Select	
+next
+StatusArea0.innerHTML = "<center>Resultado<BR><br>"&msg&"</center>"
+
+Set objShell = Nothing 
+Set WshEn = Nothing 
+End Sub
+	
+Sub CancelScript
+Set oShell = Nothing
+Set objNetwork = Nothing
+Self.Close()
+End Sub
+
+</SCRIPT>
+
+
+<BODY STYLE="font:14 pt arial; color:light-blue;">
+<a name="Top"></a><CENTER>
+Repara erros nos servidores.<P>
+<table border="0" cellpadding="0" cellspacing="0"><font size="2" color="black" face="Arial">
+<tr>
+<td height="30">
+<p align="right">Selecione: &nbsp;</p>
+</td>
+<td height="30">
+<select name="srv">
+    <option value="_Blank">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;  </option>
+    <option value="Todas" size="30">Todos os Links</option>
+	<option value="10.10.1.254" size="30">Link Copa</option>
+	<option value="10.10.2.254" size="30">Link São Cristovão</option>
+	<option value="10.10.3.254" size="30">Link Brasília</option>
+	<option value="10.10.4.254" size="30">Link São Paulo</option>
+	<option value="10.10.5.254" size="30">Link Manaus</option>
+	<option value="10.10.6.254" size="30">Link Salvador</option>
+    <option value="TS" size="30">TS Pedro</option>
+	<option value="TS2" size="30">FTP Dani</option>
+	<option value="csrv01" size="30">Servidor de Arquivos</option>
+	<option value="csrv02" size="30">Banco de Dados MXM</option>
+	<option value="cemusa-srv" size="30">Servidor de Arquivos(SP)</option>
+	<option value="cbsb04" size="30">Servidor de Arquivos(BSB)</option>
+	<option value="10.10.1.9" size="30">Proxy</option>
+	<option value="10.10.1.2" size="30">Firewall</option>
+	<option value="csrv04" size="30">MXM Remoto</option>
+	<option value="mail.cemusadobrasil.com.br" size="30">Servidor de Email</option>
+	<option value="google.com.br" size="30">Link de Internet Embratel</option>
+	</select>
+</td><td>&nbsp;&nbsp;&nbsp;<Input id=runbutton class="button" type="button" value=" OK " name="run_button" onClick="RunScript"><td></tr>
+</table><BR>
+<HR color="#0000FF">
+</CENTER>
+<div id="MyContentArea" style="height: 75%">
+	<table class="bodytext" align="middle" cellpadding="10" cellspacing="10" border="0" style="width: 100%">
+		<tr><td>			
+<span id="StatusArea"><center>Acompanhe abaixo<BR>as etapas do processo.</center></span><br>
+<span id="StatusArea0"></span><br><p>
+<span id="StatusArea1"></span><br>
+<span id="StatusArea2"></span><br>
+<span id="StatusArea3"></span><br>
+<span id="StatusArea4"></span><br>
+			</td>
+		</tr>
+	</table>
+</div>
+</BODY>
+
+</HTML>

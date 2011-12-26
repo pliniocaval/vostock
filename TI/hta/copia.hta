@@ -1,0 +1,143 @@
+<!--
+'Script do logon
+'autoria Leonardo Vivas
+'Versão 0.1
+'criação 12/01/2011
+' -----------------------------------------------------------------' 
+-->
+
+<html> 
+<head> 
+<title>Copia de Arquivos</title> 
+
+<HTA:APPLICATION
+     APPLICATIONNAME="Copia de Arquivos"
+     BORDER="thin"
+     BorderStyle="complex"
+     SCROLL="no"
+     maximizebutton="no"
+  	 minimizebutton="no"  	 
+  	 SINGLEINSTANCE="no"
+     WINDOWSTATE="normal"
+     SysMenu="yes"
+     ContextMenu="no"
+     SHOWINTASKBAR="yes"
+	 NAVIGABLE="no"
+	 Icon='c:\ti\hta\IMG\logo.ico'
+>
+</head> 
+ 
+<SCRIPT Language="VBScript"> 
+Sub Window_Onload
+'# Size Window
+sHorizontal = 250
+sVertical = 300
+Window.resizeTo sHorizontal, sVertical
+'# Get Monitor Details
+Set objWMIService = GetObject _
+("winmgmts:root\cimv2")
+intHorizontal = sHorizontal *2
+intVertical = sVertical *2
+Set colItems = objWMIService.ExecQuery( _
+"Select ScreenWidth, ScreenHeight from" _
+& " Win32_DesktopMonitor", , 48)
+For Each objItem In colItems
+sWidth= objItem.ScreenWidth
+sHeight = objItem.ScreenHeight
+If sWidth > sHorizontal _
+then intHorizontal = sWidth
+If sHeight > sVertical _
+then intVertical = sHeight
+Next
+Set objWMIService = Nothing
+'# Center window on the screen
+intLeft = (intHorizontal - sHorizontal) /2
+intTop = (intVertical - sVertical) /2
+Window.moveTo intLeft, intTop
+'# default window content
+window.location.href="#Top"
+
+End Sub
+Sub RunScript
+Set objnet = CreateObject("WScript.Network")
+Set objShell = CreateObject("WScript.Shell")
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+On Error Resume Next
+
+dim orig, dest
+orig = origem.value
+dest = destino.value
+robo = "c:\ti\suporte\robocopy.exe" ' EDITE ESTA LINHA!!!!
+roboOP = " /TEE /S /E /COPY:DAT /R:100 /W:30 /XF *.db *.rdp /LOG+:c:\logs\copiar.log" ' EDITE ESTA LINHA!!!!
+copiar = robo &" "& Chr(34) & orig & Chr(34) &" "& Chr(34) & dest & Chr(34) &" "& roboOP
+If Not objFso.FolderExists("c:\logs") Then objFso.CreateFolder("c:\logs")
+If Not objFso.FolderExists(dest) Then objFso.CreateFolder(dest)
+DataArea1.InnerHTML = "<center>Copia em Andamento.<br>Por favor aguarde.<br><P><img src=c:\ti\suporte\img\load.gif name='copiando'></center>"
+DataArea.InnerHTML = "<input class=botao id=cancela type=button  value=Cancelar name=Executar onClick=RunCancelar>"
+objShell.Run copiar,0 , True
+DataArea0.InnerHTML = "<input class=botao id=runbutton class=button type=button value='Outra&nbsp;Copia?' name=cancel_button onClick=ReloadScript>"
+DataArea.InnerHTML = "<input class=botao id=runbutton class=button type=button value=Fechar name=cancel_button onClick=CancelScript>"
+DataArea1.InnerHTML = "<br><P><P><br><center>Copia Finalidada</center><br><P><P><br>"
+DataArea2.InnerHTML = "<BR>&nbsp;&nbsp;<BR>&nbsp;&nbsp;<P>&nbsp;&nbsp;<BR>&nbsp;&nbsp;<BR>&nbsp;&nbsp;<BR>&nbsp;&nbsp;<BR>&nbsp;&nbsp;<P>&nbsp;&nbsp;<BR>&nbsp;&nbsp;<BR>"
+End Sub
+Sub ReloadScript
+    Location.Reload(True)
+End Sub
+Sub RunCancelar
+Set objShell = CreateObject("WScript.Shell")
+mata = "taskkill /IM RoboCopy.exe"
+objShell.Run mata, 0, True
+end sub
+Sub CancelScript
+Self.Close()
+End Sub
+</SCRIPT> 
+<body>
+<style type="text/css">
+  .botao{
+        font-size:10px;
+        font-family:Verdana,Helvetica;
+        font-weight:bold;
+        color:white;
+        background:#638cb5;
+        border:0px;
+        ;width:100px;
+        height:22px;
+       }
+</style> 
+<span id = "DataArea1">
+<table border="0" cellpadding="0" cellspacing="0"><font size="2" color="black" face="Arial">
+<tr>
+<td height="30" colspan="2">
+<p align="center">Copia de Arquvivos</p>
+</td>
+</tr>
+<tr>
+<td>
+<p align="right">&nbsp;&nbsp;</p>
+</td>
+</tr>
+<tr>
+<td height="30">
+<p align="right">Origem:</p>
+</td>
+<td height="30">&nbsp;&nbsp; <input type="text" name="origem" size="20"></td></tr>
+<tr>
+<td>
+<p align="right">&nbsp;&nbsp;</p>
+</td>
+</tr>
+<tr>
+<td height="30">
+<p align="right">Destino:</p>
+</td>
+<td height="30">&nbsp;&nbsp; <input type="text" name="destino" size="20"></td>
+</tr>
+</table>
+</span>
+<br>
+<p align="center"><span id = "DataArea0">Preencha os campos acima e pressione o botão "COPIAR"</span></p> 
+<p align="center"><span id = "DataArea"><Input class=botao id=runbutton class="button" type="button" value=" OK " name="run_button" onClick="RunScript"></span></p>
+<BR> 
+</body> 
+</html> 
