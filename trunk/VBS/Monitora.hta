@@ -1,0 +1,84 @@
+<html> 
+<head> 
+ 
+<title>Servidores Principais</title> 
+ 
+<hta:application id="objPingTool" applicationname="Windows Ping Utility" border="thin" caption="yes" contextmenu="no" maximizebutton="no" 
+navigable="no" scroll="no" selection="yes" showintaskbar="yes" singleinstance="yes" sysmenu="yes" windowstate="normal"> 
+</head> 
+ 
+body { background-color:#173b71; color:black; font-family:arial; font-size:12pt; border:0px; padding:0px; margin:0px; } 
+div{ background-color:#173b71; color:white; font-family:tahoma; font-size:8pt; } 
+div.msg { background-color:#a1c6eb; border:3px double white; border-style:thin; color:black; font-family:tahoma; font-size:8.5pt; 
+          font-weight:bold; position:relative; } 
+div.title{ background-color:#173b71; color:white; font-family:san-sarif; font-size:10pt; font-weight:bold; } 
+span { position:absolute; top:85px; left:0px; height:20px; width:295px; } 
+ 
+<script language="VBScript"> 
+Dim intSeconds, iTimerID
+Sub Window_Onload 
+   window.resizeTo 450,550 
+   Ping
+   intSeconds = 120
+   iTimerID = window.setInterval("Count", 1000)
+Set objShell = CreateObject("WScript.Shell")
+objShell.Run ("ipconfig /flushdns"),0 , True
+End Sub 
+Sub Ping
+
+strComputer = "."
+arrTargets = Array("10.10.1.255", "10.10.2.254", "10.10.3.254", "10.10.4.254", "10.10.5.254", "10.10.6.254", "csrv01", "csrv02", "10.10.1.9", "10.10.1.2","csrv04", "cemusa-srv", "mail.cemusadobrasil.com.br", "google.com.br")
+i = "0"
+ For Each strTarget In arrTargets
+ Set objWMIService = GetObject("winmgmts:" _
+  & "{impersonationLevel=impersonate}!\\" & strComputer & "\root\cimv2")
+   Set colPings = objWMIService.ExecQuery _
+    ("Select * From Win32_PingStatus where Address = '" & strTarget & "'")
+   If Err = 0 Then
+     Err.Clear
+     For Each objPing in colPings
+       If objPing.StatusCode = 0 Then
+
+	  msg = msg & "<font color=green>" & UCase((strTarget)) & " - Funcionamento OK.</font><br>"
+		
+         ResultArea0.InnerHTML = msg
+         Else
+	  msg = msg & "<font color=red>" & UCase((strTarget)) & " - FALHA NO FUNCIONAMENTO.</font><br>"
+         ResultArea0.InnerHTML = msg
+         End If
+     Next
+   Else
+     Err.Clear
+   End If
+   next
+End Sub
+Sub Count
+	'Bring script to front.
+	window.focus()
+	
+	If intSeconds <> 0 Then
+		countdown.InnerHTML = intSeconds
+		intSeconds = intSeconds - 1
+	Else
+		window.clearInterval(iTimerID)
+		Location.Reload(True)
+	End If
+End Sub
+</script> 
+<body> 
+<div align="center"><b>Status dos servidores</b></div> 
+<p align="left">
+<span id="ResultArea0">testando</span> <BR>
+<table width="100%" border="0" cellpadding="0">
+		<tr valign="top">
+			<td align="left" width="75%">
+				<font size="2.25">Tempo para a proxima atualização:&nbsp;</font>
+			</td>
+			<td align="right" width="25%">
+				<font size="2.25"><span id="countdown"></span>
+			</td>
+		</tr>	
+	</table>
+</P>
+</body> 
+</html> 
