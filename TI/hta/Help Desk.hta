@@ -1,0 +1,277 @@
+<HTML>
+<HEAD>
+<TITLE>Help Desk</title>
+<HTA:APPLICATION
+  APPLICATIONNAME="Help Desk.HTA"
+  ID="HP"
+  VERSION="0.1"
+  BORDER="thin"
+  CAPTION="yes"
+  SYSMENU="yes"
+  MAXIMIZEBUTTON="yes"
+  MINIMIZEBUTTON="yes"
+  SCROLL="no"
+  SINGLEINSTANCE="no"
+  SHOWINTASKBAR="yes"
+  NAVIGABLE="yes"/>
+</HEAD>
+
+<SCRIPT LANGUAGE="VBScript">
+Dim FSO, oShell, oNetwork, objSysInfo, sUserDN, objUser
+Dim sDepartment, sLocation, sUserName, sComputerName, sDomain, sDisplayName, sGroups, sDN
+Dim sStatus, intSeconds, sDesktop, sScriptDir, iTimerID, atalhoLnk
+
+Sub Window_Onload 
+    window.resizeTo 450,550 
+	On Error Resume Next
+	
+	Set FSO = CreateObject("Scripting.FileSystemObject")
+	Set oShell = CreateObject("WScript.Shell")
+	Set oNetwork = CreateObject("WScript.Network")
+
+    'Get User's information.
+    UserInfo
+    
+	'User's Desktop for deploying shortcuts. 
+    sDesktop = oShell.ExpandEnvironmentStrings("%USERPROFILE%") & "\Desktop" 
+	
+    'Coloca info. do usuario da tela de logon.
+	document.title = sDomain & " Help Desk - " & sDepartment 'Muda o titulo.
+	DisplayName.InnerHTML = sDisplayName
+	UserName.InnerHTML = sUserName
+	ComputerName.InnerHTML = sComputerName
+	Department.InnerHTML = sDepartment
+	
+	'Logotipo.
+	HTA = location.pathname
+	HTA_Path = Left(HTA,InStrRev(HTA,"\"))
+	
+	'Se houver um logo para o departamento este é colocado no local do padrão
+	If FSO.FileExists(HTA_Path & "IMG\logo-" & sDepartment & ".jpg") Then
+		Logo.src = "IMG\logo-" & sDepartment & ".jpg"
+	Else
+		Logo.src = "c:\ti\suporte\IMG\logo-default.jpg"
+	End If
+    'Ping
+End Sub
+
+Sub UserInfo
+	On Error Resume Next
+	
+	Dim arrDept
+	
+	Set objSysInfo = CreateObject("ADSystemInfo")
+	
+	sUserDN = objSysInfo.UserName
+	Set objUser = GetObject("LDAP://" & sDN & "/" & sUserDN)
+	
+	'Busca informação do usuario e do computador.
+	sUserName = oNetwork.UserName
+	sComputerName = UCase((oNetwork.ComputerName))
+	sDomain = UCase((oNetwork.UserDomain))
+	sDisplayName = trim(objUser.DisplayName)
+	
+	'busca grupos do usuario
+	sGroups = GetGroups(sUserDN)
+	
+	'Pega o departamento da DN. (assumindo que os usuarios estão assim definidos: Dominio->Departmento->Usuario->Grupos)
+	arrDept = split(sUserDN, ",")
+	sDepartment = mid(arrDept(1), 4) 'Definir a profundidade. 
+									'EX: CN=UserName,OU=Users,OU=Departmento,DC=seu,DC=dominio,DC=com,DC=br; arrDept(1) = OU=Departmento
+	sLocation = mid(arrDept(2), 4) 'Set number in array where department OU name is found. 
+									'EX: CN=UserName,OU=Users,OU=Departmento,DC=seu,DC=dominio,DC=com,DC=br; arrDept(2) = OU=Localização								
+	
+	'Se não conseguir o nome completo use o nome de usuario.
+	If sDisplayName = "" Then
+
+		sDisplayName = sUserName
+	End If
+	
+	Err.Clear
+	
+	Set objSysInfo = Nothing
+	Set objUser = Nothing
+End Sub
+
+Sub MainScript
+For Each objButton in srv
+select case srv.value
+case "network"
+opt = ""
+opt = opt & "<Input id=runbutton class=botao type=button value= 'Reparar Rede'  name=run_button onClick=rede><br>"
+opt = opt & "<Input id=runbutton class=botao type=button value= 'Reparar Internet'  name=run_button onClick=limpa><br>"
+opt = opt & "<Input id=runbutton class=botao type=button value= 'Refazer Mapeamentos'  name=run_button onClick=maps><br>"
+case "servidores"
+opt = ""
+opt = opt & "<Input id=runbutton class=botao type=button value= 'Testar Servidores'  name=run_button onClick=Server><br>"
+End select
+next
+options.InnerHTML = opt
+End sub
+
+Sub Rede
+Set objnet = CreateObject("WScript.Network")
+Set objShell = CreateObject("WScript.Shell")
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+
+dim strComp
+strComp = sComputerName = UCase((objnet.ComputerName))
+user = "cemusa\informatica"
+senha = "654321"
+pstools = "\\csrv06\ti$\pstools"
+ipconf = pstools & "\psexec.exe -h -u " & user & " -p " & senha & " -d \\" & strComp & " ipconfig /flushdns"
+nbt = pstools & "\psexec.exe -h -u " & user & " -p " & senha & " -d \\" & strComp & " nbtstat -R && nbtstat -RR"
+rep = pstools & "\psexec.exe -h -u " & user & " -p " & senha & " -d \\" & strComp & " ipconfig /release && ipconfig /renew"
+gpupda = pstools & "\psexec.exe -h -u " & user & " -p " & senha & " -d \\" & strComp & " gpupdate"
+Resultados.InnerHTML = "Iniciando Reparo"
+NET = ""
+objShell.Run ipconf, 0, True
+NET = NET & "Limpo Cache do DNS<br>"
+objShell.Run nbt, 0, True
+NET = NET & "Atualizadas Tabelas<br>"
+objShell.Run rep, 0, True
+NET = NET & "Liberado IP<br>"
+objShell.Run ipconf, 0, True
+objShell.Run nbt, 0, True
+NET = NET & "Renovado IP<br>"
+objShell.Run gpupda, 0, True
+NET = NET & "Atualizadas Politicas<br>"
+Resultados.InnerHTML = NET & "Reparo Finalizado"
+Set objShell = Nothing 
+Set objnet = Nothing
+Set objFSO = Nothing 
+End Sub
+
+sub limpa
+Set objnet = CreateObject("WScript.Network")
+Set objShell = CreateObject("WScript.Shell")
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+sei = "RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 1"
+tempo = "RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 2"
+cookis = "RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 8"
+histor = "RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 16"
+pass = "RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 32"
+forms = "RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 255"
+Resultados.InnerHTML = "Iniciando Limpeza"
+NET = ""
+objShell.Run tempo, 0, True
+NET = NET & "Deletado Históricos<br>"
+objShell.Run sei, 0, True
+NET = NET & "Deletados Arquivos Temporários<br>"
+objShell.Run cookis, 0, True
+NET = NET & "Deletados Cookies<br>"
+objShell.Run histor, 0, True
+objShell.Run pass, 0, True
+NET = NET & "Deletadas Senhas<br>"
+objShell.Run forms, 0, True
+NET = NET & "Deletados Informações em Formulários<br>"
+Resultados.InnerHTML = NET & "Limpeza Finalizado"
+Set objShell = Nothing 
+Set objnet = Nothing
+Set objFSO = Nothing 
+end sub	
+Sub CancelScript
+Set oShell = Nothing
+Set objNetwork = Nothing
+Self.Close()
+End Sub
+Sub Server
+Resultados.InnerHTML = "Processando..."
+WaitSeconds 3
+If InStr(ucase(sDepartment),"INFORMATICA") <> 0 Then
+DoGetPingResult(Array("10.10.1.254", "10.10.2.254", "10.10.3.254", "10.10.4.254", "10.10.5.254", "10.10.6.254"))
+End If
+
+End Sub
+Sub maps
+oShell.Run "c:\ti\suporte\logon.vbs", 0, True
+end sub
+'-----subs auxiliares
+Sub DoGetPingResult(srvs)
+strComputer = "."
+arrTargets = srvs
+i = "0"
+For Each strTarget In arrTargets
+ Set objWMIService = GetObject("winmgmts:" _
+  & "{impersonationLevel=impersonate}!\\" & strComputer & "\root\cimv2")
+   Set colPings = objWMIService.ExecQuery _
+    ("Select * From Win32_PingStatus where Address = '" & strTarget & "'")
+   If Err = 0 Then
+     Err.Clear
+     For Each objPing in colPings
+       If objPing.StatusCode = 0 Then
+		msg = msg & "<font color=green>" & UCase((strTarget)) & " - Funcionamento OK.</font><br>"
+		Resultados.InnerHTML = msg
+   Else
+		msg = msg & "<font color=red>" & UCase((strTarget)) & " - Falha na Comunicação.</font><br>"
+        Resultados.InnerHTML = msg
+         End If
+     Next
+   Else
+     Err.Clear
+   End If
+   Next
+End Sub
+Sub WaitSeconds (intNumSecs) 
+    ' Because WScript.Sleep () is not available in HTA 
+    ' scripts, invoke a VBScript file to do the waiting. 
+ 
+    Dim strScriptFile, strCommand, intRetcode, objWS 
+ 
+    If intNumSecs <= 0 Then Exit Sub 
+ 
+    Set objWS = CreateObject ("WScript.Shell") 
+ 
+    strScriptFile = "%temp%\wait" & intNumSecs & "seconds.vbs" 
+ 
+    strCommand = "cmd /c ""echo WScript.Sleep " & intNumSecs * 1000 & " >" & strScriptFile & _ 
+                "&start /wait """" wscript.exe " & strScriptFile & """" 
+ 
+    intRetCode = objWS.Run (strCommand, 0, True) 
+ 
+    If intRetCode = 0 Then Exit Sub 
+ 
+    LogLine "ERROR " & CStr (intRetCode) & " DURING WAITSECONDS PROCEDURE" 
+End Sub 
+</SCRIPT>
+
+<body id="mainbody" bgcolor="white" style="font:Verdana; color:black">
+<style type="text/css">
+.estilotextarea {background-color: transparent;border: 1px solid #000000;}
+.botao{font-size: 10px;font-family: Verdana,Helvetica;font-weight: bold;color: white;background: grey;border: 0px;width: 105px;height: 22px;}
+
+</style>
+	<table width="100%" border="0" cellpadding="0">
+		<tr valign="center">
+			<td align="center" width="30%">
+				<img name="Logo">					
+			</td>			
+			<td align="left" width="70%">
+				<center><font size="3">Bem Vindo&nbsp;<strong><span style="color:blue" id="DisplayName"></span></strong>&nbsp;</font><br><br></center>
+				<strong><font face="bold" size="2">Usuário:&nbsp;<span style="color:blue" id="UserName"></span>&nbsp;&nbsp;Computador:&nbsp;<span style="color:blue" id="ComputerName"></span><br>Departamento:&nbsp;<span style="color:blue" id="Department"></span></strong>
+			</td>
+		</tr>		
+		<tr>
+			<td>
+			</td>		
+		</tr>
+	</table>
+</div>
+<center>
+	Qual sua Dificuldade?<br>
+	<select name="srv">
+    <option value="_Blank">&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;  &nbsp; &nbsp;  </option>
+    <option value="network" size="30">Rede / Internet</option>
+	<option value="servidores" size="30">Servidores</option>
+	</select>
+	&nbsp;&nbsp;&nbsp;<Input id=runbutton class=botao type="button" value=" OK " name="run_button" onClick="MainScript">
+</center>
+<table width="100%" border="5"> 
+  <tr> 
+    <td width="25%" valign="top"><span id="options"></span><BR></td> 
+    <td width="75%" valign="top"><span id="Resultados"></span><BR></td> 
+  </tr> 
+</table> 
+</BODY>
+
+</HTML>
