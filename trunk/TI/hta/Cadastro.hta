@@ -1,0 +1,261 @@
+<!--
+'Script do logon
+'autoria Leonardo Vivas
+'Versão 1.8
+'criação 03/06/2009
+'modificação 21/12/2011
+' -----------------------------------------------------------------' 
+-->
+
+<HTML>
+<HEAD>
+<script language="VBScript">
+	'Prevent Window flickering on load.
+	Me.ResizeTo 450,400
+	'Move Window off screen.
+    Me.MoveTo ((Screen.Width)),((Screen.Height))
+</script>
+<TITLE>Atulizador DE Informações</title>
+<HTA:APPLICATION
+  APPLICATIONNAME="cadastro.HTA"
+  ID="cad"
+  VERSION="0.1"
+  BORDER="none"
+  CAPTION="no"
+  SYSMENU="no"
+  MAXIMIZEBUTTON="no"
+  MINIMIZEBUTTON="no"
+  SCROLL="no"
+  SINGLEINSTANCE="yes"
+  SHOWINTASKBAR="no"
+  NAVIGABLE="yes"/></HEAD>
+
+<SCRIPT LANGUAGE="VBScript">
+
+Sub Window_Onload
+'# Size Window
+sHorizontal = 450
+sVertical = 400
+Window.resizeTo sHorizontal, sVertical
+'# Get Monitor Details
+Set objWMIService = GetObject _
+("winmgmts:root\cimv2")
+intHorizontal = sHorizontal *2
+intVertical = sVertical *2
+Set colItems = objWMIService.ExecQuery( _
+"Select ScreenWidth, ScreenHeight from" _
+& " Win32_DesktopMonitor", , 48)
+For Each objItem In colItems
+sWidth= objItem.ScreenWidth
+sHeight = objItem.ScreenHeight
+If sWidth > sHorizontal _
+then intHorizontal = sWidth
+If sHeight > sVertical _
+then intVertical = sHeight
+Next
+Set objWMIService = Nothing
+'# Center window on the screen
+intLeft = (intHorizontal - sHorizontal) /2
+intTop = (intVertical - sVertical) /2
+Window.moveTo intLeft, intTop
+'# default window content
+window.location.href="#Top"
+End Sub
+
+Sub RunScript
+
+on Error Resume Next
+
+lRet = True
+
+Set oADSystemInfo = CreateObject("ADSystemInfo") 
+Set oADsUser = GetObject("LDAP://" & oADSystemInfo.UserName) 
+
+usuario = MID(oAdsUser.Name,4,Len(oAdsUser.Name))
+
+strnome = nome.value
+stCidade = cidade.value
+strTelefone = telefone.Value
+strFax = fax.value
+strCelular = celular.value
+stremail = email.value
+
+If strTelefone = "" Then
+   msgbox("Favor preencher seu Telefone")
+   lRet = False
+End if
+If strFax = "" Then
+   msgbox("Favor preencher Numero do Fax")
+   lRet = False
+End If
+'If strcelular = "" Then
+ '  msgbox("Favor preencher seu Celular Coorporativo")
+  ' lRet = False
+'End If
+If strnome = "" Then
+   msgbox("Favor preencher seu Nome Profisional")
+   lRet = False
+End If
+If stremail = "" Then
+   msgbox("Favor preencher seu Email.")
+   lRet = False
+End If
+
+If stCidade = "_Blank" Then
+   msgbox("Favor selecionar a cidade")
+   lRet = False
+End If
+
+select case stCidade
+
+case "Sao Paulo"
+strAddress = "Rua Funchal, 263, Conj. 24, Vila Olímpia"
+strCidade = "Sao Paulo"
+strpostalCode = "04551-060"
+case "Rio de Janeiro1"
+strAddress = "Av. Atlantica, 1130 - 8º andar - Copacabana"
+strCidade = "Rio de Janeiro" 
+strpostalCode = "22021-000"
+case "Rio de Janeiro2"
+strAddress = "Rua São Luiz Gonzaga, 1055 - São Cristóvão"
+strCidade = "Rio de Janeiro" 
+strpostalCode = "20910-060"
+case "Salvador"
+strAddress = "Rua Dr. Altino Teixeira, 302, Galpão 01 – Porto Seco Pirajá"
+strCidade = "Salvador" 
+strpostalCode = "41233-010"
+case "Manaus"
+strAddress = "Rua Comendador Clementino nº 566 - Centro"
+strCidade = "Manaus"
+strpostalCode = "69025-000"
+case "Brasília" 
+strAddress = "SSA/Norte, Quadra 2, Nº 25 - Asa Norte"
+strCidade = "Brasília"
+strpostalCode = "70632-200"
+end select
+
+if lRet = True Then
+   oADsUser.L = strCidade
+   oADsUser.TelephoneNumber = strTelefone
+   oADsUser.facsimileTelephoneNumber = strFax
+   oADsUser.mobile = strCelular
+   oADsUser.mail = stremail
+   oADsUser.FullName = strnome
+   oADsUser.Company = "Cemusa Brasil"
+   oADsUser.wWWHomePage = "http://www.cemusadobrasil.com.br"
+   oADsUser.streetAddress = strAddress
+   oADsUser.co = "Brasil"
+   oADsUser.postalCode = strpostalCode
+   
+   oADsUser.SetInfo
+   
+Set objnet = CreateObject("WScript.Network")
+Set objShell = CreateObject("WScript.Shell")
+Set objFSO = CreateObject("Scripting.FileSystemObject")
+strLogFile = "\\csrv02\logs$\"&objNet.UserName&"\cad-"&objNet.UserName&".log"
+'msgbox "assinatura de email"
+arrTipos = split(arrTipos,";")
+Set strLogFile = objFSO.OpenTextFile(strLogFile, 8, True, 0)
+strLogFile.WriteLine  VBCRLF
+strLogFile.WriteLine "==================================================="
+strLogFile.WriteLine "Iniciando Recadastramento EM: " & now
+strLogFile.WriteLine "==================================================="  
+strLogFile.WriteLine  VBCRLF
+strLogFile.WriteLine strnome
+strLogFile.WriteLine strCidade
+strLogFile.WriteLine strTelefone
+strLogFile.WriteLine strFax
+strLogFile.WriteLine strcelular
+strLogFile.WriteLine stremail
+strLogFile.WriteLine strAddress
+strLogFile.WriteLine strpostalCode
+strLogFile.WriteLine  VBCRLF
+strLogFile.WriteLine "==================================================="
+strLogFile.WriteLine "Recadastramento Finalizado EM: " & now
+strLogFile.WriteLine "==================================================="  
+If objFso.FileExists(strLogFile) Then
+msgbox(usuario & ", muito obrigado pelas informações")
+objShell.Run ("\\cemusadobrasil.com.br\netlogon\vbs\ass.vbs"),0 , False
+else
+msgbox "Erro no recadastramento - Favor contactar o suporte"
+end if
+   Set oShell = Nothing
+   Set objNetwork = Nothing
+   Self.Close()
+End if
+
+End Sub
+
+
+Sub CancelScript
+Set oShell = Nothing
+Set objNetwork = Nothing
+lRet = 2
+Do While lRet = 2
+   Msg = VbCrLf
+   Msg = Msg & "Favor atualizar suas informações cadastrais." & chr(10)& VbCrLf
+   Msg = Msg & "Ocorreram modificações em sua assinatura de Email." & chr(10) & VbCrLf
+   Msg = Msg & "As Informações aqui presentes vão afetar sua assinatura de Email." & Chr(10) & VbCrLf
+   Msg = Msg & "Sua assinatura de email será atualizada IMEDIATAMENTE apôs este processo." & Chr(10)
+lRet  =   MsgBox(Msg,0,"Cemusa Informa")
+Loop
+
+'Self.Close()
+End Sub
+
+</SCRIPT>
+
+
+<BODY STYLE="font:14 pt arial; color:white; filter:progid:DXImageTransform.Microsoft.Gradient( GradientType=1, StartColorStr='#000000', EndColorStr='#0000FF')">
+<a name="Top"></a><CENTER>CEMUSA<br><br>
+Favor atualizar suas informações cadastrais.<br><b><font size=2>Estas Informações afetam sua assinatura de Email.</b></font><P>
+<table border="0" cellpadding="0" cellspacing="0"><font size="2" color="black" face="Arial">
+<tr>
+<td height="30">
+<p align="right">Cidade</p>
+</td>
+<td height="30">
+     &nbsp;&nbsp;   
+     <select name="cidade">
+    <option value="_Blank" size="60">Escolha sua cidade:</option>
+    <option value="Sao Paulo" size="60">Sao Paulo</option>
+    <option value="Rio de Janeiro1" size="60">Rio de Janeiro - Copacabana</option>
+	<option value="Rio de Janeiro2" size="60">Rio de Janeiro - São Cristovão</option>
+    <option value="Salvador" size="60">Salvador</option>
+	<option value="Manaus" size="60">Manaus</option>
+	<option value="Brasília" size="60"Brasília</option>
+  </select>
+</td>
+</tr>
+<tr>
+<td height="30">
+<p align="right">Telefone Direto</p>
+</td>
+<td height="30">&nbsp;&nbsp; <input type="text" name="telefone" size="20"></td></tr>
+<td height="30">
+<p align="right">Fax</p>
+</td>
+<td height="30">&nbsp;&nbsp; <input type="text" name="fax" size="20"></td></tr>
+<td height="30">
+<p align="right">Celular Coorporativo</p>
+</td>
+<td height="30">&nbsp;&nbsp; <input type="text" name="celular" size="20"></td></tr>
+<td height="30">
+<p align="right">Nome Profissional</p>
+</td>
+<td height="30">&nbsp;&nbsp; <input type="text" name="nome" size="20"></td></tr>
+<td height="30">
+<p align="right">E-mail</p>
+</td>
+<td height="30">&nbsp;&nbsp; <input type="text" name="email" size="20"></td></tr>
+</table><BR>
+<HR color="#0000FF">
+<BR>
+<Input style=width:90;height:27 id=runbutton class="button" type="button" value=" ATUALIZAR " name="run_button" onClick="RunScript">
+&nbsp;&nbsp;&nbsp;
+<Input style=width:90;height:27 id=runbutton class="button" type="button" value=" CANCELAR " name="cancel_button" onClick="CancelScript">
+
+</CENTER>
+</BODY>
+
+</HTML>

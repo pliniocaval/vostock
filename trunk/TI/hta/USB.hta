@@ -1,0 +1,82 @@
+<head> 
+<title>USB</title> 
+<HTA:APPLICATION  
+     APPLICATIONNAME="USB Enable or Disable" 
+     SCROLL="no" 
+     Icon = "proxy_server.ico" 
+     SINGLEINSTANCE="yes" 
+     WINDOWSTATE="normal" 
+> 
+</head> 
+<script language="VBscript"> 
+  window.resizeTo 300,150 
+</script> 
+         
+<script language="VBScript"> 
+Sub Window_onLoad 
+Set objShell = CreateObject( "WScript.Shell" ) 
+DimSetting = objShell.RegRead ("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\USBSTOR\Start") 
+'Wscript.Echo DimSetting 
+If DimSetting = 4 Then  
+'Wscript.Echo "USB is Enabled" 
+DataArea.InnerHTML = "O Bloqueio USB esta Ativo" 
+DataArea0.innerHTML = "<input style=WIDTH: 95; HEIGHT: 28 type=button value=Desativar name=run_button  onClick=NO>"    
+Else  
+'Wscript.Echo "USB is Disable" 
+DataArea.InnerHTML = "O Bloqueio USB esta Inativo" 
+DataArea0.innerHTML =  "<input style=WIDTH: 91; HEIGHT: 28 type=button value=Ativar name=run_button  onClick=YES>"  
+End If 
+End Sub 
+ 
+Sub YES 
+Const HKEY_LOCAL_MACHINE = &H80000002 
+ 
+strComputer = "." 
+Set objRegistry = GetObject("winmgmts:\\" & strComputer & "\root\default:StdRegProv") 
+ 
+strKeyPath = "SYSTEM\CurrentControlSet\Services\USBSTOR" 
+strKeyPath2 = "SYSTEM\CurrentControlSet\Services\Modem"  
+
+strValueName = "Start" 
+dwValue = 4 
+objRegistry.SetDWORDValue HKEY_LOCAL_MACHINE, strKeyPath, strValueName, dwValue
+objRegistry.SetDWORDValue HKEY_LOCAL_MACHINE, strKeyPath2, strValueName, dwValue 
+Location.Reload(True)
+ 
+End Sub 
+ 
+Sub NO 
+Const HKEY_LOCAL_MACHINE = &H80000002 
+ 
+strComputer = "." 
+Set objRegistry = GetObject("winmgmts:\\" & strComputer & "\root\default:StdRegProv") 
+  
+strKeyPath = "SYSTEM\CurrentControlSet\Services\USBSTOR" 
+strKeyPath2 = "SYSTEM\CurrentControlSet\Services\Modem" 
+
+strValueName = "Start" 
+dwValue = 3 
+objRegistry.SetDWORDValue HKEY_LOCAL_MACHINE, strKeyPath, strValueName, dwValue 
+objRegistry.SetDWORDValue HKEY_LOCAL_MACHINE, strKeyPath2, strValueName, dwValue
+Location.Reload(True)
+ 
+End Sub 
+Sub CancelScript
+Set oShell = Nothing
+Set objNetwork = Nothing
+Self.Close()
+End Sub 
+</script> 
+ 
+<body> 
+<p align="center"> 
+ 
+ 
+<p align="center"> <span id = "DataArea"></span> </p>  
+<p align="center"> <span id = "DataArea0"></span> &nbsp;&nbsp;&nbsp; <Input id=runbutton class="button" type="button" value="Fechar" name="cancel_button" onClick="CancelScript"> </p> 
+
+
+ 
+</p> 
+ 
+</body>
