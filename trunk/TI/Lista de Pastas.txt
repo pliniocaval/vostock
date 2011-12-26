@@ -1,0 +1,8 @@
+os projetos em desenvolvimento / acabadas devem ter o a pasta com a seguinte nomenclatura:
+
+* "projeto-"nome do projeto"
+
+hta - contem arquivos HTA uso geral
+RDP - exemplos de arquivos RDP
+scripts - scripts em vbs para uso geral
+suporte - arquivos necessarios para a execução de alguns scripts / hta's
