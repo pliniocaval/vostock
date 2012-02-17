@@ -23,9 +23,12 @@ Set objFSO = CreateObject("Scripting.FileSystemObject")
   execute constantes
 
 'msgbox "Copia de arquivos"
-objFSO.CopyFile scripts&"\suporte\RoboCopy.exe" , robocopy, OverwriteExisting
-'msgbox "Copia de arquivos - Suporte"
-objShell.Run CopySup, 0, True
+If objFso.FileExists("C:\Windows\SysWOW64\RoboCopy.exe") Then
+objFSO.CopyFile "C:\Windows\SysWOW64\RoboCopy.exe" , robocopy, OverwriteExisting
+Else
+objFSO.CopyFile instloc&"\RoboCopy.exe" , robocopy, OverwriteExisting
+end if
+Wscript.Sleep 20000
 'msgbox "Copia de arquivos - Hta"
 objShell.Run CopyHta, 0, True
 'msgbox "Copia de arquivos - MXM"
@@ -34,6 +37,7 @@ objShell.Run MXMCOPY, 0, True
 objShell.Run Inst, 0, True
 'msgbox "Copia de arquivos - Remove"
 objShell.Run Remove, 0, True
-
+'msgbox "Copia de arquivos - Suporte"
+objShell.Run CopySup, 0, True
 'msgbox Fim
 wscript.quit

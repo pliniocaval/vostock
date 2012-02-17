@@ -14,7 +14,7 @@
 	'Prevent Window flickering on load.
 	Me.ResizeTo 500,310
 	'Move Window off screen.
-    Me.MoveTo ((Screen.Width)),((Screen.Height))
+    'Me.MoveTo ((Screen.Width)),((Screen.Height))
 </script>
 
 <HTA:APPLICATION
@@ -29,7 +29,7 @@
      WINDOWSTATE="normal"
      SysMenu="no"
      ContextMenu="no"
-	 SHOWINTASKBAR="no"
+	 SHOWINTASKBAR="yes"
 	 CAPTION="no"
 	 Icon="c:\ti\hta\img\logo.ico"
 >
@@ -215,6 +215,20 @@ Sub MainScript
 		  	End If
 		End If
 		
+		If FSO.DriveExists("P:") Then
+			ShowStat("P: Já Existe")
+			Else
+			If Not MapDrive("P:", "\\csrv01\PDContas") Then 
+		 		If Not MapDrive("P:", "\\csrv01\PDContas") Then 
+		    		ShowStat("P: - Falha no Mapeamento")
+		    	Else
+		    		ShowStat("P: - Mapeado com Sucesso")
+		   		End If
+		   	Else
+		   		ShowStat("P: - Mapeado com Sucesso")
+		  	End If
+		End If
+		
 	End If
 
 	' *********************************
@@ -350,9 +364,9 @@ Sub MainScript
 	' *********************************
 	' ************* Diretoria *************
 	
-	If not left(ucase(sComputerName),4)="MXM-" then
+	If left(ucase(sComputerName),4)="MXM-" then
 	If InStr(ucase(sGroups),"DIRETORIA") <> 0 Then
-	oShell.Run ("\\cemusadobrasil.com.br\SYSVOL\cemusadobrasil.com.br\SCRIPTS\vbs\ass.vbs"),0 , False
+	ShowStat("Backup do Outlook")
 	oShell.Run ("\\cemusadobrasil.com.br\SYSVOL\cemusadobrasil.com.br\SCRIPTS\vbs\outlook.vbs"), 0, True
 	oShell.Run ("\\cemusadobrasil.com.br\SYSVOL\cemusadobrasil.com.br\SCRIPTS\vbs\outlookbkp.vbs"), 0, False
 	End IF

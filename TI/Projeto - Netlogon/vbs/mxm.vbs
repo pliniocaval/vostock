@@ -39,7 +39,9 @@ objFSO.DeleteFile Desktop&"\Microsoft Office O*.lnk"
 objFSO.DeleteFile USERPROFILE & "\Dados de aplicativos\Microsoft\Internet Explorer\Quick Launch\Iniciar o Navegador Internet Explorer.lnk"
 objFSO.DeleteFile USERPROFILE & "\Dados de aplicativos\Microsoft\Internet Explorer\Quick Launch\Microsoft Office O*.lnk"
 'msgbox "Impressoras"
-objShell.Run (scripts&"\vbs\print.vbs"),0 , False
+objnet.AddWindowsPrinterConnection "\\sqlscpi\P3005"
+objnet.AddWindowsPrinterConnection "\\sqlscpi\HP4014"
+objnet.AddWindowsPrinterConnection "\\csrv01\HP4010"
 
 lRet = 2
 Do While lRet = 2
