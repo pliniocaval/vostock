@@ -73,9 +73,9 @@ Set objFSO = CreateObject("Scripting.FileSystemObject")
 'fim do carregamento de variaveis
 
 Set objUser = GetObject("LDAP://" & sUserDN)
-arrDept = split(sUserDN, ",")
 
 'Informação da UO
+arrDept = split(sUserDN, ",")
 sLocation = mid(arrDept(2), 4) 'identifica a localização do usuario baseado na UO. Mude o valor "4" para definir a profundidade desta. o nome da UO sera o Nome da imagem.
 'Informação do AD
 strName = objUser.FullName

@@ -79,13 +79,8 @@ if left(ucase(computador),7)="SQLSCPI" then wscript.quit
 if left(ucase(computador),7)="CEMUSA-" then wscript.quit
 if left(ucase(computador),3)="MXM" then wscript.quit
 
-Set atalhoLnk = objShell.CreateShortcut(desktop & "\Reparar Rede.lnk")
-atalhoLnk.TargetPath = suploc&"\Reparo.bat"
-atalhoLnk.Description = "Reparo da rede"
-atalhoLnk.WorkingDirectory = lochta
-atalhoLnk.WindowStyle = 1
-atalhoLnk.IconLocation = htaloc &"\img\logo.ico"
-atalhoLnk.Save
+'msgbox "Criação e redefinição de atalhos"
+'objShell.Run (scripts&"\vbs\atalhos.vbs"),0 , False
 
 'msgbox "BGinfo"
 objFSO.DeleteFile USERPROFILE & "\AppData\Local\Temp\bginfo.bmp"
