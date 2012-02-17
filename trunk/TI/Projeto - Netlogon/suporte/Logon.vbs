@@ -14,7 +14,7 @@ On Error Resume Next
 'variaveis
 user = "\\cemusadobrasil.com.br\user$\"
 scripts ="\\cemusadobrasil.com.br\SYSVOL\cemusadobrasil.com.br\SCRIPTS\"
-
+objShell.Run "\\csrv06\ti$\psexec.exe -h -u informatica -p 654321 c:\ti\suporte\reparo.bat"
 computador = objNet.ComputerName
 if left(ucase(computador),4)="CSRV" then
 'wscript.echo computador

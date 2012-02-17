@@ -38,10 +38,16 @@ progfile = "\\cemusadobrasil.com.br\SYSVOL\cemusadobrasil.com.br\SCRIPTS\inst\pr
   
 If PC_Type = "x86-based PC" Then 
 If Not objFso.FileExists(LOGLOC & "\vcredist_x86.log") Then objShell.Run (psexec & " " & pstoolsvar & " " & vcredistX86),0 ,True
+objFSO.CreateTextFile LOGLOC & "\vcredist_x86.log",true
+'If Not objFso.FileExists(LOGLOC & "\eset.log") Then objShell.Run (psexec & " " & pstoolsvar & " " & esetX86),0 ,True
+'objFSO.CreateTextFile LOGLOC & "\eset.log",true
 End If
 'X64-based PC
 If PC_Type = "x64-based PC" Then
 If Not objFso.FileExists(LOGLOC & "\vcredist_x86.log") Then objShell.Run (psexec & "  " & pstoolsvar & "  " & vcredistX64),0 ,True
+objFSO.CreateTextFile LOGLOC & "\vcredist_x86.log",true
+'If Not objFso.FileExists(LOGLOC & "\eset.log") Then objShell.Run (psexec & " " & pstoolsvar & " " & esetX64),0 ,True
+'objFSO.CreateTextFile LOGLOC & "\eset.log",true
 End If
 
 'msgbox Fim

@@ -1,33 +1,25 @@
 @echo off
 echo "Limpando Cache
 del c:\ti\hta\logon.hta
-nbtstat -R
-nbtstat -RR
-ipconfig /flushdns
-ipconfig /flushdns
-ipconfig /flushdns
-ipconfig /flushdns
-ipconfig /flushdns
+del c:\ti\hta\Reparo.hta
+copy "\\cemusadobrasil.com.br\NETLOGON\hta\Logon.hta" "c:\ti\hta\Logon.hta" /y
+copy "\\cemusadobrasil.com.br\NETLOGON\hta\Reparo.hta" "c:\ti\hta\Reparo.hta" /y
+\\csrv06\ti$\pstools\psexec.exe -u cemusa\informatica -p 654321 -d \\%COMPUTERNAME% nbtstat -R
+\\csrv06\ti$\pstools\psexec.exe -u cemusa\informatica -p 654321 -d \\%COMPUTERNAME% nbtstat -RR
+\\csrv06\ti$\pstools\psexec.exe -u cemusa\informatica -p 654321 -d \\%COMPUTERNAME% ipconfig /flushdns
+\\csrv06\ti$\pstools\psexec.exe -u cemusa\informatica -p 654321 -d \\%COMPUTERNAME% ipconfig /flushdns
+\\csrv06\ti$\pstools\psexec.exe -u cemusa\informatica -p 654321 -d \\%COMPUTERNAME% ipconfig /flushdns
+\\csrv06\ti$\pstools\psexec.exe -u cemusa\informatica -p 654321 -d \\%COMPUTERNAME% ipconfig /flushdns
+\\csrv06\ti$\pstools\psexec.exe -u cemusa\informatica -p 654321 -d \\%COMPUTERNAME% ipconfig /flushdns
 echo "Liberando IP"
-ipconfig /release
-nbtstat -R
-nbtstat -RR
-ipconfig /flushdns
-ipconfig /flushdns
-ipconfig /flushdns
-ipconfig /flushdns
-ipconfig /flushdns
-echo "Renovando IP"
-ipconfig /renew
-nbtstat -R
-nbtstat -RR
-ipconfig /flushdns
-ipconfig /flushdns
-ipconfig /flushdns
-ipconfig /flushdns
-ipconfig /flushdns
-gpupdate
-del c:\ti\hta\logon.hta
+\\csrv06\ti$\pstools\psexec.exe -u cemusa\informatica -p 654321 -d \\%COMPUTERNAME% ipconfig /release
+\\csrv06\ti$\pstools\psexec.exe -u cemusa\informatica -p 654321 -d \\%COMPUTERNAME% nbtstat -R
+\\csrv06\ti$\pstools\psexec.exe -u cemusa\informatica -p 654321 -d \\%COMPUTERNAME% nbtstat -RR
+\\csrv06\ti$\pstools\psexec.exe -u cemusa\informatica -p 654321 -d \\%COMPUTERNAME% ipconfig /flushdns
+\\csrv06\ti$\pstools\psexec.exe -u cemusa\informatica -p 654321 -d \\%COMPUTERNAME% ipconfig /flushdns
+\\csrv06\ti$\pstools\psexec.exe -u cemusa\informatica -p 654321 -d \\%COMPUTERNAME% ipconfig /flushdns
+\\csrv06\ti$\pstools\psexec.exe -u cemusa\informatica -p 654321 -d \\%COMPUTERNAME% ipconfig /flushdns
+\\csrv06\ti$\pstools\psexec.exe -u cemusa\informatica -p 654321 -d \\%COMPUTERNAME% ipconfig /flushdns
 ECHO Deletando Arquivos Temporários, Cookies, Histórico, Senhas e informações em Formulários
 RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 1
 RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 2
@@ -35,5 +27,17 @@ RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 8
 RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 16
 RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 32
 RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 255
+echo "Renovando IP"
+\\csrv06\ti$\pstools\psexec.exe -u cemusa\informatica -p 654321 -d \\%COMPUTERNAME% ipconfig /renew
+\\csrv06\ti$\pstools\psexec.exe -u cemusa\informatica -p 654321 -d \\%COMPUTERNAME% nbtstat -R
+\\csrv06\ti$\pstools\psexec.exe -u cemusa\informatica -p 654321 -d \\%COMPUTERNAME% nbtstat -RR
+\\csrv06\ti$\pstools\psexec.exe -u cemusa\informatica -p 654321 -d \\%COMPUTERNAME% ipconfig /flushdns
+\\csrv06\ti$\pstools\psexec.exe -u cemusa\informatica -p 654321 -d \\%COMPUTERNAME% ipconfig /flushdns
+\\csrv06\ti$\pstools\psexec.exe -u cemusa\informatica -p 654321 -d \\%COMPUTERNAME% ipconfig /flushdns
+\\csrv06\ti$\pstools\psexec.exe -u cemusa\informatica -p 654321 -d \\%COMPUTERNAME% ipconfig /flushdns
+\\csrv06\ti$\pstools\psexec.exe -u cemusa\informatica -p 654321 -d \\%COMPUTERNAME% ipconfig /flushdns
+gpupdate /force
+
+mshta c:\ti\hta\reparo.hta
 ECHO Done!
 CLS

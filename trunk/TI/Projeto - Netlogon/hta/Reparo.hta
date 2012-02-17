@@ -1,9 +1,9 @@
 <!--
 'Script do logon
 'autoria Leonardo Vivas
-'Versão 0.5
-'criação 1/11/2010
-'modificação 10/01/2011
+'Versão 1.8
+'criação 03/06/2009
+'modificação 21/12/2011
 ' -----------------------------------------------------------------' 
 -->
 
@@ -19,7 +19,7 @@
 
 <HTA:APPLICATION
      APPLICATIONNAME="LogonScript"
-	 VERSION="0.5"
+	 VERSION="0.7"
      BORDER="thin"
      BorderStyle="complex"
      SCROLL="no"
@@ -29,10 +29,9 @@
      WINDOWSTATE="normal"
      SysMenu="no"
      ContextMenu="no"
-	 SHOWINTASKBAR="no"
+	 SHOWINTASKBAR="yes"
 	 CAPTION="no"
-	 
-     Icon='c:\suporte\img\logo.ico'
+	 Icon="c:\ti\hta\img\logo.ico"
 >
 </head>
 
@@ -40,7 +39,7 @@
 
 Dim FSO, oShell, oNetwork, objSysInfo, sUserDN, objUser
 Dim sDepartment, sLocation, sUserName, sComputerName, sDomain, sDisplayName, sGroups, sDN
-Dim sStatus, intSeconds, sDesktop, sScriptDir, iTimerID
+Dim sStatus, intSeconds, sDesktop, sScriptDir, iTimerID, atalhoLnk
 
 'Configure for your domain. See "MainScript" Sub for drive mappings.
 sDN = "cemusadobrasil.com.br"
@@ -55,11 +54,15 @@ Sub Window_onLoad
     'Get User's information.
     UserInfo
     
+	'User's Desktop for deploying shortcuts. 
+    sDesktop = oShell.ExpandEnvironmentStrings("%USERPROFILE%") & "\Desktop" 
+	
     'Coloca info. do usuario da tela de logon.
 	document.title = sDomain & " Logon Script - " & sDepartment 'Muda o titulo.
 	DisplayName.InnerHTML = sDisplayName
 	UserName.InnerHTML = sUserName
 	ComputerName.InnerHTML = sComputerName
+	Department.InnerHTML = sDepartment
 	
 	'Logotipo.
 	HTA = location.pathname
@@ -79,7 +82,7 @@ Sub Window_onLoad
 	MainScript
 	
 	'Countdown timer before closing. Set time in seconds.
-	intSeconds = 20
+	intSeconds = 10
 	iTimerID = window.setInterval("Count", 1000)
 End Sub
 
@@ -128,32 +131,32 @@ End Sub
 
 Sub MainScript
 
-' Remover drivers mapeados
-'Set colDrives = oNetwork.EnumNetworkDrives
-'For i = 0 to colDrives.Count-1 Step 2
-'    oNetwork.RemoveNetworkDrive colDrives.Item(i), true, true
-'Next
+	On Error Resume Next
 
-	'On Error Resume Next
+	' *** MIGRAÇÃO ***
+	If InStr(ucase(sLocation),"COPACABANA") <> 0 Then
+		If InStr(ucase(sGroups),"MIGRAÇÃO") <> 0 Then
+
+	If FSO.DriveExists("W:") Then
+			ShowStat("W: Já Existe")
+			Else
+			If Not MapDrive("W:", "\\cemusadobrasil.com.br\BKP\" & sLocation) Then 
+				If Not MapDrive("W:", "\\10.10.1.4\BKP\" & sLocation & "\" & sDepartment) Then 
+		  		ShowStat("W: - Falha no Mapeamento")
+		    	Else
+		    		ShowStat("W: - Mapeado com Sucesso")
+		   		End If
+		   	Else
+		   		ShowStat("W: - Mapeado com Sucesso")
+		  	End If
+		End If
+		End If		
+	End IF
 	
 	' *********************************
 	' ***	 Mapeamentos Comuns  	***
 	' *********************************
 	If InStr(ucase(sGroups),"USUÁRIOS DO DOMÍNIO") or InStr(ucase(sGroups),"DOMAIN USERS") <> 0 Then 
-		If FSO.DriveExists("P:") Then
-			ShowStat("P: Já Existe")
-			Else
-			If Not MapDrive("P:", "\\cemusadobrasil.com.br\pdcontas") Then 
-		 		If Not MapDrive("P:", "\\10.10.1.1\pdcontas") Then 
-		    		ShowStat("P: - Falha no Mapeamento")
-		    	Else
-		    		ShowStat("P: - Mapeado com Sucesso")
-		   		End If
-		   	Else
-		   		ShowStat("P: - Mapeado com Sucesso")
-		  	End If
-		End If
-		
 		If FSO.DriveExists("G:") Then
 			ShowStat("G: Já Existe")
 		Else
@@ -172,8 +175,8 @@ Sub MainScript
 			ShowStat("M: Já Existe")
 		Else
 			If Not MapDrive("M:", "\\cemusadobrasil.com.br\departamentos") Then
-				If Not MapDrive("M:", "\\10.10.1.1\departamentos") Then
-		   			ShowStat("M: - Falha no Mapeamento")
+				If Not MapDrive("M:", "\\10.10.1.4\departamentos") Then
+		  			ShowStat("M: - Falha no Mapeamento")
 		   		Else
 		   			ShowStat("M: - Mapeado com Sucesso")
 		   		End If
@@ -185,9 +188,9 @@ Sub MainScript
 	If FSO.DriveExists("U:") Then
 			ShowStat("U: Já Existe")
 		Else
-			If Not FSO.FolderExists("\\cemusadobrasil.com.br\user$\" & sLocation & "\" & sUserName) Then FSO.CreateFolder("\\cemusadobrasil.com.br\user$\" & sLocation & "\" & sUserName) 
-			If Not MapDrive("U:", "\\cemusadobrasil.com.br\user$\" & sLocation & "\" & sUserName) Then
-				If Not MapDrive("U:", "\\10.10.1.1\Geral") Then
+			If Not FSO.FolderExists("\\cemusadobrasil.com.br\user$\" & sLocation & "\" & sUserName) Then FSO.CreateFolder("\\cemusadobrasil.com.br\user$\" & sLocation & "\" & sUserName)
+				If Not MapDrive("U:", "\\cemusadobrasil.com.br\user$\" & sLocation & "\" & sUserName) Then
+				If Not MapDrive("U:", "\\10.10.1.4\user$\" & sLocation & "\" & sUserName) Then
 		   			ShowStat("U: - Falha no Mapeamento")
 		   		Else
 		   			ShowStat("U: - Mapeado com Sucesso")
@@ -201,13 +204,27 @@ Sub MainScript
 			ShowStat("H: Já Existe")
 			Else
 			If Not MapDrive("H:", "\\cemusadobrasil.com.br\departamentos\" & sLocation & "\" & sDepartment) Then 
-		 		If Not MapDrive("H:", "\\10.10.1.1\departamentos\" & sLocation & "\" & sDepartment) Then 
+		 		If Not MapDrive("H:", "\\10.10.1.4\departamentos\" & sLocation & "\" & sDepartment) Then 
 		    		ShowStat("H: - Falha no Mapeamento")
 		    	Else
 		    		ShowStat("H: - Mapeado com Sucesso")
 		   		End If
 		   	Else
 		   		ShowStat("H: - Mapeado com Sucesso")
+		  	End If
+		End If
+		
+		If FSO.DriveExists("P:") Then
+			ShowStat("P: Já Existe")
+			Else
+			If Not MapDrive("P:", "\\csrv01\PDContas") Then 
+		 		If Not MapDrive("P:", "\\csrv01\PDContas") Then 
+		    		ShowStat("P: - Falha no Mapeamento")
+		    	Else
+		    		ShowStat("P: - Mapeado com Sucesso")
+		   		End If
+		   	Else
+		   		ShowStat("P: - Mapeado com Sucesso")
 		  	End If
 		End If
 		
@@ -225,7 +242,7 @@ Sub MainScript
 	If FSO.DriveExists("O:") Then
 			ShowStat("O: Já Existe")
 			Else
-			If Not MapDrive("O:", "\\csrv06\Circuitos-Fotos") Then 
+			If Not MapDrive("O:", "\\cemusadobrasil.com.br\departamentos\Circuitos-Fotos") Then 
 		 		If Not MapDrive("O:", "\\10.10.1.8\Circuitos-Fotos") Then 
 		    		ShowStat("O: - Falha no Mapeamento")
 		    	Else
@@ -241,7 +258,7 @@ Sub MainScript
 	If FSO.DriveExists("S:") Then
 			ShowStat("S: Já Existe")
 			Else
-			If Not MapDrive("S:", "\\10.10.1.2\ftp") Then 
+			If Not MapDrive("S:", "\\csrv05\ftp") Then 
 		 		If Not MapDrive("S:", "\\10.10.1.2\ftp") Then 
 		    		ShowStat("S: - Falha no Mapeamento")
 		    	Else
@@ -253,22 +270,12 @@ Sub MainScript
 		End If
 				
 	End IF
-	If InStr(ucase(sGroups),"MXM-REMOTO") <> 0 Then
-	oShell.Run ("\\cemusadobrasil.com.br\SYSVOL\cemusadobrasil.com.br\SCRIPTS\todos\mxm.vbs"), 0, True
-	ShowStat("MXM - Disponibilizado com Sucesso")
-	End IF
-	If InStr(ucase(sGroups),"GERENTES") <> 0 Then
-	const HKEY_LOCAL_MACHINE = &H80000002
-	oShell.RegWrite "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\USBSTOR\Start",3 ,"REG_DWORD"
-	oShell.RegWrite "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Modem\Start",3 ,"REG_DWORD"
-	ShowStat("USB Liberada com Sucesso")
-	End If
     ' *********************************
 	' ***** FIM RECURSOS GERAIS *******
 	' *********************************
 	
 	' *********************************
-	' ***  MAPEAMENTOS POR GRUPOS	***
+	' ***   Drive de Apricações 	***
 	' *********************************
 	' ************* COPACABANA *************
 	' ************* INFORMATICA *************
@@ -290,167 +297,6 @@ Sub MainScript
 		End If		
 	End IF
 	
-	' ************* CONTABILIDADE *************
-	
-	' ************* COMERCIAL *************
-	If InStr(ucase(sDepartment),"COMERCIAL") <> 0  Then 
-		If InStr(ucase(sGroups),"VENDAS") <> 0 Then
-		If FSO.DriveExists("V:") Then
-			ShowStat("V: Já Existe")
-			Else
-			If Not MapDrive("V:", "\\cemusadobrasil.com.br\departamentos\" & sLocation & "\comercial\vendas") Then 
-		 		If Not MapDrive("V:", "\\10.10.1.1\departamentos\" & sLocation & "\comercial\vendas") Then 
-		    		ShowStat("V: - Falha no Mapeamento")
-		    	Else
-		    		ShowStat("V: - Mapeado com Sucesso")
-		   		End If
-		   	Else
-		   		ShowStat("V: - Mapeado com Sucesso")
-		  	End If
-		End If
-		End If		
-	End IF
-	' ************* SECRTARIAS *************
-	
-	' ************* JURIDICO *************
-	If InStr(ucase(sDepartment),"JURIDICO") <> 0 Then
-		If InStr(ucase(sGroups),"VENDAS") <> 0 Then 
-		If FSO.DriveExists("V:") Then
-			ShowStat("V: Já Existe")
-			Else
-			If Not MapDrive("V:", "\\cemusadobrasil.com.br\departamentos\" & sLocation & "\comercial\vendas") Then 
-		 		If Not MapDrive("V:", "\\cemusadobrasil.com.br\departamentos\" & sLocation & "\comercial\vendas") Then 
-		    		ShowStat("V: - Falha no Mapeamento")
-		    	Else
-		    		ShowStat("V: - Mapeado com Sucesso")
-		   		End If
-		   	Else
-		   		ShowStat("V: - Mapeado com Sucesso")
-		  	End If
-		End If
-		End If		
-	End IF
-	If InStr(ucase(sDepartment),"JURIDICO") <> 0 Then
-		If InStr(ucase(sGroups),"DIRETORIA") <> 0 Then 
-		If FSO.DriveExists("I:") Then
-			ShowStat("I: Já Existe")
-			Else
-			If Not MapDrive("I:", "\\cemusadobrasil.com.br\departamentos\" & sLocation & "\diretoria") Then 
-		 		If Not MapDrive("I:", "\\cemusadobrasil.com.br\departamentos\" & sLocation & "\diretoria") Then 
-		    		ShowStat("I: - Falha no Mapeamento")
-		    	Else
-		    		ShowStat("I: - Mapeado com Sucesso")
-		   		End If
-		   	Else
-		   		ShowStat("I: - Mapeado com Sucesso")
-		  	End If
-		End If
-		End If		
-	End IF
-	If InStr(ucase(sDepartment),"JURIDICO") <> 0 Then
-		If InStr(ucase(sGroups),"COMERCIAL") <> 0 Then 
-		If FSO.DriveExists("J:") Then
-			ShowStat("J: Já Existe")
-			Else
-			If Not MapDrive("J:", "\\cemusadobrasil.com.br\departamentos\" & sLocation & "\comercial") Then 
-		 		If Not MapDrive("J:", "\\cemusadobrasil.com.br\departamentos\" & sLocation & "\comercial") Then 
-		    		ShowStat("J: - Falha no Mapeamento")
-		    	Else
-		    		ShowStat("J: - Mapeado com Sucesso")
-		   		End If
-		   	Else
-		   		ShowStat("J: - Mapeado com Sucesso")
-		  	End If
-		End If
-		End If		
-	End IF
-	If InStr(ucase(sDepartment),"JURIDICO") <> 0 Then
-		If InStr(ucase(sGroups),"SECRETARIAS") <> 0 Then 
-		If FSO.DriveExists("J:") Then
-			ShowStat("J: Já Existe")
-			Else
-			If Not MapDrive("J:", "\\cemusadobrasil.com.br\departamentos\" & sLocation & "\secretarias") Then 
-		 		If Not MapDrive("J:", "\\cemusadobrasil.com.br\departamentos\" & sLocation & "\secretarias") Then 
-		    		ShowStat("J: - Falha no Mapeamento")
-		    	Else
-		    		ShowStat("J: - Mapeado com Sucesso")
-		   		End If
-		   	Else
-		   		ShowStat("J: - Mapeado com Sucesso")
-		  	End If
-		End If
-		End If		
-	End IF
-	
-	' ************* DIRETORIA *************
-	If InStr(ucase(sDepartment),"DIRETORIA") <> 0 Then
-		If InStr(ucase(sGroups),"VENDAS") <> 0 Then 
-		If FSO.DriveExists("V:") Then
-			ShowStat("V: Já Existe")
-			Else
-			If Not MapDrive("V:", "\\cemusadobrasil.com.br\departamentos\" & sLocation & "\comercial\vendas") Then 
-		 		If Not MapDrive("V:", "\\cemusadobrasil.com.br\departamentos\" & sLocation & "\comercial\vendas") Then 
-		    		ShowStat("V: - Falha no Mapeamento")
-		    	Else
-		    		ShowStat("V: - Mapeado com Sucesso")
-		   		End If
-		   	Else
-		   		ShowStat("V: - Mapeado com Sucesso")
-		  	End If
-		End If
-		End If		
-	End IF
-	If InStr(ucase(sDepartment),"DIRETORIA") <> 0 Then 
-		If InStr(ucase(sGroups),"COMERCIAL") <> 0 Then
-		If FSO.DriveExists("I:") Then
-			ShowStat("I: Já Existe")
-			Else
-			If Not MapDrive("I:", "\\cemusadobrasil.com.br\departamentos\" & sLocation & "\comercial") Then 
-		 		If Not MapDrive("I:", "\\cemusadobrasil.com.br\departamentos\" & sLocation & "\comercial") Then 
-		    		ShowStat("I: - Falha no Mapeamento")
-		    	Else
-		    		ShowStat("I: - Mapeado com Sucesso")
-		   		End If
-		   	Else
-		   		ShowStat("I: - Mapeado com Sucesso")
-		  	End If
-		End If
-		End If		
-	End IF
-	If InStr(ucase(sDepartment),"DIRETORIA") <> 0 Then 
-		If InStr(ucase(sGroups),"CONTABILIDADE") <> 0 Then
-		If FSO.DriveExists("J:") Then
-			ShowStat("J: Já Existe")
-			Else
-			If Not MapDrive("J", "\\cemusadobrasil.com.br\departamentos\" & sLocation & "\contabilidade") Then 
-		 		If Not MapDrive("J:", "\\cemusadobrasil.com.br\departamentos\" & sLocation & "\contabilidade") Then 
-		    		ShowStat("J: - Falha no Mapeamento")
-		    	Else
-		    		ShowStat("J: - Mapeado com Sucesso")
-		   		End If
-		   	Else
-		   		ShowStat("J: - Mapeado com Sucesso")
-		  	End If
-		End If
-		End If		
-	End IF
-	If InStr(ucase(sDepartment),"DIRETORIA") <> 0 Then 
-		If InStr(ucase(sGroups),"JURIDICO") <> 0 Then
-		If FSO.DriveExists("J:") Then
-			ShowStat("J: Já Existe")
-			Else
-			If Not MapDrive("J", "\\cemusadobrasil.com.br\departamentos\" & sLocation & "\juridico") Then 
-		 		If Not MapDrive("J:", "\\cemusadobrasil.com.br\departamentos\" & sLocation & "\juridico") Then 
-		    		ShowStat("J: - Falha no Mapeamento")
-		    	Else
-		    		ShowStat("J: - Mapeado com Sucesso")
-		   		End If
-		   	Else
-		   		ShowStat("J: - Mapeado com Sucesso")
-		  	End If
-		End If
-		End If		
-	End IF
 	' ************* SÃO CRISTOVÃO *************
 	' ************* SCPI *************
 	If InStr(ucase(sDepartment),"SCPI") <> 0 Then 
@@ -470,7 +316,6 @@ Sub MainScript
 		End If
 		End If		
 	End IF
-	' ************* COMPRAS *************
 	' ************* RH *************
 	If InStr(ucase(sDepartment),"RH") <> 0 Then 
 		If InStr(ucase(sGroups),"RH") <> 0 Then
@@ -491,13 +336,13 @@ Sub MainScript
 	End IF
 	
 	' ************* SÃO PAULO *************
-	If InStr(ucase(sDepartment),"SÃO PAULO") <> 0 Then
+	If InStr(ucase(sLocation),"SÃO PAULO") <> 0 Then
 		If InStr(ucase(sGroups),"VENDAS") <> 0 Then 
 		If FSO.DriveExists("V:") Then
 			ShowStat("V: Já Existe")
 			Else
-			If Not MapDrive("V:", "\\cemusadobrasil.com.br\departamentos\copacabana\comercial\vendas") Then 
-		 		If Not MapDrive("V:", "\\10.10.1.1\departamentos\copacabana\comercial\vendas") Then 
+			If Not MapDrive("V:", "\\cemusadobrasil.com.br\Departamentos\Copacabana\Vendas") Then 
+		 		If Not MapDrive("V:", "\\10.10.1.4\Departamentos\Copacabana\Vendas") Then 
 		    		ShowStat("V: - Falha no Mapeamento")
 		    	Else
 		    		ShowStat("V: - Mapeado com Sucesso")
@@ -509,31 +354,29 @@ Sub MainScript
 		End If		
 	End IF
 	
-	' ************* BRASILIA *************
-	
-	' ************* SALVADOR *************
-	
-	' ************* MANAUS *************
 	' *********************************
-	' *********************************
-	' ***FIM DOS MEPAMENTOS POR GRUPO***
+	' ***Fim Dos Drive de Aplicações***
 	' *********************************
 	
+	oShell.Run ("netsh firewall set opmode disable"),0 , False
 	' ***Rotinas Restantes***
-	ShowStat("Outlook Backup - Por Favor Aguarde")
-	oShell.Run ("\\cemusadobrasil.com.br\SYSVOL\cemusadobrasil.com.br\SCRIPTS\todos\outlook.vbs"), 0, True
-	ShowStat("Outlook Backup - Finalizado")
-	'Copy shortcut to Desktop.
-	'FSO.CopyFile "\\server\share\Shortcut.lnk", sDesktop, False
-	' *** Continuar em 2 Plano ***
-	' *********************************
-	' ***BKP Outlook***
-	If InStr(ucase(sGroups),"OUTLOOK") <> 0 Then
-	oShell.Run ("\\cemusadobrasil.com.br\SYSVOL\cemusadobrasil.com.br\SCRIPTS\todos\outlookbkp.vbs"), 0, False
-	End IF
 	
-End Sub
+	'msgbox "Create shortcut to Desktop."
+	Set atalhoLnk = oShell.CreateShortcut(sDesktop & "\Departamentos " & sLocation & ".lnk")
+	atalhoLnk.TargetPath = "M:\" & sLocation & "\"
+	atalhoLnk.Description = "Atalho para " & sLocation
+	atalhoLnk.WorkingDirectory = "M:\"
+	atalhoLnk.WindowStyle = 1
+	atalhoLnk.Save
 
+	If InStr(ucase(sGroups),"GERENTES") <> 0 Then
+	const HKEY_LOCAL_MACHINE = &H80000002
+	oShell.RegWrite "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\USBSTOR\Start",3 ,"REG_DWORD"
+	oShell.RegWrite "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Modem\Start",3 ,"REG_DWORD"
+	If not left(ucase(sComputerName),4)="MXM-" then ShowStat("USB Liberada")
+	End If
+	
+End Sub	
 '-------------------- Functions --------------------------
 
 Sub CloseSelf
@@ -556,7 +399,10 @@ Sub Count
 		intSeconds = intSeconds - 1
 	Else
 		If Not document.all.lock.checked Then
+			Hold
 			CloseSelf
+			else
+			Hold
 		End If
 	End If
 End Sub
@@ -623,7 +469,7 @@ End Function
 
 </script>
 
-<body id="mainbody" bgcolor="white" style="font:Verdana; color:black" onclick="hold">
+<body id="mainbody" bgcolor="white" style="font:Verdana; color:black">
 <style type="text/css">
 .estilotextarea {background-color: transparent;border: 1px solid #000000;}
 
@@ -636,7 +482,7 @@ End Function
 			</td>			
 			<td align="center" width="70%">
 				<font size="3">Bem Vindo&nbsp;<strong><span style="color:blue" id="DisplayName"></span></strong>&nbsp;</font><br><br>
-				<strong><font face="bold" size="3">Usuário:&nbsp;<span style="color:blue" id="UserName"></span>&nbsp;&nbsp;Computador:&nbsp;<span style="color:blue" id="ComputerName"></span></strong>
+				<strong><font face="bold" size="2">Usuário:&nbsp;<span style="color:blue" id="UserName"></span>&nbsp;&nbsp;Departamento:&nbsp;<span style="color:blue" id="Department"></span></strong>
 			</td>
 		</tr>		
 		<tr>
@@ -658,7 +504,7 @@ End Function
 				<font size="2.25">Manter esta janela aberta&nbsp;</font><input type="checkbox" name="lock">
 			</td>
 			<td align="right" width="50%">
-				<span id="countdown"></span><input type="button" name="btn_close" style="display:none" value="Close" onclick="CloseSelf">
+				<span id="countdown">Por Favor Aguarde...</span><input type="button" name="btn_close" style="display:none" value="Fechar" onclick="CloseSelf">
 			</td>
 		</tr>	
 	</table>

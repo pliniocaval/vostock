@@ -26,7 +26,6 @@ if left(ucase(computador),4)="PVIL" then wscript.quit
 set file = objFSO.GetFile(cadLogFile)		
 If DateDiff("d", file.DateLastModified, Now) > 183 Then 
 objShell.Run htaloc&"\Cadastro.hta",0 , True
-Wscript.Sleep 2500
 wscript.quit
 else
 wscript.quit

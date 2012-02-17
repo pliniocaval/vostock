@@ -20,18 +20,28 @@ Set objFSO = CreateObject("Scripting.FileSystemObject")
   constantes =   f.ReadAll
   f.close
   execute constantes
+
 ' SAIDA POR Exceção
-If left(ucase(computador),4)="PVIL" Then wscript.quit
+if left(ucase(computador),4)="IMAS" then wscript.quit
+if left(ucase(computador),4)="CSRV" then wscript.quit
+if left(ucase(computador),4)="SQLS" then wscript.quit
+if left(ucase(computador),6)="CBSB04" then wscript.quit
+if left(ucase(computador),7)="CEMUSA-" then wscript.quit
+
+'CRITICA PARA ASSINATURA NO TS
 If left(ucase(computador),3)="MXM" Then
 	If left(ucase(user),4)="PVIL" Then
 	ass
 	Else
+	If left(ucase(user),4)="CASJ" Then
+	ass
+	Else
 	wscript.quit
+	End if
 	End if
 Else
 ass
 End If
-
 
 '--------------------
 Function ass
@@ -149,7 +159,8 @@ objSelection.TypeText(Chr(11))
 If objFSO.FileExists(TISRV & "\ASS\" & sLocation & ".jpg") Then 'verifica de existe a imagem que ira aparecer na assinatura.
 Set s = objSelection.InlineShapes.AddPicture(TISRV & "\ASS\" & sLocation & ".jpg")	'aqui voce define o caminho da imagem que ira aparecer na assinatura.
 With s
-
+.Height = 80
+.Width = 450
 End With
 objSelection.TypeParagraph()
 Else
