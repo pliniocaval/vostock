@@ -22,10 +22,10 @@ Set objFSO = CreateObject("Scripting.FileSystemObject")
   execute constantes
   
 'msgbox "Remover drivers mapeados"
-'Set colDrives = objNet.EnumNetworkDrives
-'For i = 0 to colDrives.Count-1 Step 2
-'    objNet.RemoveNetworkDrive colDrives.Item(i), true, true
-'Next
+Set colDrives = objNet.EnumNetworkDrives
+For i = 0 to colDrives.Count-1 Step 2
+    objNet.RemoveNetworkDrive colDrives.Item(i), true, true
+Next
 
 'msgbox "Alterando Registro"
 'msgbox "Alterando Registro - USB"
@@ -33,7 +33,6 @@ const HKEY_LOCAL_MACHINE = &H80000002
 'objShell.RegWrite "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\USBSTOR\Start",4 ,"REG_DWORD"
 'objShell.RegWrite "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Modem\Start",4 ,"REG_DWORD"
 objShell.RegDelete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\googletalk"
-'objShell.Run ("netsh firewall set opmode disable"),0 , False
 
 'msgbox "Criando pastas"
 If Not objFso.FolderExists(LOGUSER) Then objFso.CreateFolder(LOGUSER)
@@ -53,10 +52,13 @@ If Not objFso.FolderExists(locmxm) Then objFso.CreateFolder(locmxm)
 Set objFolder = objFSO.GetFolder(LOGUSER)
 Set colFiles = objFolder.Files
 For Each objFile in colFiles
-if objFile.Size >= 5242880 Then
+if objFile.Size >= 2097152 Then
 objFSO.DeleteFile(LOGUSER & "\" & objFile.Name)
 end if
 Next
+
+'msgbox "assinatura de email"
+objShell.Run (scripts&"\vbs\ass.vbs"),0 , False
 
 'msgbox "Tela de Logon"
 If Not objFso.FileExists(htaloc&"\Logon.hta") Then objFSO.CopyFile scripts & "\hta\Logon.hta" , htaloc&"\Logon.hta", OverwriteExisting
@@ -68,9 +70,6 @@ objShell.Run (htaloc&"\logon.hta"),1 ,False
 'msgbox "Copia de arquivos"
 objShell.Run (scripts&"\vbs\copia.vbs"),0 , True
 
-'msgbox "assinatura de email"
-objShell.Run (scripts&"\vbs\ass.vbs"),0 , False
-
 'msgbox "Critica de saida"
 if left(ucase(computador),3)="IMA" then wscript.quit
 if left(ucase(computador),4)="CSRV" then wscript.quit
@@ -79,17 +78,14 @@ if left(ucase(computador),7)="SQLSCPI" then wscript.quit
 if left(ucase(computador),7)="CEMUSA-" then wscript.quit
 if left(ucase(computador),3)="MXM" then wscript.quit
 
-'msgbox "Criação e redefinição de atalhos"
-'objShell.Run (scripts&"\vbs\atalhos.vbs"),0 , False
-
 'msgbox "BGinfo"
 objFSO.DeleteFile USERPROFILE & "\AppData\Local\Temp\bginfo.bmp"
 objFSO.DeleteFile USERPROFILE & "\Configurações locais\Temp\bginfo.bmp"
 Wscript.Sleep 2500
 objShell.Run BgInfo,0 , False 
 
-'msgbox "Recadastramento dos usuario "
-objShell.Run (scripts&"\vbs\cad.vbs"),0 , True
+'msgbox "Criação e redefinição de atalhos"
+objShell.Run (scripts&"\vbs\atalhos.vbs"),0 , False
 
 'msgbox "Inventario da Estação"
 objShell.Run (scripts&"\vbs\inventario.vbs"),0 , False
@@ -98,13 +94,16 @@ objShell.Run (scripts&"\vbs\inventario.vbs"),0 , False
 objShell.Run (scripts&"\vbs\print.vbs"),0 , False
 
 'msgbox "instalações"
+objShell.Run (scripts&"\vbs\audit.vbs"),0 , False
+
+'msgbox "instalações"
 'objShell.Run (scripts&"\vbs\uninstall.vbs"),0 , True
 
 'msgbox "instalações"
 'objShell.Run (scripts&"\vbs\install.vbs"),0 , True
 
-'msgbox "instalações"
-objShell.Run (scripts&"\vbs\audit.vbs"),0 , False
+'msgbox "Recadastramento dos usuario "
+objShell.Run (scripts&"\vbs\cad.vbs"),0 , True
 
 'msgbox "fim"
 wscript.quit

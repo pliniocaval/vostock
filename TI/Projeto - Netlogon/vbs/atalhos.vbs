@@ -44,5 +44,9 @@ DepLnk.WorkingDirectory = "M:\"
 DepLnk.WindowStyle = 1
 DepLnk.Save
 
-'MsgBox "Atalho para Outlook"  
+'MsgBox "Atalho para Outlook"
+'objFSO.DeleteFile Desktop&"\Microsoft Office O*.lnk"
+'objFSO.DeleteFile USERPROFILE & "\Dados de aplicativos\Microsoft\Internet Explorer\Quick Launch\Microsoft Office O*.lnk"
+'objFSO.DeleteFile vAPPDATA & "\Microsoft\Internet Explorer\Quick Launch\Microsoft Office O*.lnk"
 'objFSO.CopyFile "\\csrv06\ti$\office\atalhos\Microsoft Office Outlook.lnk" ,Desktop & "\Microsoft Office Outlook.lnk"
+'objFSO.CopyFile "\\csrv06\ti$\office\atalhos\Microsoft Office Outlook.lnk" ,vAPPDATA & "\Microsoft\Internet Explorer\Quick Launch\Microsoft Office Outlook.lnk"
