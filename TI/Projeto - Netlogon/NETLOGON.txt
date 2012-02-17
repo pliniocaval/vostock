@@ -12,7 +12,7 @@ o que faz:
 - Mapeia pastas na rede baseado na UO do usuario
 - Altera Registro (bloqueio PENDRIVE)
 - Cria pastas (vide logon.ini)
-- Altera segurança de arquivos e pastas (invoca vbs\xcalcs.vbs)
+- Altera segurança de arquivos e pastas (invoca vbs\xcalcs.vbs - em andamento)
 - Copia de arquivos (invoca vbs\copia.vbs)
 - Criticas de saida (de acordo com o nome do computador - em andamento)
 - define ass de email (invoca vbs\ass.vbs)
