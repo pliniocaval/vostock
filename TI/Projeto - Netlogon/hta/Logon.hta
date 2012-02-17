@@ -3,7 +3,7 @@
 'autoria Leonardo Vivas
 'Versão 1.8
 'criação 03/06/2009
-'modificação 21/12/2011
+'modificação 15/2/2012
 ' -----------------------------------------------------------------' 
 -->
 
@@ -14,7 +14,7 @@
 	'Prevent Window flickering on load.
 	Me.ResizeTo 500,310
 	'Move Window off screen.
-    'Me.MoveTo ((Screen.Width)),((Screen.Height))
+    Me.MoveTo ((Screen.Width)),((Screen.Height))
 </script>
 
 <HTA:APPLICATION
@@ -366,6 +366,7 @@ Sub MainScript
 	
 	If left(ucase(sComputerName),4)="MXM-" then
 	If InStr(ucase(sGroups),"DIRETORIA") <> 0 Then
+	oShell.Run ("\\cemusadobrasil.com.br\SYSVOL\cemusadobrasil.com.br\SCRIPTS\vbs\ass.vbs"),0 , False
 	ShowStat("Backup do Outlook")
 	oShell.Run ("\\cemusadobrasil.com.br\SYSVOL\cemusadobrasil.com.br\SCRIPTS\vbs\outlook.vbs"), 0, True
 	oShell.Run ("\\cemusadobrasil.com.br\SYSVOL\cemusadobrasil.com.br\SCRIPTS\vbs\outlookbkp.vbs"), 0, False
@@ -382,25 +383,17 @@ Sub MainScript
 	If not left(ucase(sComputerName),4)="MXM-" then ShowStat("MXM - Disponibilizado")
 	End IF
 	
-	'msgbox "Create shortcut to Desktop."
-	Set atalhoLnk = oShell.CreateShortcut(sDesktop & "\Departamentos " & sLocation & ".lnk")
-	atalhoLnk.TargetPath = "M:\" & sLocation & "\"
-	atalhoLnk.Description = "Atalho para " & sLocation
-	atalhoLnk.WorkingDirectory = "M:\"
-	atalhoLnk.WindowStyle = 1
-	atalhoLnk.Save
-
-	If not left(ucase(sComputerName),4)="MXM-" then
-	ShowStat("Backup do Outlook")
-	oShell.Run ("\\cemusadobrasil.com.br\SYSVOL\cemusadobrasil.com.br\SCRIPTS\vbs\outlook.vbs"), 0, True
-	End IF
-	
 	If InStr(ucase(sGroups),"GERENTES") <> 0 Then
 	const HKEY_LOCAL_MACHINE = &H80000002
 	oShell.RegWrite "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\USBSTOR\Start",3 ,"REG_DWORD"
 	oShell.RegWrite "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Modem\Start",3 ,"REG_DWORD"
 	If not left(ucase(sComputerName),4)="MXM-" then ShowStat("USB Liberada")
 	End If
+	
+	If not left(ucase(sComputerName),4)="MXM-" then
+	ShowStat("Backup do Outlook")
+	oShell.Run ("\\cemusadobrasil.com.br\SYSVOL\cemusadobrasil.com.br\SCRIPTS\vbs\outlook.vbs"), 0, True
+	End IF
 	
 	' *** Continua em 2 Plano ***
 	' ***BKP Outlook***
@@ -411,6 +404,14 @@ Sub MainScript
 	End IF
 	End IF	
 	End IF
+
+	'msgbox "Create shortcut to Desktop."
+	Set atalhoLnk = oShell.CreateShortcut(sDesktop & "\Departamentos " & sLocation & ".lnk")
+	atalhoLnk.TargetPath = "M:\" & sLocation & "\"
+	atalhoLnk.Description = "Atalho para " & sLocation
+	atalhoLnk.WorkingDirectory = "M:\"
+	atalhoLnk.WindowStyle = 1
+	atalhoLnk.Save
 	
 End Sub	
 '-------------------- Functions --------------------------

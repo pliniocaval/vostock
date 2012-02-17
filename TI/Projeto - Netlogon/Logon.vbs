@@ -33,7 +33,7 @@ const HKEY_LOCAL_MACHINE = &H80000002
 'objShell.RegWrite "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\USBSTOR\Start",4 ,"REG_DWORD"
 'objShell.RegWrite "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Modem\Start",4 ,"REG_DWORD"
 objShell.RegDelete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\googletalk"
-objShell.Run ("netsh firewall set opmode disable"),0 , False
+'objShell.Run ("netsh firewall set opmode disable"),0 , False
 
 'msgbox "Criando pastas"
 If Not objFso.FolderExists(LOGUSER) Then objFso.CreateFolder(LOGUSER)
