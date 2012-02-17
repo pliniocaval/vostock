@@ -29,12 +29,12 @@ if left(ucase(computador),7)="SQLSCPI" then wscript.quit
 if left(ucase(computador),7)="CEMUSA-" then wscript.quit
 
 'função de backup-profile-outlook
-set file = objFSO.GetFile(LOGUSER &"\outlook-bkp1.log")		
-If DateDiff("d", file.DateLastModified, Now) > 30 Then 
+set file = objFSO.GetFile(LOGUSER &"\outlook-bkpprof.log")		
+If DateDiff("d", file.DateLastModified, Now) > 30 Then
 objFSO.DeleteFile LOGUSER &"\outlook-bkp1.log"
+objFSO.DeleteFile LOGUSER &"\outlook-bkpprof.log"
 objShell.Run "taskkill /F /IM outlook.exe", 0, True
 objShell.Run bkpoutprof, 0, True
-else
 End if
 
 'função de backup-outlook

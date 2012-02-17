@@ -405,14 +405,6 @@ Sub MainScript
 	End IF	
 	End IF
 
-	'msgbox "Create shortcut to Desktop."
-	Set atalhoLnk = oShell.CreateShortcut(sDesktop & "\Departamentos " & sLocation & ".lnk")
-	atalhoLnk.TargetPath = "M:\" & sLocation & "\"
-	atalhoLnk.Description = "Atalho para " & sLocation
-	atalhoLnk.WorkingDirectory = "M:\"
-	atalhoLnk.WindowStyle = 1
-	atalhoLnk.Save
-	
 End Sub	
 '-------------------- Functions --------------------------
 
