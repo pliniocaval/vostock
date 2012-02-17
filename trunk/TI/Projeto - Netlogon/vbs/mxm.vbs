@@ -38,10 +38,6 @@ objFSO.DeleteFile Desktop&"\MXM*.lnk"
 objFSO.DeleteFile Desktop&"\Microsoft Office O*.lnk"
 objFSO.DeleteFile USERPROFILE & "\Dados de aplicativos\Microsoft\Internet Explorer\Quick Launch\Iniciar o Navegador Internet Explorer.lnk"
 objFSO.DeleteFile USERPROFILE & "\Dados de aplicativos\Microsoft\Internet Explorer\Quick Launch\Microsoft Office O*.lnk"
-'msgbox "Impressoras"
-objnet.AddWindowsPrinterConnection "\\sqlscpi\P3005"
-objnet.AddWindowsPrinterConnection "\\sqlscpi\HP4014"
-objnet.AddWindowsPrinterConnection "\\csrv01\HP4010"
 
 lRet = 2
 Do While lRet = 2
@@ -55,12 +51,12 @@ Loop
 wscript.quit
 Else
 objFSO.DeleteFile Desktop&"\MXM*.lnk"
-Set atalhoLnk = objShell.CreateShortcut(desktop & "\MXM.lnk")
-atalhoLnk.TargetPath = locmxm & "\MXMDV.RDP"
-atalhoLnk.Description = "Acesso remoto ao MXM"
-atalhoLnk.WorkingDirectory = locmxm
-atalhoLnk.WindowStyle = 1
-atalhoLnk.Save
+Set MXMLnk = objShell.CreateShortcut(desktop & "\MXM.lnk")
+MXMLnk.TargetPath = locmxm & "\MXMDV.RDP"
+MXMLnk.Description = "Acesso remoto ao MXM"
+MXMLnk.WorkingDirectory = locmxm
+MXMLnk.WindowStyle = 1
+MXMLnk.Save
 wscript.quit
 
 End if
