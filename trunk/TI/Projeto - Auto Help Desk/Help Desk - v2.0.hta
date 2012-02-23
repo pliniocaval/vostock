@@ -40,7 +40,7 @@
 
 Dim FSO, oShell, oNetwork, objSysInfo, sUserDN, objUser
 Dim sDepartment, sLocation, sUserName, sComputerName, sDomain, sDisplayName, sGroups, sDN
-Dim sStatus, intSeconds, sDesktop, sScriptDir, iTimerID, atalhoLnk
+Dim sStatus, intSeconds, sDesktop, sScriptDir, iTimerID, atalhoLnk, dtmStartTime
 
 'Configure for your domain. See "MainScript" Sub for drive mappings.
 sDN = "cemusadobrasil.com.br"
@@ -154,7 +154,8 @@ End Sub
 
 Sub rede
 rede01.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Mapear Rede'  name=run_button onClick=maps>"
-rede02.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Renovar IP'  name=run_button onClick=IP>"
+rede02.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Liberar IP'  name=run_button onClick=IP01>"
+rede03.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Renovar IP'  name=run_button onClick=IP02>"
 End sub
 sub maps
 	' *********************************
@@ -236,15 +237,25 @@ sub maps
 ShowStat("Processo Finalizado")
 End Sub	
 
-Sub IP
-Set objWMIService = GetObject("winmgmts:\\" & sComputerName & "\root\cimv2")
+Sub IP01
+firewall = HTA_Path & "EXEC\psexec.exe -u cemusa\informatica -p 654321 netsh firewall set opmode disable"
+Set objWMIService = GetObject("winmgmts:\\LocalHost\root\cimv2")
 Set objDhcpNic = objWMIService.ExecQuery _
 ("Select * From Win32_NetworkAdapterConfiguration Where IPEnabled = True")
-firewall = HTA_Path & "EXEC\psexec.exe -u cemusa\informatica -p 654321 netsh firewall set opmode disable"
 ShowStat("Liberando IP")
 For Each objNic in objDhcpNic
 objNic.ReleaseDHCPLease()
 Next
+ShowStat("Verificando firewall")
+oShell.Run firewall, 0, True
+ShowStat("Processo Finalizado")
+End sub
+
+Sub IP02
+firewall = HTA_Path & "EXEC\psexec.exe -u cemusa\informatica -p 654321 netsh firewall set opmode disable"
+Set objWMIService = GetObject("winmgmts:\\LocalHost\root\cimv2")
+Set objDhcpNic = objWMIService.ExecQuery _
+("Select * From Win32_NetworkAdapterConfiguration Where IPEnabled = True")
 ShowStat("Verificando firewall")
 oShell.Run firewall, 0, True
 ShowStat("Renovando IP")
@@ -276,13 +287,12 @@ Sub Count
 	Else
 		If Not document.all.lock.checked Then
 			Hold
-			CloseSelf
 			else
 			Hold
 		End If
 	End If
 End Sub
-	
+
 Function GetGroups(sUDN)
 	On Error Resume Next
 	
@@ -345,7 +355,7 @@ End Function
 
  Function DW
  
-    strFileURL = "http://10.10.1.2/cemusa/HTA/SVER.INI"
+    strFileURL = "http://www.cemusadobrasil.com.br/HTA/SVER.INI"
     strHDLocation = HTA_Path & "SYS\SVER.INI"
 
    ' Fetch the file
@@ -425,19 +435,19 @@ End Function
 	<table width="100%" border="0" cellpadding="0">
 		<tr align="left">
 			<td>
-				<textarea class=estilotextarea rows="12" name="status" cols="75" style="font-family: Verdana; font-weight:bold; font-size: 8pt"></textarea>
+				<textarea class=estilotextarea rows="20" name="status" cols="75" style="font-family: Verdana; font-weight:bold; font-size: 8pt"></textarea>
 			</td>
 		</tr>
 		</table>	
 	<table width="100%" border="0" cellpadding="0">
 		<tr valign="top">
-			<td align="left" width="50%">
-				<font size="2.25">Manter esta janela aberta&nbsp;</font><input type="checkbox" name="lock">
-			</td>
-			<td align="right" width="50%">
+			<td align="left" width="75%">
+			<font size="2.25"><input type="checkbox"  DISABLED name="lock">&nbsp;Não Verificar Atualização</font>	
+				</td>
+			<td align="right" width="25%">
 				<span id="countdown">Por Favor Aguarde...</span><input type="button" name="btn_close" style="display:none" value="Fechar" onclick="CloseSelf">
 			</td>
 		</tr>	
 	</table>
-	Versão:&nbsp;<strong><span id="VER"></span></strong>
+<font size="2.25">Versão:&nbsp;<strong><span id="VER"></span></strong></font>
 </body>
