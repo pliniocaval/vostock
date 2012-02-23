@@ -32,7 +32,7 @@
 	 SHOWINTASKBAR="YES"
 	 SCROLL="NO"
 	 NAVIGABLE="yes"
-	 Icon="c:\ti\hta\img\logo.ico"
+	 Icon=HTA_Path& "IMG\logo.ico"
 />
 </head>
 
@@ -42,7 +42,7 @@ Dim FSO, oShell, oNetwork, objSysInfo, sUserDN, objUser
 Dim sDepartment, sLocation, sUserName, sComputerName, sDomain, sDisplayName, sGroups, sDN
 Dim sStatus, intSeconds, sDesktop, sScriptDir, iTimerID, atalhoLnk, dtmStartTime
 
-'Configure for your domain. See "MainScript" Sub for drive mappings.
+'Configure for your domain. See "maps" Sub for drive mappings.
 sDN = "cemusadobrasil.com.br"
 
 Sub Window_onLoad
