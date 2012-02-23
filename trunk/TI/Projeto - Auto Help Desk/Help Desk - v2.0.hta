@@ -96,7 +96,7 @@ Sub Window_onLoad
 		pVer = "<font color=green>"& lVer &"</font>"
 		VER.InnerHTML = pVer
 		else
-		pVer = "<font color=red>"& lVer &" Atualização disponivel " & sVer & "</font>"
+		pVer = "<font color=red>"& lVer &" Versão Atual: " & sVer & "</font>"
 		VER.InnerHTML = pVer
 		end if
 
@@ -442,12 +442,12 @@ End Function
 	<table width="100%" border="0" cellpadding="0">
 		<tr valign="top">
 			<td align="left" width="75%">
-			<font size="2.25"><input type="checkbox"  DISABLED name="lock">&nbsp;Não Verificar Atualização</font>	
+			<font size="2.25"><input type="checkbox" name="lock" CHECKED DISABLED>&nbsp;Verificar por Atualização</font>	
 				</td>
 			<td align="right" width="25%">
-				<span id="countdown">Por Favor Aguarde...</span><input type="button" name="btn_close" style="display:none" value="Fechar" onclick="CloseSelf">
+				<font size="2.25"><span id="countdown">Por Favor Aguarde...</span></font><input type="button" name="btn_close" style="display:none" value="Fechar" onclick="CloseSelf">
 			</td>
 		</tr>	
 	</table>
-<font size="2.25">Versão:&nbsp;<strong><span id="VER"></span></strong></font>
+<font size="2.25">Versão Local:&nbsp;<strong><span id="VER"></span></strong></font>
 </body>
