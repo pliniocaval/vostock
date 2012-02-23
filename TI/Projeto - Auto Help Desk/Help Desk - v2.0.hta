@@ -1,0 +1,443 @@
+<!--
+'Script do logon
+'autoria Leonardo Vivas
+'Versão 1.8
+'criação 03/06/2009
+'modificação 15/2/2012
+' -----------------------------------------------------------------' 
+-->
+
+<head>
+<title></title>
+
+<script language="VBScript">
+	'Prevent Window flickering on load.
+	Me.ResizeTo 500,550
+	'Move Window off screen.
+    Me.MoveTo ((Screen.Width)),((Screen.Height))
+</script>
+
+<HTA:APPLICATION
+     APPLICATIONNAME="Auto Help Desk"
+	 ID=AHD
+	 VERSION="0.7"
+     BORDER="thin"
+     CAPTION="YES"
+	 SYSMENU="YES"
+	 MAXIMIZEBUTTON="YES"
+	 MINIMIZEBUTTON="YES" 	 
+  	 SINGLEINSTANCE="NO"
+     WINDOWSTATE="NORMAL"
+     CONTEXTMENU="YES"
+	 SHOWINTASKBAR="YES"
+	 SCROLL="NO"
+	 NAVIGABLE="yes"
+	 Icon="c:\ti\hta\img\logo.ico"
+/>
+</head>
+
+<script language="VBScript">
+
+Dim FSO, oShell, oNetwork, objSysInfo, sUserDN, objUser
+Dim sDepartment, sLocation, sUserName, sComputerName, sDomain, sDisplayName, sGroups, sDN
+Dim sStatus, intSeconds, sDesktop, sScriptDir, iTimerID, atalhoLnk
+
+'Configure for your domain. See "MainScript" Sub for drive mappings.
+sDN = "cemusadobrasil.com.br"
+
+Sub Window_onLoad
+	On Error Resume Next
+	
+	Set FSO = CreateObject("Scripting.FileSystemObject")
+	Set oShell = CreateObject("WScript.Shell")
+	Set oNetwork = CreateObject("WScript.Network")
+
+    'Get User's information.
+    UserInfo
+    
+	'User's Desktop for deploying shortcuts. 
+    sDesktop = oShell.ExpandEnvironmentStrings("%USERPROFILE%") & "\Desktop" 
+	
+    'Coloca info. do usuario da tela de logon.
+	document.title = sDomain & " Auto Help Desk" 'Muda o titulo.
+	DisplayName.InnerHTML = sDisplayName
+	UserName.InnerHTML = sUserName
+	ComputerName.InnerHTML = sComputerName
+	Department.InnerHTML = sDepartment
+	
+	'Logotipo.
+	HTA = location.pathname
+	HTA_Path = Left(HTA,InStrRev(HTA,"\"))
+	
+	'Se houver um logo para o departamento este é colocado no local do padrão
+	If FSO.FileExists(HTA_Path & "IMG\logo-" & sDepartment & ".jpg") Then
+		Logo.src = "IMG\logo-" & sDepartment & ".jpg"
+	Else
+		Logo.src = "IMG\logo-default.jpg"
+	End If
+	
+	'Download das atualizações
+	DW
+	
+	'Valida Versão
+		lverfile = HTA_Path & "SYS\LVER.INI"
+		Set fl = FSO.OpenTextFile(lverfile)
+		lconstantes =   fl.ReadAll
+		fl.close
+		execute lconstantes
+				
+		sverfile = HTA_Path & "SYS\SVER.INI"
+		Set fs = FSO.OpenTextFile(sverfile)
+		sconstantes =   fs.ReadAll
+		fs.close
+		execute sconstantes
+				
+		if lver >= sVer then
+		pVer = "<font color=green>"& lVer &"</font>"
+		VER.InnerHTML = pVer
+		else
+		pVer = "<font color=red>"& lVer &" Atualização disponivel " & sVer & "</font>"
+		VER.InnerHTML = pVer
+		end if
+
+	
+	'Move to top left of screen.
+	Me.MoveTo 10,10
+	
+	'Countdown timer before closing. Set time in seconds.
+	intSeconds = 60
+	iTimerID = window.setInterval("Count", 1000)
+End Sub
+
+Sub Default_Buttons
+    If Window.Event.KeyCode = 13 Then
+    End If
+End Sub
+
+Sub UserInfo
+	On Error Resume Next
+	
+	Dim arrDept
+	
+	Set objSysInfo = CreateObject("ADSystemInfo")
+	
+	sUserDN = objSysInfo.UserName
+	Set objUser = GetObject("LDAP://" & sDN & "/" & sUserDN)
+	
+	'Busca informação do usuario e do computador.
+	sUserName = oNetwork.UserName
+	sComputerName = UCase((oNetwork.ComputerName))
+	sDomain = UCase((oNetwork.UserDomain))
+	sDisplayName = trim(objUser.DisplayName)
+	
+	'busca grupos do usuario
+	sGroups = GetGroups(sUserDN)
+	
+	'Pega o departamento da DN. (assumindo que os usuarios estão assim definidos: Dominio->Departmento->Usuario->Grupos)
+	arrDept = split(sUserDN, ",")
+	sDepartment = mid(arrDept(1), 4) 'Definir a profundidade. 
+									'EX: CN=UserName,OU=Users,OU=Departmento,DC=seu,DC=dominio,DC=com,DC=br; arrDept(1) = OU=Departmento
+	sLocation = mid(arrDept(2), 4) 'Set number in array where department OU name is found. 
+									'EX: CN=UserName,OU=Users,OU=Departmento,DC=seu,DC=dominio,DC=com,DC=br; arrDept(2) = OU=Localização								
+	
+	'Se não conseguir o nome completo use o nome de usuario.
+	If sDisplayName = "" Then
+
+		sDisplayName = sUserName
+	End If
+	VER.InnerHTML = pVer
+	Err.Clear
+	
+	Set objSysInfo = Nothing
+	Set objUser = Nothing
+End Sub
+
+Sub rede
+rede01.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Mapear Rede'  name=run_button onClick=maps>"
+rede02.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Renovar IP'  name=run_button onClick=IP>"
+End sub
+sub maps
+	' *********************************
+	' ***	 Mapeamentos Comuns  	***
+	' *********************************
+	If InStr(ucase(sGroups),"USUÁRIOS DO DOMÍNIO") or InStr(ucase(sGroups),"DOMAIN USERS") <> 0 Then 
+		If FSO.DriveExists("G:") Then
+			ShowStat("G: Já Existe")
+		Else
+			If Not MapDrive("G:", "\\cemusadobrasil.com.br\Geral") Then
+				If Not MapDrive("G:", "\\10.10.1.1\Geral") Then
+		   			ShowStat("G: - Falha no Mapeamento")
+		   		Else
+		   			ShowStat("G: - Mapeado com Sucesso")
+		   		End If
+		   	Else
+		   		ShowStat("G: - Mapeado com Sucesso")
+		  	End If
+		End If
+		
+		If FSO.DriveExists("M:") Then
+			ShowStat("M: Já Existe")
+		Else
+			If Not MapDrive("M:", "\\cemusadobrasil.com.br\departamentos") Then
+				If Not MapDrive("M:", "\\10.10.1.4\departamentos") Then
+		  			ShowStat("M: - Falha no Mapeamento")
+		   		Else
+		   			ShowStat("M: - Mapeado com Sucesso")
+		   		End If
+		   	Else
+		   		ShowStat("M: - Mapeado com Sucesso")
+		  	End If
+		End If
+		
+	If FSO.DriveExists("U:") Then
+			ShowStat("U: Já Existe")
+		Else
+			If Not FSO.FolderExists("\\cemusadobrasil.com.br\user$\" & sLocation & "\" & sUserName) Then FSO.CreateFolder("\\cemusadobrasil.com.br\user$\" & sLocation & "\" & sUserName)
+			 If Not MapDrive("U:", "\\cemusadobrasil.com.br\user$\" & sLocation & "\" & sUserName) Then
+				If Not MapDrive("U:", "\\10.10.1.4\user$\" & sLocation & "\" & sUserName) Then
+		   			ShowStat("U: - Falha no Mapeamento")
+		   		Else
+		   			ShowStat("U: - Mapeado com Sucesso")
+		   		End If
+		   	Else
+		   		ShowStat("U: - Mapeado com Sucesso")
+		  	End If
+		End If
+		
+		If FSO.DriveExists("H:") Then
+			ShowStat("H: Já Existe")
+			Else
+			If Not MapDrive("H:", "\\cemusadobrasil.com.br\departamentos\" & sLocation & "\" & sDepartment) Then 
+		 		If Not MapDrive("H:", "\\10.10.1.4\departamentos\" & sLocation & "\" & sDepartment) Then 
+		    		ShowStat("H: - Falha no Mapeamento")
+		    	Else
+		    		ShowStat("H: - Mapeado com Sucesso")
+		   		End If
+		   	Else
+		   		ShowStat("H: - Mapeado com Sucesso")
+		  	End If
+		End If
+		
+		If FSO.DriveExists("P:") Then
+			ShowStat("P: Já Existe")
+			Else
+			If Not MapDrive("P:", "\\csrv01\PDContas") Then 
+		 		If Not MapDrive("P:", "\\csrv01\PDContas") Then 
+		    		ShowStat("P: - Falha no Mapeamento")
+		    	Else
+		    		ShowStat("P: - Mapeado com Sucesso")
+		   		End If
+		   	Else
+		   		ShowStat("P: - Mapeado com Sucesso")
+		  	End If
+		End If
+		
+	End If
+ShowStat("Processo Finalizado")
+End Sub	
+
+Sub IP
+Set objWMIService = GetObject("winmgmts:\\" & sComputerName & "\root\cimv2")
+Set objDhcpNic = objWMIService.ExecQuery _
+("Select * From Win32_NetworkAdapterConfiguration Where IPEnabled = True")
+firewall = HTA_Path & "EXEC\psexec.exe -u cemusa\informatica -p 654321 netsh firewall set opmode disable"
+ShowStat("Liberando IP")
+For Each objNic in objDhcpNic
+objNic.ReleaseDHCPLease()
+Next
+ShowStat("Verificando firewall")
+oShell.Run firewall, 0, True
+ShowStat("Renovando IP")
+For Each objNic in objDhcpNic
+objNic.RenewDHCPLease()
+Next
+ShowStat("Processo Finalizado")
+End sub
+'-------------------- Functions --------------------------
+
+Sub CloseSelf
+	window.close
+End Sub
+
+Sub Hold
+	document.all.lock.checked = True
+	window.clearInterval(iTimerID)
+	countdown.Style.Display = "none"
+	btn_close.Style.Display = "inline"
+End Sub
+
+Sub Count
+	'Bring script to front.
+	window.focus()
+	
+	If intSeconds <> 0 Then
+		countdown.InnerHTML = intSeconds
+		intSeconds = intSeconds - 1
+	Else
+		If Not document.all.lock.checked Then
+			Hold
+			CloseSelf
+			else
+			Hold
+		End If
+	End If
+End Sub
+	
+Function GetGroups(sUDN)
+	On Error Resume Next
+	
+	'Function to return user's Group Memberships
+	Set objUser2 = GetObject("LDAP://" & sDN & "/" & sUDN)
+	
+	If objUser2.primaryGroupID = 513 Then
+		sList = sList & "Domain Users" & VbCrLf
+	Else 
+		If objUser2.primaryGroupID = 512 Then
+			sList = sList & "Domain Admins" & VbCrLf
+		End If
+	End If
+
+	oMemberOf = objUser2.GetEx("memberOf")
+
+	For Each oGroup In oMemberOf
+		oGroup = Mid(oGroup, 4, 330)
+		arrGroup = Split(oGroup, ",")
+		sList = sList & arrGroup(0) & VbCrLf
+	Next 
+	
+	Set objUser2 = Nothing
+	
+	GetGroups = sList
+End Function
+
+Function MapDrive(strDrive, strShare)
+  On Error Resume Next
+  Err.Clear
+  If FSO.DriveExists(strDrive) Then
+    Set objDrive = FSO.GetDrive(strDrive)
+    If Err.Number <> 0 Then
+      Err.Clear
+      MapDrive = False
+      Exit Function
+    End If
+    If CBool(objDrive.DriveType = 3) Then
+      oNetwork.RemoveNetworkDrive strDrive, True, True
+    Else
+      MapDrive = False
+      Exit Function
+    End If
+    Set objDrive = Nothing
+  End If
+  oNetwork.MapNetworkDrive strDrive, strShare
+  If Err.Number = 0 Then
+    MapDrive = True
+  Else
+    Err.Clear
+    MapDrive = False
+  End If
+  On Error GoTo 0
+End Function
+
+Function ShowStat(sMessage)
+	sStatus = sMessage & VbCrLf & sStatus
+	document.all.status.InnerText = sStatus
+End Function
+
+ Function DW
+ 
+    strFileURL = "http://10.10.1.2/cemusa/HTA/SVER.INI"
+    strHDLocation = HTA_Path & "SYS\SVER.INI"
+
+   ' Fetch the file
+
+    Set objXMLHTTP = CreateObject("MSXML2.XMLHTTP")
+
+    objXMLHTTP.open "GET", strFileURL, false
+    objXMLHTTP.send()
+
+    If objXMLHTTP.Status = 200 Then
+      Set objADOStream = CreateObject("ADODB.Stream")
+      objADOStream.Open
+      objADOStream.Type = 1 'adTypeBinary
+
+      objADOStream.Write objXMLHTTP.ResponseBody
+      objADOStream.Position = 0    'Set the stream position to the start
+
+      Set objFSO = Createobject("Scripting.FileSystemObject")
+        If objFSO.Fileexists(strHDLocation) Then objFSO.DeleteFile strHDLocation
+      Set objFSO = Nothing
+
+      objADOStream.SaveToFile strHDLocation
+      objADOStream.Close
+      Set objADOStream = Nothing
+    End if
+
+    Set objXMLHTTP = Nothing
+End Function
+
+</script>
+
+<body id="mainbody" bgcolor="white" style="font:Verdana; color:black">
+<style type="text/css">
+.estilotextarea {background-color: transparent;border: 1px solid #000000;}
+  .botao{
+        font-size:10px;
+        font-family:Verdana,Helvetica;
+        font-weight:bold;
+        color:black;
+        background:transparent;
+        border:0px;
+        ;width:100px;
+        height:22px;
+       }
+</style>
+	<table width="100%" border="0" cellpadding="0">
+		<tr valign="center">
+			<td align="center" width="30%">
+				<img name="Logo">					
+			</td>			
+			<td align="center" width="70%">
+				<font size="3">Bem Vindo&nbsp;<strong><span style="color:blue" id="DisplayName"></span></strong>&nbsp;</font><br><br>
+				<strong><font face="bold" size="2">Usuário:&nbsp;<span style="color:blue" id="UserName"></span>&nbsp;&nbsp;Departamento:&nbsp;<span style="color:blue" id="Department"></span>&nbsp;&nbsp;Computador:&nbsp;<span style="color:blue" id="ComputerName"></strong>
+			</td>
+		</tr>		
+		<tr>
+			<td>
+			</td>		
+		</tr>
+	</table>
+	<hr color="red">
+	<center> Escolha uma das Opções Abaixo:</center><br>
+	<table width="100%" border="4" cellpadding="0">
+	<tr align="center">
+	<td width="25%"><Input id=runbutton class=botao type=button value= 'Rede'  name=run_button onClick=rede></td>
+	<td width="25%">Internet</td>
+	<td width="25%">Servidores</td>
+	<td width="25%">Outros</td>
+	</table>
+	<table width="100%" border="4" cellpadding="0">
+	<tr align="center">
+	<td><span id="rede01"></span></td>
+	<td><span id="rede02"></span></td>
+	<td><span id="rede03"></span></td>
+	<td><span id="rede04"></span></td>
+	</table>
+	<table width="100%" border="0" cellpadding="0">
+		<tr align="left">
+			<td>
+				<textarea class=estilotextarea rows="12" name="status" cols="75" style="font-family: Verdana; font-weight:bold; font-size: 8pt"></textarea>
+			</td>
+		</tr>
+		</table>	
+	<table width="100%" border="0" cellpadding="0">
+		<tr valign="top">
+			<td align="left" width="50%">
+				<font size="2.25">Manter esta janela aberta&nbsp;</font><input type="checkbox" name="lock">
+			</td>
+			<td align="right" width="50%">
+				<span id="countdown">Por Favor Aguarde...</span><input type="button" name="btn_close" style="display:none" value="Fechar" onclick="CloseSelf">
+			</td>
+		</tr>	
+	</table>
+	Versão:&nbsp;<strong><span id="VER"></span></strong>
+</body>
