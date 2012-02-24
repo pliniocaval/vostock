@@ -42,9 +42,6 @@ Dim FSO, oShell, oNetwork, objSysInfo, sUserDN, objUser
 Dim sDepartment, sLocation, sUserName, sComputerName, sDomain, sDisplayName, sGroups, sDN
 Dim sStatus, intSeconds, sDesktop, sScriptDir, iTimerID, atalhoLnk, dtmStartTime
 
-'Configure for your domain. See "maps" Sub for drive mappings.
-sDN = "cemusadobrasil.com.br"
-
 Sub Window_onLoad
 	On Error Resume Next
 	
@@ -121,6 +118,7 @@ Sub UserInfo
 	
 	Set objSysInfo = CreateObject("ADSystemInfo")
 	
+	sDN = objSysInfo.DomainDNSName
 	sUserDN = objSysInfo.UserName
 	Set objUser = GetObject("LDAP://" & sDN & "/" & sUserDN)
 	
@@ -153,10 +151,21 @@ Sub UserInfo
 End Sub
 
 Sub rede
-rede01.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Mapear Rede'  name=run_button onClick=maps>"
-rede02.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Liberar IP'  name=run_button onClick=IP01>"
-rede03.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Renovar IP'  name=run_button onClick=IP02>"
+OP01.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Mapear Rede'  name=run_button onClick=maps>"
+OP02.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Liberar IP'  name=run_button onClick=IP01>"
+OP03.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Renovar IP'  name=run_button onClick=IP02>"
 End sub
+Sub Internet
+OP01.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Reparar Acesso'  name=run_button onClick=inter01>"
+OP02.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Remover Proxy'  name=run_button onClick=inter02>"
+OP03.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Adicionar Proxy'  name=run_button onClick=inter03>"
+End sub
+Sub serv
+OP01.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Servidores'  name=run_button onClick=SRV01>"
+OP02.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Links'  name=run_button onClick=LNK01>"
+OP03.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Externos'  name=run_button onClick=EXT01>"
+End sub
+
 sub maps
 	' *********************************
 	' ***	 Mapeamentos Comuns  	***
@@ -264,6 +273,41 @@ objNic.RenewDHCPLease()
 Next
 ShowStat("Processo Finalizado")
 End sub
+
+Sub inter01
+configproxy = "10.10.1.9:3128"
+oShell.RegWrite "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ProxyEnable", 0, "REG_DWORD"
+oShell.RegWrite "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ProxyEnable", 1, "REG_DWORD"
+oShell.RegWrite "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ProxyServer", configproxy, "REG_SZ"
+ShowStat("Acesso Reparado")
+End Sub
+
+Sub inter02
+oShell.RegWrite "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ProxyEnable", 0, "REG_DWORD"
+ShowStat("Proxy Desativado")
+End Sub
+
+Sub inter03
+configproxy = "10.10.1.9:3128"
+oShell.RegWrite "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ProxyEnable", 1, "REG_DWORD"
+oShell.RegWrite "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ProxyServer", configproxy, "REG_SZ"
+ShowStat("Proxy Ativo")
+End Sub
+
+Sub SRV01
+If InStr(ucase(sGroups),"USUÁRIOS DO DOMÍNIO") or InStr(ucase(sGroups),"DOMAIN USERS") <> 0 Then
+DoGetPingResult(Array("CSRV01", "CSRV02", "CSRV03", "CSRV05", "CSRV06"))
+End If
+If InStr(ucase(sGroups),"MXM-REMOTO") <> 0 Then
+DoGetPingResult(Array("CSRV02", "CSRV04"))
+End If
+End Sub
+Sub LNK01
+DoGetPingResult(Array("10.10.1.254", "10.10.2.254", "10.10.3.254", "10.10.4.254", "10.10.5.254", "10.10.6.254"))
+End Sub
+Sub EXT01
+DoGetPingResult(Array("mail.cemusadobrasil.com.br", "google.com.br"))
+End Sub
 '-------------------- Functions --------------------------
 
 Sub CloseSelf
@@ -291,6 +335,30 @@ Sub Count
 			Hold
 		End If
 	End If
+End Sub
+
+Sub DoGetPingResult(PING)
+strComputer = "."
+arrTargets = PING
+i = "0"
+For Each strTarget In arrTargets
+ Set objWMIService = GetObject("winmgmts:" _
+  & "{impersonationLevel=impersonate}!\\" & strComputer & "\root\cimv2")
+   Set colPings = objWMIService.ExecQuery _
+    ("Select * From Win32_PingStatus where Address = '" & strTarget & "'")
+   If Err = 0 Then
+     Err.Clear
+     For Each objPing in colPings
+       If objPing.StatusCode = 0 Then
+		ShowStat(UCase((strTarget)) & " - On Line.")
+	   Else
+		ShowStat(UCase((strTarget)) & " - Off Line.")
+       End If
+     Next
+   Else
+     Err.Clear
+   End If
+   Next
 End Sub
 
 Function GetGroups(sUDN)
@@ -421,16 +489,16 @@ End Function
 	<table width="100%" border="4" cellpadding="0">
 	<tr align="center">
 	<td width="25%"><Input id=runbutton class=botao type=button value= 'Rede'  name=run_button onClick=rede></td>
-	<td width="25%">Internet</td>
-	<td width="25%">Servidores</td>
+	<td width="25%"><Input id=runbutton class=botao type=button value= 'Internet'  name=run_button onClick=Internet></td>
+	<td width="25%"><Input id=runbutton class=botao type=button value= 'Servidores'  name=run_button onClick=serv></td>
 	<td width="25%">Outros</td>
 	</table>
 	<table width="100%" border="4" cellpadding="0">
 	<tr align="center">
-	<td><span id="rede01"></span></td>
-	<td><span id="rede02"></span></td>
-	<td><span id="rede03"></span></td>
-	<td><span id="rede04"></span></td>
+	<td><span id="OP01"></span></td>
+	<td><span id="OP02"></span></td>
+	<td><span id="OP03"></span></td>
+	<td><span id="OP04"></span></td>
 	</table>
 	<table width="100%" border="0" cellpadding="0">
 		<tr align="left">
