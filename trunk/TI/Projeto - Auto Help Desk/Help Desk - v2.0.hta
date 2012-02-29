@@ -77,18 +77,16 @@ Sub Window_onLoad
 	DW
 	
 	'Valida Versão
-		lverfile = HTA_Path & "SYS\LVER.INI"
-		Set fl = FSO.OpenTextFile(lverfile)
-		lconstantes =   fl.ReadAll
-		fl.close
-		execute lconstantes
-				
-		sverfile = HTA_Path & "SYS\SVER.INI"
-		Set fs = FSO.OpenTextFile(sverfile)
-		sconstantes =   fs.ReadAll
-		fs.close
-		execute sconstantes
-				
+	SYSFILES = HTA_Path & "SYS\"
+	Set objFolder = FSO.GetFolder(SYSFILES)
+	Set colFiles = objFolder.Files
+		For Each objFile in colFiles
+			Set SYSFILE = FSO.OpenTextFile(objFile)
+			SYS = SYSFILE.ReadAll
+			SYSFILE.close
+			execute SYS
+		Next
+		
 		if lver >= sVer then
 		pVer = "<font color=green>"& lVer &"</font>"
 		VER.InnerHTML = pVer
@@ -156,9 +154,9 @@ OP02.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Liberar IP
 OP03.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Renovar IP'  name=run_button onClick=IP02>"
 End sub
 Sub Internet
-OP01.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Reparar Acesso'  name=run_button onClick=inter01>"
-OP02.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Remover Proxy'  name=run_button onClick=inter02>"
-OP03.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Adicionar Proxy'  name=run_button onClick=inter03>"
+OP01.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Reparar Proxy'  name=run_button onClick=inter01>"
+OP02.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Limpar Cache'  name=run_button onClick=inter02>"
+OP03.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Verificar Servidores'  name=run_button onClick=inter03>"
 End sub
 Sub serv
 OP01.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Servidores'  name=run_button onClick=SRV01>"
@@ -167,87 +165,17 @@ OP03.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Externos' 
 End sub
 
 sub maps
-	' *********************************
-	' ***	 Mapeamentos Comuns  	***
-	' *********************************
-	If InStr(ucase(sGroups),"USUÁRIOS DO DOMÍNIO") or InStr(ucase(sGroups),"DOMAIN USERS") <> 0 Then 
-		If FSO.DriveExists("G:") Then
-			ShowStat("G: Já Existe")
-		Else
-			If Not MapDrive("G:", "\\cemusadobrasil.com.br\Geral") Then
-				If Not MapDrive("G:", "\\10.10.1.1\Geral") Then
-		   			ShowStat("G: - Falha no Mapeamento")
-		   		Else
-		   			ShowStat("G: - Mapeado com Sucesso")
-		   		End If
-		   	Else
-		   		ShowStat("G: - Mapeado com Sucesso")
-		  	End If
-		End If
-		
-		If FSO.DriveExists("M:") Then
-			ShowStat("M: Já Existe")
-		Else
-			If Not MapDrive("M:", "\\cemusadobrasil.com.br\departamentos") Then
-				If Not MapDrive("M:", "\\10.10.1.4\departamentos") Then
-		  			ShowStat("M: - Falha no Mapeamento")
-		   		Else
-		   			ShowStat("M: - Mapeado com Sucesso")
-		   		End If
-		   	Else
-		   		ShowStat("M: - Mapeado com Sucesso")
-		  	End If
-		End If
-		
-	If FSO.DriveExists("U:") Then
-			ShowStat("U: Já Existe")
-		Else
-			If Not FSO.FolderExists("\\cemusadobrasil.com.br\user$\" & sLocation & "\" & sUserName) Then FSO.CreateFolder("\\cemusadobrasil.com.br\user$\" & sLocation & "\" & sUserName)
-			 If Not MapDrive("U:", "\\cemusadobrasil.com.br\user$\" & sLocation & "\" & sUserName) Then
-				If Not MapDrive("U:", "\\10.10.1.4\user$\" & sLocation & "\" & sUserName) Then
-		   			ShowStat("U: - Falha no Mapeamento")
-		   		Else
-		   			ShowStat("U: - Mapeado com Sucesso")
-		   		End If
-		   	Else
-		   		ShowStat("U: - Mapeado com Sucesso")
-		  	End If
-		End If
-		
-		If FSO.DriveExists("H:") Then
-			ShowStat("H: Já Existe")
-			Else
-			If Not MapDrive("H:", "\\cemusadobrasil.com.br\departamentos\" & sLocation & "\" & sDepartment) Then 
-		 		If Not MapDrive("H:", "\\10.10.1.4\departamentos\" & sLocation & "\" & sDepartment) Then 
-		    		ShowStat("H: - Falha no Mapeamento")
-		    	Else
-		    		ShowStat("H: - Mapeado com Sucesso")
-		   		End If
-		   	Else
-		   		ShowStat("H: - Mapeado com Sucesso")
-		  	End If
-		End If
-		
-		If FSO.DriveExists("P:") Then
-			ShowStat("P: Já Existe")
-			Else
-			If Not MapDrive("P:", "\\csrv01\PDContas") Then 
-		 		If Not MapDrive("P:", "\\csrv01\PDContas") Then 
-		    		ShowStat("P: - Falha no Mapeamento")
-		    	Else
-		    		ShowStat("P: - Mapeado com Sucesso")
-		   		End If
-		   	Else
-		   		ShowStat("P: - Mapeado com Sucesso")
-		  	End If
-		End If
-		
-	End If
-ShowStat("Processo Finalizado")
+	MAPSFILES = HTA_Path & "SUBS\MAPS.INI"
+	Set MAPS = FSO.OpenTextFile(MAPSFILES)
+	constantes =   MAPS.ReadAll
+	MAPS.close
+	execute constantes
 End Sub	
 
 Sub IP01
 firewall = HTA_Path & "EXEC\psexec.exe -u cemusa\informatica -p 654321 netsh firewall set opmode disable"
+ShowStat("Verificando firewall")
+oShell.Run firewall, 0, True
 Set objWMIService = GetObject("winmgmts:\\LocalHost\root\cimv2")
 Set objDhcpNic = objWMIService.ExecQuery _
 ("Select * From Win32_NetworkAdapterConfiguration Where IPEnabled = True")
@@ -255,44 +183,49 @@ ShowStat("Liberando IP")
 For Each objNic in objDhcpNic
 objNic.ReleaseDHCPLease()
 Next
-ShowStat("Verificando firewall")
-oShell.Run firewall, 0, True
-ShowStat("Processo Finalizado")
 End sub
 
 Sub IP02
 firewall = HTA_Path & "EXEC\psexec.exe -u cemusa\informatica -p 654321 netsh firewall set opmode disable"
+ShowStat("Verificando firewall")
+oShell.Run firewall, 0, True
 Set objWMIService = GetObject("winmgmts:\\LocalHost\root\cimv2")
 Set objDhcpNic = objWMIService.ExecQuery _
 ("Select * From Win32_NetworkAdapterConfiguration Where IPEnabled = True")
-ShowStat("Verificando firewall")
-oShell.Run firewall, 0, True
-ShowStat("Renovando IP")
 For Each objNic in objDhcpNic
 objNic.RenewDHCPLease()
 Next
-ShowStat("Processo Finalizado")
+ShowStat("Renovando IP")
 End sub
 
 Sub inter01
-configproxy = "10.10.1.9:3128"
-oShell.RegWrite "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ProxyEnable", 0, "REG_DWORD"
-oShell.RegWrite "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ProxyEnable", 1, "REG_DWORD"
-oShell.RegWrite "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ProxyServer", configproxy, "REG_SZ"
-ShowStat("Acesso Reparado")
+	PROXYFILES = HTA_Path & "SUBS\PROXY.INI"
+	Set PROXY = FSO.OpenTextFile(PROXYFILES)
+	constantes =   PROXY.ReadAll
+	PROXY.close
+	execute constantes
 End Sub
 
 Sub inter02
-oShell.RegWrite "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ProxyEnable", 0, "REG_DWORD"
-ShowStat("Proxy Desativado")
+oShell.Run ("RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 1"), 0, True
+oShell.Run ("RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 2"), 0, True
+oShell.Run ("RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 8"), 0, True
+oShell.Run ("RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 16"), 0, True
+oShell.Run ("RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 32"), 0, True
+oShell.Run ("RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 255"), 0, True
+oShell.Run ("RunDll32.exe InetCpl.cpl,ClearMyTracksByProcess 4351"), 0, True
+ShowStat("Cache Limpo")
 End Sub
 
 Sub inter03
-configproxy = "10.10.1.9:3128"
-oShell.RegWrite "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ProxyEnable", 1, "REG_DWORD"
-oShell.RegWrite "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ProxyServer", configproxy, "REG_SZ"
-ShowStat("Proxy Ativo")
+	PROXYFILES = HTA_Path & "SUBS\PROXYSRV.INI"
+	Set PROXYSRV = FSO.OpenTextFile(PROXYFILES)
+	constantes =   PROXYSRV.ReadAll
+	PROXYSRV.close
+	execute constantes
+	DoGetPingResult(Array (PRXSRV))
 End Sub
+
 
 Sub SRV01
 If InStr(ucase(sGroups),"USUÁRIOS DO DOMÍNIO") or InStr(ucase(sGroups),"DOMAIN USERS") <> 0 Then
@@ -486,14 +419,14 @@ End Function
 	</table>
 	<hr color="red">
 	<center> Escolha uma das Opções Abaixo:</center><br>
-	<table width="100%" border="4" cellpadding="0">
+	<table width="100%" border="0" cellpadding="0">
 	<tr align="center">
 	<td width="25%"><Input id=runbutton class=botao type=button value= 'Rede'  name=run_button onClick=rede></td>
 	<td width="25%"><Input id=runbutton class=botao type=button value= 'Internet'  name=run_button onClick=Internet></td>
 	<td width="25%"><Input id=runbutton class=botao type=button value= 'Servidores'  name=run_button onClick=serv></td>
 	<td width="25%">Outros</td>
 	</table>
-	<table width="100%" border="4" cellpadding="0">
+	<table width="100%" border="0" cellpadding="0">
 	<tr align="center">
 	<td><span id="OP01"></span></td>
 	<td><span id="OP02"></span></td>
