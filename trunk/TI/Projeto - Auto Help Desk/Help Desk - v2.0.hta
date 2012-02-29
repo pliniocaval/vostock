@@ -223,23 +223,46 @@ Sub inter03
 	constantes =   PROXYSRV.ReadAll
 	PROXYSRV.close
 	execute constantes
-	DoGetPingResult(Array (PRXSRV))
+	DoGetPingResult(Split(PRXSRV,";"))
+	
 End Sub
 
 
 Sub SRV01
 If InStr(ucase(sGroups),"USUÁRIOS DO DOMÍNIO") or InStr(ucase(sGroups),"DOMAIN USERS") <> 0 Then
-DoGetPingResult(Array("CSRV01", "CSRV02", "CSRV03", "CSRV05", "CSRV06"))
+SRVFILES = HTA_Path & "SUBS\SRVS.INI"
+	Set SRVS = FSO.OpenTextFile(SRVFILES)
+	constantes =   SRVS.ReadAll
+	SRVS.close
+	execute constantes
+	DoGetPingResult(Split(SRV,";"))
 End If
+
 If InStr(ucase(sGroups),"MXM-REMOTO") <> 0 Then
-DoGetPingResult(Array("CSRV02", "CSRV04"))
+MXMFILES = HTA_Path & "SUBS\MXM.INI"
+	Set MXMSRV = FSO.OpenTextFile(MXMFILES)
+	constantes =   MXMSRV.ReadAll
+	MXMSRV.close
+	execute constantes
+	DoGetPingResult(Split(MXMSRV,";"))
+
 End If
 End Sub
 Sub LNK01
-DoGetPingResult(Array("10.10.1.254", "10.10.2.254", "10.10.3.254", "10.10.4.254", "10.10.5.254", "10.10.6.254"))
+LKSFILES = HTA_Path & "SUBS\LKS.INI"
+	Set LKSSRV = FSO.OpenTextFile(LKSFILES)
+	constantes =   LKSSRV.ReadAll
+	LKSSRV.close
+	execute constantes
+	DoGetPingResult(Split(LKSSRV,";"))
 End Sub
 Sub EXT01
-DoGetPingResult(Array("mail.cemusadobrasil.com.br", "google.com.br"))
+EXTFILES = HTA_Path & "SUBS\EXT.INI"
+	Set EXTSRV = FSO.OpenTextFile(EXTFILES)
+	constantes =   EXTSRV.ReadAll
+	EXTSRV.close
+	execute constantes
+	DoGetPingResult(Split(EXTSRV,";"))
 End Sub
 '-------------------- Functions --------------------------
 

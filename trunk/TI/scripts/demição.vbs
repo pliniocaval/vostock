@@ -10,11 +10,11 @@ Set objShell = CreateObject("WScript.Shell")
 Set objFSO = CreateObject("Scripting.FileSystemObject")
 
 'msgbox "Não parar em caso de erros"
-'On Error Resume Next
+On Error Resume Next
 
 'msgbox "Carregando variaveis"
 strUsername = objnet.UserName
-robocopy = "c:\ti\suporte\robocopy.exe"
+robocopy = "robocopy.exe"
 
 '===========================================================================================================================
 '=======================EDITE AS VARIVEIS CONTIDAS ABAIXO PARA O CORRETO FUNCIONAMENTO DO SCRIPT============================ 
@@ -96,7 +96,7 @@ Else
 	strGames = objShell.ExpandEnvironmentStrings("%UserProfile%") & "\Saved Games"
     strSignature = objShell.ExpandEnvironmentStrings("%APPDATA%") & "\Microsoft\signatures"
     strPSTfile = objShell.ExpandEnvironmentStrings("%SystemDrive%") & "\outlook\" & strUsername
-    strOutSet = objShell.ExpandEnvironmentStrings("%APPDATA%") & "\Microsoft\Outlook"
+	strOutSet = objShell.ExpandEnvironmentStrings("%APPDATA%") & "\Microsoft\Outlook"
 End If
 
 Next
@@ -104,40 +104,40 @@ Next
 'copia de arquivos
 
 objContacts = RoboCopy & " " & chr(34) & strContacts & chr(34) & " " & Chr(34) & strContatS & chr(34) & " " & strCopyOptions & chr(34)
-objShell.Run objContacts, 0, True
+objShell.Run objContacts, 1, True
 
 objDesktop = RoboCopy & " " & chr(34) & strDesktop & chr(34) & " " & Chr(34) & strDesktoS & chr(34) & " " & strCopyOptions & chr(34)
-objShell.Run objDesktop, 0, True
+objShell.Run objDesktop, 1, True
 
 objMyDocuments = RoboCopy & " " & chr(34) & strMyDocuments & chr(34) & " " & Chr(34) & strMyDocsS & chr(34) & " " & strCopyOptions & chr(34)
-objShell.Run objMyDocuments, 0, True
+objShell.Run objMyDocuments, 1, True
 
 objMyDownloads = RoboCopy & " " & chr(34) & strMyDownloads & chr(34) & " " & Chr(34) & strDownloS & chr(34) & " " & strCopyOptions & chr(34)
-objShell.Run objMyDownloads, 0, True
+objShell.Run objMyDownloads, 1, True
 
 objFavorites = RoboCopy & " " & chr(34) & strFavorites & chr(34) & " " & Chr(34) & strFavoriS & chr(34) & " " & strCopyOptions & chr(34)
-objShell.Run objFavorites, 0, True
+objShell.Run objFavorites, 1, True
 
 objPictures = RoboCopy & " " & chr(34) & strPictures & chr(34) & " " & Chr(34) & strPicturS & chr(34) & " " & strCopyOptions & chr(34)
-objShell.Run objPictures, 0, True
+objShell.Run objPictures, 1, True
 
 objMusic = RoboCopy & " " & chr(34) & strMusic & chr(34) & " " & Chr(34) & strMusicS & chr(34) & " " & strCopyOptions & chr(34)
-objShell.Run objMusic, 0, True
+objShell.Run objMusic, 1, True
 
 objVideos = RoboCopy & " " & chr(34) & strVideos & chr(34) & " " & Chr(34) & strVideosS & chr(34) & " " & strCopyOptions & chr(34)
-objShell.Run objVideos, 0, True
+objShell.Run objVideos, 1, True
 
 objGames = RoboCopy & " " & chr(34) & strGames & chr(34) & " " & Chr(34) & strGamesS & chr(34) & " " & strCopyOptions & chr(34)
-objShell.Run objGames, 0, True
+objShell.Run objGames, 1, True
 
 objSignature = RoboCopy & " " & chr(34) & strSignature & chr(34) & " " & Chr(34) & strSignatS & chr(34) & " " & strCopyOptions & chr(34)
-objShell.Run objSignature, 0, True
+objShell.Run objSignature, 1, True
 
 objOutSet = RoboCopy & " " & chr(34) & strOutSet & chr(34) & " " & Chr(34) & strAppSetS & chr(34) & " " & strCopyOptions & chr(34)
-objShell.Run objOutSet, 0, True
+objShell.Run objOutSet, 1, True
 
 objPSTfile = RoboCopy & " " & chr(34) & strPSTfile & chr(34) & " " & Chr(34) & strPSTfilS & chr(34) & " " & strCopyOptions & chr(34)
-objShell.Run "taskkill /F /IM outlook.exe", 0, True
-objShell.Run "taskkill /F /IM outlook.exe", 0, True
-objShell.Run objPSTfile, 0, True
+objShell.Run "taskkill /F /IM outlook.exe", 1, True
+objShell.Run "taskkill /F /IM outlook.exe", 1, True
+objShell.Run objPSTfile, 1, True
 
