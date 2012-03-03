@@ -52,7 +52,7 @@ If Not objFso.FolderExists(locmxm) Then objFso.CreateFolder(locmxm)
 Set objFolder = objFSO.GetFolder(LOGUSER)
 Set colFiles = objFolder.Files
 For Each objFile in colFiles
-if objFile.Size >= 2097152 Then
+if objFile.Size >= 5242880 Then
 objFSO.DeleteFile(LOGUSER & "\" & objFile.Name)
 end if
 Next
