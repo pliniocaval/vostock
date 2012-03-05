@@ -1,7 +1,47 @@
+'Script do Assinatura
+'autoria Leonardo Vivas
+'Versão 2.0
+'criação 03/06/2009
+'modificação 03/03/2012
+' -----------------------------------------------------------------' 
+
+Set oNet = CreateObject("WScript.Network")
+Set oShell = CreateObject("WScript.Shell")
+Set oFSO = CreateObject("Scripting.FileSystemObject")
+
+'Captura e volta 1 nivel do diretorio
+DIRE = oFSO.GetParentFolderName(WScript.ScriptFullName)
+arrPath = Split(DIRE, "\")
+
+For i = 0 to Ubound(arrPath) - 1
+    DIR = DIR & arrPath(i) & "\"
+Next 
+
+oShell.CurrentDirectory = DIR
+
+'msgbox "Não parar em caso de erros"
+On Error Resume Next
+
+'msgbox "Carregando variaveis"
+varfile = DIR & "\SYS\LOGON.INI"
+  Set SYS = oFSO.OpenTextFile(varfile)
+  SYSFILE =   SYS.ReadAll
+  SYS.close
+  execute SYSFILE
+
+'msgbox "Carregando arquivo de Funções"
+varfile = DIR & "\SYS\FNC.INI"
+  Set FNC = oFSO.OpenTextFile(varfile)
+  FNCFILE =   FNC.ReadAll
+  FNC.close
+  execute FNCFILE
+
+ApagaArquivosPastas(vAPPDATA &"\Microsoft\Signatures\") 
+ApagaArquivosPastas(vAPPDATA &"\Microsoft\Assinaturas\")  
+
 Const END_OF_STORY = 6
 Const wdFormatHTML = 8
 
-On Error Resume Next
 Set objSysInfo = CreateObject("ADSystemInfo")
 strUser = objSysInfo.UserName
 Set objUser = GetObject("LDAP://" & strUser)
@@ -37,19 +77,18 @@ Set objSignatureEntries = objSignatureObject.EmailSignatureEntries
 
 With objSelection
 objTable.Rows.Add()
-objTable.Cell(2, 1).Range.InlineShapes.AddPicture "F:\Vostock - Projects\Clientes\Platinum\Netlogon\VBS\agente.jpg"
+objTable.Cell(2, 1).Range.InlineShapes.AddPicture DIR & "\IMG\agente.jpg"
 objTable.Cell(2, 1).Range.TypeText(Chr(11))
-objTable.Cell(2, 1).Range.InlineShapes.AddPicture "F:\Vostock - Projects\Clientes\Platinum\Netlogon\VBS\Platinum.jpg"
+objTable.Cell(2, 1).Range.InlineShapes.AddPicture DIR & "\IMG\Platinum.jpg"
 objTable.Columns(1).Width = objWord.InchesToPoints(1)
 .ParagraphFormat.Alignment = wdAlignParagraphRight
 	  
 objTable.Cell(2, 2).Select
-With .Font
-.Name = "Verdana"
-.Size = 8
-.Bold = True
-.Color = RGB(128, 128, 128)
-End With
+
+.Font.Name = "Verdana"
+.Font.Size = 8
+.Font.Bold = True
+.Font.Color = RGB(128, 128, 128)
 
 'Arrumando
 .TypeParagraph()
@@ -93,8 +132,8 @@ End With
 
 'fb / tw
 .TypeText "   "
-.InlineShapes.AddPicture "F:\Vostock - Projects\Clientes\Platinum\Netlogon\VBS\fb.jpg"
-.InlineShapes.AddPicture "F:\Vostock - Projects\Clientes\Platinum\Netlogon\VBS\tw.jpg"
+.InlineShapes.AddPicture DIR & "\IMG\fb.jpg"
+.InlineShapes.AddPicture DIR & "\IMG\tw.jpg"
 'Arrumando
 .TypeParagraph()
 .ParagraphFormat.Alignment = wdAlignParagraphRight    
@@ -153,8 +192,8 @@ objSelection.TypeParagraph()
 End With
 
 Set objSelection = objDoc.Range()
-objSignatureEntries.Add "Padrao Leonardi", objSelection
-objSignatureObject.NewMessageSignature = "Padrao Leonardi"
-objSignatureObject.ReplyMessageSignature = "Padrao Leonardi"
+objSignatureEntries.Add "Ass Padrao", objSelection
+objSignatureObject.NewMessageSignature = "Ass Padrao"
+objSignatureObject.ReplyMessageSignature = "Ass Padrao"
 objDoc.Saved = True
 objWord.Quit

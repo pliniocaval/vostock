@@ -13,7 +13,7 @@ Set oFSO = CreateObject("Scripting.FileSystemObject")
 'On Error Resume Next
 
 'MsgBox "Capturando Diretorio do Script"
-DIR = oShell.CurrentDirectory
+DIR = oFSO.GetParentFolderName(WScript.ScriptFullName)
 
 'msgbox "Carregando variaveis"
 varfile = DIR & "\SYS\LOGON.INI"

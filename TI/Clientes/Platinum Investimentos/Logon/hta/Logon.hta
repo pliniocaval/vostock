@@ -1,0 +1,540 @@
+<!--
+'Script do logon
+'autoria Leonardo Vivas
+'Versão 1.8
+'criação 03/06/2009
+'modificação 15/2/2012
+' -----------------------------------------------------------------' 
+-->
+
+<head>
+<title></title>
+
+<script language="VBScript">
+	'Prevent Window flickering on load.
+	Me.ResizeTo 500,310
+	'Move Window off screen.
+    Me.MoveTo ((Screen.Width)),((Screen.Height))
+</script>
+
+<HTA:APPLICATION
+     APPLICATIONNAME="LogonScript"
+	 VERSION="0.7"
+     BORDER="thin"
+     BorderStyle="complex"
+     SCROLL="no"
+     maximizebutton="no"
+  	 minimizebutton="no"  	 
+  	 SINGLEINSTANCE="yes"
+     WINDOWSTATE="normal"
+     SysMenu="no"
+     ContextMenu="no"
+	 SHOWINTASKBAR="yes"
+	 CAPTION="no"
+	 Icon="c:\ti\hta\img\logo.ico"
+>
+</head>
+
+<script language="VBScript">
+
+Dim FSO, oShell, oNetwork, objSysInfo, sUserDN, objUser
+Dim sDepartment, sLocation, sUserName, sComputerName, sDomain, sDisplayName, sGroups, sDN
+Dim sStatus, intSeconds, sDesktop, sScriptDir, iTimerID, atalhoLnk
+
+'Configure for your domain. See "MainScript" Sub for drive mappings.
+sDN = "cemusadobrasil.com.br"
+
+Sub Window_onLoad
+	On Error Resume Next
+	
+	Set FSO = CreateObject("Scripting.FileSystemObject")
+	Set oShell = CreateObject("WScript.Shell")
+	Set oNetwork = CreateObject("WScript.Network")
+
+    'Get User's information.
+    UserInfo
+    
+	'User's Desktop for deploying shortcuts. 
+    sDesktop = oShell.ExpandEnvironmentStrings("%USERPROFILE%") & "\Desktop" 
+	
+    'Coloca info. do usuario da tela de logon.
+	document.title = sDomain & " Logon Script - " & sDepartment 'Muda o titulo.
+	DisplayName.InnerHTML = sDisplayName
+	UserName.InnerHTML = sUserName
+	ComputerName.InnerHTML = sComputerName
+	Department.InnerHTML = sDepartment
+	
+	'Logotipo.
+	HTA = location.pathname
+	HTA_Path = Left(HTA,InStrRev(HTA,"\"))
+	
+	'Se houver um logo para o departamento este é colocado no local do padrão
+	If FSO.FileExists(HTA_Path & "IMG\logo-" & sDepartment & ".jpg") Then
+		Logo.src = "IMG\logo-" & sDepartment & ".jpg"
+	Else
+		Logo.src = "IMG\logo-default.jpg"
+	End If
+	
+	'Move to top left of screen.
+	Me.MoveTo 10,10
+	
+	'Run Main Logon Script
+	MainScript
+	
+	'Countdown timer before closing. Set time in seconds.
+	intSeconds = 10
+	iTimerID = window.setInterval("Count", 1000)
+End Sub
+
+Sub Default_Buttons
+    If Window.Event.KeyCode = 13 Then
+    End If
+End Sub
+
+Sub UserInfo
+	On Error Resume Next
+	
+	Dim arrDept
+	
+	Set objSysInfo = CreateObject("ADSystemInfo")
+	
+	sUserDN = objSysInfo.UserName
+	Set objUser = GetObject("LDAP://" & sDN & "/" & sUserDN)
+	
+	'Busca informação do usuario e do computador.
+	sUserName = oNetwork.UserName
+	sComputerName = UCase((oNetwork.ComputerName))
+	sDomain = UCase((oNetwork.UserDomain))
+	sDisplayName = trim(objUser.DisplayName)
+	
+	'busca grupos do usuario
+	sGroups = GetGroups(sUserDN)
+	
+	'Pega o departamento da DN. (assumindo que os usuarios estão assim definidos: Dominio->Departmento->Usuario->Grupos)
+	arrDept = split(sUserDN, ",")
+	sDepartment = mid(arrDept(1), 4) 'Definir a profundidade. 
+									'EX: CN=UserName,OU=Users,OU=Departmento,DC=seu,DC=dominio,DC=com,DC=br; arrDept(1) = OU=Departmento
+	sLocation = mid(arrDept(2), 4) 'Set number in array where department OU name is found. 
+									'EX: CN=UserName,OU=Users,OU=Departmento,DC=seu,DC=dominio,DC=com,DC=br; arrDept(2) = OU=Localização								
+	
+	'Se não conseguir o nome completo use o nome de usuario.
+	If sDisplayName = "" Then
+
+		sDisplayName = sUserName
+	End If
+	
+	Err.Clear
+	
+	Set objSysInfo = Nothing
+	Set objUser = Nothing
+End Sub
+
+Sub MainScript
+
+	On Error Resume Next
+
+	' *** MIGRAÇÃO ***
+	If InStr(ucase(sLocation),"COPACABANA") <> 0 Then
+		If InStr(ucase(sGroups),"MIGRAÇÃO") <> 0 Then
+
+	If FSO.DriveExists("W:") Then
+			ShowStat("W: Já Existe")
+			Else
+			If Not MapDrive("W:", "\\cemusadobrasil.com.br\BKP\" & sLocation) Then 
+				If Not MapDrive("W:", "\\10.10.1.4\BKP\" & sLocation & "\" & sDepartment) Then 
+		  		ShowStat("W: - Falha no Mapeamento")
+		    	Else
+		    		ShowStat("W: - Mapeado com Sucesso")
+		   		End If
+		   	Else
+		   		ShowStat("W: - Mapeado com Sucesso")
+		  	End If
+		End If
+		End If		
+	End IF
+	
+	' *********************************
+	' ***	 Mapeamentos Comuns  	***
+	' *********************************
+	If InStr(ucase(sGroups),"USUÁRIOS DO DOMÍNIO") or InStr(ucase(sGroups),"DOMAIN USERS") <> 0 Then 
+		If FSO.DriveExists("G:") Then
+			ShowStat("G: Já Existe")
+		Else
+			If Not MapDrive("G:", "\\cemusadobrasil.com.br\Geral") Then
+				If Not MapDrive("G:", "\\10.10.1.1\Geral") Then
+		   			ShowStat("G: - Falha no Mapeamento")
+		   		Else
+		   			ShowStat("G: - Mapeado com Sucesso")
+		   		End If
+		   	Else
+		   		ShowStat("G: - Mapeado com Sucesso")
+		  	End If
+		End If
+		
+		If FSO.DriveExists("M:") Then
+			ShowStat("M: Já Existe")
+		Else
+			If Not MapDrive("M:", "\\cemusadobrasil.com.br\departamentos") Then
+				If Not MapDrive("M:", "\\10.10.1.4\departamentos") Then
+		  			ShowStat("M: - Falha no Mapeamento")
+		   		Else
+		   			ShowStat("M: - Mapeado com Sucesso")
+		   		End If
+		   	Else
+		   		ShowStat("M: - Mapeado com Sucesso")
+		  	End If
+		End If
+		
+	If FSO.DriveExists("U:") Then
+			ShowStat("U: Já Existe")
+		Else
+			If Not FSO.FolderExists("\\cemusadobrasil.com.br\user$\" & sLocation & "\" & sUserName) Then FSO.CreateFolder("\\cemusadobrasil.com.br\user$\" & sLocation & "\" & sUserName)
+			'oShell.Run ("\\cemusadobrasil.com.br\SYSVOL\cemusadobrasil.com.br\SCRIPTS\vbs\XCACLS.vbs " & "\\cemusadobrasil.com.br\user$\" & sLocation & "\" & sUserName & " /g " & sDomain & "\" & sUserName & ":f /f /t /q "),0 , False
+			If Not MapDrive("U:", "\\cemusadobrasil.com.br\user$\" & sLocation & "\" & sUserName) Then
+				If Not MapDrive("U:", "\\10.10.1.4\user$\" & sLocation & "\" & sUserName) Then
+		   			ShowStat("U: - Falha no Mapeamento")
+		   		Else
+		   			ShowStat("U: - Mapeado com Sucesso")
+		   		End If
+		   	Else
+		   		ShowStat("U: - Mapeado com Sucesso")
+		  	End If
+		End If
+		
+		If FSO.DriveExists("H:") Then
+			ShowStat("H: Já Existe")
+			Else
+			If Not MapDrive("H:", "\\cemusadobrasil.com.br\departamentos\" & sLocation & "\" & sDepartment) Then 
+		 		If Not MapDrive("H:", "\\10.10.1.4\departamentos\" & sLocation & "\" & sDepartment) Then 
+		    		ShowStat("H: - Falha no Mapeamento")
+		    	Else
+		    		ShowStat("H: - Mapeado com Sucesso")
+		   		End If
+		   	Else
+		   		ShowStat("H: - Mapeado com Sucesso")
+		  	End If
+		End If
+		
+		If FSO.DriveExists("P:") Then
+			ShowStat("P: Já Existe")
+			Else
+			If Not MapDrive("P:", "\\csrv01\PDContas") Then 
+		 		If Not MapDrive("P:", "\\csrv01\PDContas") Then 
+		    		ShowStat("P: - Falha no Mapeamento")
+		    	Else
+		    		ShowStat("P: - Mapeado com Sucesso")
+		   		End If
+		   	Else
+		   		ShowStat("P: - Mapeado com Sucesso")
+		  	End If
+		End If
+		
+	End If
+
+	' *********************************
+	' *** Fim dos Mapeamentos Comuns***
+	' *********************************
+	
+    ' *********************************
+	' ******** RECURSOS GERAIS ********
+	' *********************************
+	'msgbox sGroups
+	If InStr(ucase(sGroups),"CIRCUITOS") <> 0 Then 
+	If FSO.DriveExists("O:") Then
+			ShowStat("O: Já Existe")
+			Else
+			If Not MapDrive("O:", "\\cemusadobrasil.com.br\departamentos\Circuitos-Fotos") Then 
+		 		If Not MapDrive("O:", "\\10.10.1.8\Circuitos-Fotos") Then 
+		    		ShowStat("O: - Falha no Mapeamento")
+		    	Else
+		    		ShowStat("O: - Mapeado com Sucesso")
+		   		End If
+		   	Else
+		   		ShowStat("O: - Mapeado com Sucesso")
+		  	End If
+		End If
+				
+	End IF
+	If InStr(ucase(sGroups),"FTP") <> 0 Then 
+	If FSO.DriveExists("S:") Then
+			ShowStat("S: Já Existe")
+			Else
+			If Not MapDrive("S:", "\\csrv05\ftp") Then 
+		 		If Not MapDrive("S:", "\\10.10.1.2\ftp") Then 
+		    		ShowStat("S: - Falha no Mapeamento")
+		    	Else
+		    		ShowStat("S: - Mapeado com Sucesso")
+		   		End If
+		   	Else
+		   		ShowStat("S: - Mapeado com Sucesso")
+		  	End If
+		End If
+				
+	End IF
+    ' *********************************
+	' ***** FIM RECURSOS GERAIS *******
+	' *********************************
+	
+	' *********************************
+	' ***   Drive de Apricações 	***
+	' *********************************
+	' ************* COPACABANA *************
+	' ************* INFORMATICA *************
+	If InStr(ucase(sDepartment),"INFORMATICA") <> 0 Then 
+		If InStr(ucase(sGroups),"SUPORTE") <> 0 Then
+		If FSO.DriveExists("X:") Then
+			ShowStat("X: Já Existe")
+			Else
+			If Not MapDrive("X:", "\\csrv06\TI$") Then
+		 		If Not MapDrive("X:", "\\10.10.1.8\TI$") Then 
+		    		ShowStat("X: - Falha no Mapeamento")
+		    	Else
+		    		ShowStat("X: - Mapeado com Sucesso")
+		   		End If
+		   	Else
+		   		ShowStat("X: - Mapeado com Sucesso")
+		  	End If
+		End If
+		End If		
+	End IF
+	
+	' ************* SÃO CRISTOVÃO *************
+	' ************* SCPI *************
+	If InStr(ucase(sDepartment),"SCPI") <> 0 Then 
+		If InStr(ucase(sGroups),"COMPRAS") <> 0 Then
+		If FSO.DriveExists("I:") Then
+			ShowStat("I: Já Existe")
+			Else
+			If Not MapDrive("I", "\\cemusadobrasil.com.br\departamentos\" & sLocation & "\Compras") Then 
+		 		If Not MapDrive("I:", "\\10.10.2.5\departamentos\" & sLocation & "\Compras") Then 
+		    		ShowStat("I: - Falha no Mapeamento")
+		    	Else
+		    		ShowStat("I: - Mapeado com Sucesso")
+		   		End If
+		   	Else
+		   		ShowStat("I: - Mapeado com Sucesso")
+		  	End If
+		End If
+		End If		
+	End IF
+	' ************* RH *************
+	If InStr(ucase(sDepartment),"RH") <> 0 Then 
+		If InStr(ucase(sGroups),"RH") <> 0 Then
+		If FSO.DriveExists("X:") Then
+			ShowStat("X: Já Existe")
+			Else
+			If Not MapDrive("X", "\\SQLSCPI\BOMARK") Then 
+		 		If Not MapDrive("X:", "\\10.10.2.5\BOMARK") Then 
+		    		ShowStat("X: - Falha no Mapeamento")
+		    	Else
+		    		ShowStat("X: - Mapeado com Sucesso")
+		   		End If
+		   	Else
+		   		ShowStat("X: - Mapeado com Sucesso")
+		  	End If
+		End If
+		End If		
+	End IF
+	
+	' ************* SÃO PAULO *************
+	If InStr(ucase(sLocation),"SÃO PAULO") <> 0 Then
+		If InStr(ucase(sGroups),"VENDAS") <> 0 Then 
+		If FSO.DriveExists("V:") Then
+			ShowStat("V: Já Existe")
+			Else
+			If Not MapDrive("V:", "\\cemusadobrasil.com.br\Departamentos\Copacabana\Vendas") Then 
+		 		If Not MapDrive("V:", "\\10.10.1.4\Departamentos\Copacabana\Vendas") Then 
+		    		ShowStat("V: - Falha no Mapeamento")
+		    	Else
+		    		ShowStat("V: - Mapeado com Sucesso")
+		   		End If
+		   	Else
+		   		ShowStat("V: - Mapeado com Sucesso")
+		  	End If
+		End If
+		End If		
+	End IF
+	
+	' *********************************
+	' ***Fim Dos Drive de Aplicações***
+	' *********************************
+	
+	' *********************************
+	' ***			Exeçoes   		***
+	' *********************************
+	' ************* Diretoria *************
+	
+	If left(ucase(sComputerName),4)="MXM-" then
+	If InStr(ucase(sGroups),"DIRETORIA") <> 0 Then
+	oShell.Run ("\\cemusadobrasil.com.br\SYSVOL\cemusadobrasil.com.br\SCRIPTS\vbs\ass.vbs"),0 , False
+	ShowStat("Backup do Outlook")
+	oShell.Run ("\\cemusadobrasil.com.br\SYSVOL\cemusadobrasil.com.br\SCRIPTS\vbs\outlook.vbs"), 0, True
+	oShell.Run ("\\cemusadobrasil.com.br\SYSVOL\cemusadobrasil.com.br\SCRIPTS\vbs\outlookbkp.vbs"), 0, False
+	End IF
+	End IF
+	' *********************************
+	' ***		Fim das Exeçoes   	***
+	' *********************************
+	
+	' ***Rotinas Restantes***
+	
+	If InStr(ucase(sGroups),"MXM-REMOTO") <> 0 Then
+	oShell.Run ("\\cemusadobrasil.com.br\SYSVOL\cemusadobrasil.com.br\SCRIPTS\vbs\mxm.vbs"), 0, True
+	If not left(ucase(sComputerName),4)="MXM-" then ShowStat("MXM - Disponibilizado")
+	End IF
+	
+	If InStr(ucase(sGroups),"GERENTES") <> 0 Then
+	const HKEY_LOCAL_MACHINE = &H80000002
+	oShell.RegWrite "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\USBSTOR\Start",3 ,"REG_DWORD"
+	oShell.RegWrite "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Modem\Start",3 ,"REG_DWORD"
+	If not left(ucase(sComputerName),4)="MXM-" then ShowStat("USB Liberada")
+	End If
+	
+	If not left(ucase(sComputerName),4)="MXM-" then
+	ShowStat("Backup do Outlook")
+	oShell.Run ("\\cemusadobrasil.com.br\SYSVOL\cemusadobrasil.com.br\SCRIPTS\vbs\outlook.vbs"), 0, True
+	End IF
+	
+	' *** Continua em 2 Plano ***
+	' ***BKP Outlook***
+	If not left(ucase(sComputerName),4)="MXM-" then
+	If InStr(ucase(sLocation),"COPACABANA") <> 0 Then
+	If InStr(ucase(sGroups),"OUTLOOK") <> 0 Then
+	oShell.Run ("\\cemusadobrasil.com.br\SYSVOL\cemusadobrasil.com.br\SCRIPTS\vbs\outlookbkp.vbs"), 0, False
+	End IF
+	End IF	
+	End IF
+
+End Sub	
+'-------------------- Functions --------------------------
+
+Sub CloseSelf
+	window.close
+End Sub
+
+Sub Hold
+	document.all.lock.checked = True
+	window.clearInterval(iTimerID)
+	countdown.Style.Display = "none"
+	btn_close.Style.Display = "inline"
+End Sub
+
+Sub Count
+	'Bring script to front.
+	window.focus()
+	
+	If intSeconds <> 0 Then
+		countdown.InnerHTML = intSeconds
+		intSeconds = intSeconds - 1
+	Else
+		If Not document.all.lock.checked Then
+			Hold
+			CloseSelf
+			else
+			Hold
+		End If
+	End If
+End Sub
+
+Function GetGroups(sUDN)
+	On Error Resume Next
+	
+	'Function to return user's Group Memberships
+	Set objUser2 = GetObject("LDAP://" & sDN & "/" & sUDN)
+	
+	If objUser2.primaryGroupID = 513 Then
+		sList = sList & "Domain Users" & VbCrLf
+	Else 
+		If objUser2.primaryGroupID = 512 Then
+			sList = sList & "Domain Admins" & VbCrLf
+		End If
+	End If
+
+	oMemberOf = objUser2.GetEx("memberOf")
+
+	For Each oGroup In oMemberOf
+		oGroup = Mid(oGroup, 4, 330)
+		arrGroup = Split(oGroup, ",")
+		sList = sList & arrGroup(0) & VbCrLf
+	Next 
+	
+	Set objUser2 = Nothing
+	
+	GetGroups = sList
+End Function
+
+Function MapDrive(strDrive, strShare)
+  On Error Resume Next
+  Err.Clear
+  If FSO.DriveExists(strDrive) Then
+    Set objDrive = FSO.GetDrive(strDrive)
+    If Err.Number <> 0 Then
+      Err.Clear
+      MapDrive = False
+      Exit Function
+    End If
+    If CBool(objDrive.DriveType = 3) Then
+      oNetwork.RemoveNetworkDrive strDrive, True, True
+    Else
+      MapDrive = False
+      Exit Function
+    End If
+    Set objDrive = Nothing
+  End If
+  oNetwork.MapNetworkDrive strDrive, strShare
+  If Err.Number = 0 Then
+    MapDrive = True
+  Else
+    Err.Clear
+    MapDrive = False
+  End If
+  On Error GoTo 0
+End Function
+
+Function ShowStat(sMessage)
+	sStatus = sMessage & VbCrLf & sStatus
+	document.all.status.InnerText = sStatus
+End Function
+
+</script>
+
+<body id="mainbody" bgcolor="white" style="font:Verdana; color:black">
+<style type="text/css">
+.estilotextarea {background-color: transparent;border: 1px solid #000000;}
+
+
+</style>
+	<table width="100%" border="0" cellpadding="0">
+		<tr valign="center">
+			<td align="center" width="30%">
+				<img name="Logo">					
+			</td>			
+			<td align="center" width="70%">
+				<font size="3">Bem Vindo&nbsp;<strong><span style="color:blue" id="DisplayName"></span></strong>&nbsp;</font><br><br>
+				<strong><font face="bold" size="2">Usuário:&nbsp;<span style="color:blue" id="UserName"></span>&nbsp;&nbsp;Departamento:&nbsp;<span style="color:blue" id="Department"></span></strong>
+			</td>
+		</tr>		
+		<tr>
+			<td>
+			</td>		
+		</tr>
+	</table>
+	<table width="100%" border="0" cellpadding="0">
+		<tr align="left">
+			<td>
+				<textarea class=estilotextarea rows="12" name="status" cols="75" style="font-family: Verdana; font-weight:bold; font-size: 8pt"></textarea>
+			</td>
+		</tr>
+		<hr color="red">	
+	</table>	
+	<table width="100%" border="0" cellpadding="0">
+		<tr valign="top">
+			<td align="left" width="50%">
+				<font size="2.25">Manter esta janela aberta&nbsp;</font><input type="checkbox" name="lock">
+			</td>
+			<td align="right" width="50%">
+				<span id="countdown">Por Favor Aguarde...</span><input type="button" name="btn_close" style="display:none" value="Fechar" onclick="CloseSelf">
+			</td>
+		</tr>	
+	</table>
+</body>
