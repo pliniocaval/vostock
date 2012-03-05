@@ -34,14 +34,18 @@ RemoveDrivesRede
 
 'msgbox "Criando pastas"
 CriaPasta(TI)
-CriaPasta(SUPORTE)
 CriaPasta(HTA)
+CriaPasta(IMG)
 CriaPasta(PROGS)
+CriaPasta(SUPORTE)
 CriaPasta(LOGS)
 CriaPasta(USERLOGS)
 
 'MsgBox "Tela de Logon"
 TelaLogon
+
+'MsgBox "Apaga logs Grandes demais
+ApagaArquivos2M(USERLOGS)
 
 'MsgBox "Para Pelo Nome da Estação ou Servidor"
 SAI
