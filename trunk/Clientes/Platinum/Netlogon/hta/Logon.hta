@@ -129,8 +129,8 @@ If InStr(ucase(sGroups),"USUÁRIOS DO DOMÍNIO") or InStr(ucase(sGroups),"DOMAIN U
 	If oFSO.DriveExists("P:") Then
 			ShowStat("P: Já Existe")
 		Else
-			If Not MapDrive("P:", "\\" & sDN & "\Geral") Then
-				If Not MapDrive("P:", "\\10.10.1.1\Geral") Then
+			If Not MapDrive("P:", "\\" & sDN & "\Publico") Then
+				If Not MapDrive("P:", "\\10.10.1.1\Publico") Then
 		   			ShowStat("P: - Falha no Mapeamento")
 		   		Else
 		   			ShowStat("P: - Mapeado com Sucesso")
@@ -143,8 +143,8 @@ If InStr(ucase(sGroups),"USUÁRIOS DO DOMÍNIO") or InStr(ucase(sGroups),"DOMAIN U
 	If oFSO.DriveExists("R:") Then
 			ShowStat("R: Já Existe")
 		Else
-			If Not MapDrive("R:", "\\" & sDN & "\departamentos") Then
-				If Not MapDrive("R:", "\\10.10.1.4\departamentos") Then
+			If Not MapDrive("R:", "\\" & sDN & "\Departamentos") Then
+				If Not MapDrive("R:", "\\10.10.1.4\Departamentos") Then
 		  			ShowStat("R: - Falha no Mapeamento")
 		   		Else
 		   			ShowStat("R: - Mapeado com Sucesso")
