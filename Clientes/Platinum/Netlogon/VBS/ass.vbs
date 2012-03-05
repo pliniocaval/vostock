@@ -36,11 +36,9 @@ Set objSignatureObject = objEmailOptions.EmailSignature
 Set objSignatureEntries = objSignatureObject.EmailSignatureEntries
 
 With objSelection
-
 objTable.Rows.Add()
-
 objTable.Cell(2, 1).Range.InlineShapes.AddPicture "F:\Vostock - Projects\Clientes\Platinum\Netlogon\VBS\agente.jpg"
-.TypeText(Chr(11))
+objTable.Cell(2, 1).Range.TypeText(Chr(11))
 objTable.Cell(2, 1).Range.InlineShapes.AddPicture "F:\Vostock - Projects\Clientes\Platinum\Netlogon\VBS\Platinum.jpg"
 objTable.Columns(1).Width = objWord.InchesToPoints(1)
 .ParagraphFormat.Alignment = wdAlignParagraphRight
@@ -66,17 +64,13 @@ Else
 End If
 
 'Cargo
-If strTitle <> "" Then    
-.TypeText "   " & "Platinum Investimentos | " & strTitle
+.TypeText "   " & "Platinum Investimentos | " & "Assessor de Investimentos"
 .TypeText(Chr(11))
-Else
-.TypeText "   " & "Platinum Investimentos | " & "ERRO AO GERAR ASSINATURA"
-.TypeText(Chr(11))
-End If
 
 'Tel e Site
 If strPhone <> "" Then    
-.TypeText "   " &  strPhone & " | " & strWeb
+.TypeText "   " &  strPhone & " | "
+.Hyperlinks.Add .range, strWeb
 .TypeText(Chr(11))
 Else
 .TypeText "   " & "ERRO AO GERAR ASSINATURA" & " | " 
@@ -97,6 +91,10 @@ End With
 .TypeText "   " &  "Av. das Américas, 700 | 2º Andar | Sala 201" & Chr(11)
 .TypeText "   " &  "Barra da Tijuca – 22430-041" & Chr(11)
 
+'fb / tw
+.TypeText "   "
+.InlineShapes.AddPicture "F:\Vostock - Projects\Clientes\Platinum\Netlogon\VBS\fb.jpg"
+.InlineShapes.AddPicture "F:\Vostock - Projects\Clientes\Platinum\Netlogon\VBS\tw.jpg"
 'Arrumando
 .TypeParagraph()
 .ParagraphFormat.Alignment = wdAlignParagraphRight    
@@ -123,24 +121,36 @@ objSelection.Hyperlinks.Add .range, "www.xpi.com.br"
 objSelection.TypeText " >>>. A "
 objSelection.Font.Bold = True
 objSelection.TypeText "Platinum Investimentos – Agente Autônomo de Investimentos Ltda. "
+objSelection.Font.Bold = False
+objSelection.TypeText "atua no mercado financeiro através da XP Investimentos CCTVM S/A, realizando o atendimento de pessoas físicas e jurídicas(não-institucionais). Na forma da legislação da CVM, o agente autônomo de investimento não pode administrar ou gerir o patrimônio de investidores. O agente autônomo é um intermediário e depende da autorização prévia do cliente para realizar operações no mercado financeiro."
+objSelection.TypeText(Chr(11))
+objSelection.TypeText " Esta mensagem, incluindo os seus anexos, contém informações confidenciais destinadas a indivíduo e propósito específicos, sendo protegida por lei. Caso você não seja a pessoa a quem foi dirigida a mensagem, deve apagá-la. É terminantemente proibida a utilização, acesso, cópia ou divulgação não autorizada das informações presentes nesta mensagem."
+objSelection.TypeText(Chr(11))
+objSelection.TypeText "As informações contidas nesta mensagem e em seus anexos são de responsabilidade de seu autor, não representando necessariamente ideias, opiniões, pensamentos ou qualquer forma de posicionamento por parte da "
 objSelection.Font.Bold = True
+objSelection.TypeText "Platinum Investimentos – Agente Autônomo de Investimentos Ltda. "
+objSelection.TypeText(Chr(11))
+objSelection.Font.Bold = False
+objSelection.TypeText "O investimento em ações é um investimento de risco e rentabilidade passada não é garantia de rentabilidade futura. Na realização de operações com derivativos existe a possibilidade de perdas superiores aos valores investidos, podendo resultar em significativas perdas patrimoniais."
+objSelection.TypeText(Chr(11))
+objSelection.TypeText "Para informações e dúvidas, favor contatar seu operador."
+objSelection.TypeParagraph()
+objSelection.TypeText "Para reclamações, favor contatar a Ouvidoria da XP Investimentos no telefone nº 0800-722-3710."
 objSelection.TypeText(Chr(11))
 
 'Menagem sobre Meio Ambiente(BR)
 objSelection.Font.Name = "Webdings"
-objSelection.Font.Size = 7
+objSelection.Font.Size = 8
 objSelection.Font.Color = RGB(35, 142, 35)
 objSelection.Font.Bold = False
 objSelection.Font.italic = False
 objSelection.TypeText "P "
 objSelection.Font.Name = "Verdana"
-objSelection.Font.Size = 7
+objSelection.Font.Size = 8
 objSelection.TypeText "Antes de imprimir este email pense se é realmente necessario."
 objSelection.TypeParagraph()
 
 End With
-
-
 
 Set objSelection = objDoc.Range()
 objSignatureEntries.Add "Padrao Leonardi", objSelection
