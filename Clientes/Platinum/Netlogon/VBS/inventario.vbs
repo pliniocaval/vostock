@@ -21,7 +21,7 @@ Next
 oShell.CurrentDirectory = DIR
 
 'msgbox "Não parar em caso de erros"
-'On Error Resume Next
+On Error Resume Next
 
 'msgbox "Carregando variaveis"
 varfile = DIR & "\SYS\LOGON.INI"
