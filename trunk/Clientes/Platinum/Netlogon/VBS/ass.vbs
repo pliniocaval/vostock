@@ -1,4 +1,4 @@
-'Script do Assinatura
+'Script Para Geração de Assinatura para o Outlook
 'autoria Leonardo Vivas
 'Versão 2.0
 'criação 03/06/2009
