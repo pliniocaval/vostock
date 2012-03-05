@@ -43,7 +43,11 @@ CriaPasta(USERLOGS)
 'MsgBox "Tela de Logon"
 TelaLogon
 
+'MsgBox "Para Pelo Nome da Estação ou Servidor"
+SAI
+
 'msgbox "BGinfo"
 BGINFO
 
 'MsgBox "Executa Outros VBS"
+ExecutaVBS(DIR & "\VBS")
