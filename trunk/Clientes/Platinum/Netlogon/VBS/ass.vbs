@@ -76,7 +76,6 @@ Set objSignatureObject = objEmailOptions.EmailSignature
 Set objSignatureEntries = objSignatureObject.EmailSignatureEntries
 
 With objSelection
-objTable.Rows.Add()
 objTable.Cell(2, 1).Range.InlineShapes.AddPicture DIR & "\IMG\agente.jpg"
 objTable.Cell(2, 1).Range.TypeText(Chr(11))
 objTable.Cell(2, 1).Range.InlineShapes.AddPicture DIR & "\IMG\Platinum.jpg"
@@ -103,13 +102,18 @@ Else
 End If
 
 'Cargo
-.TypeText "   " & "Platinum Investimentos | " & "Assessor de Investimentos"
-.TypeText(Chr(11))
+If strTitle <> "" Then
+objSelection.TypeText "   " & "Platinum Investimentos | " & strTitle
+objSelection.TypeText(Chr(11))
+Else
+objSelection.TypeText "   " & "Platinum Investimentos | " & "ERRO AO GERAR ASSINATURA"
+objSelection.TypeText(Chr(11))
+End If
 
 'Tel e Site
 If strPhone <> "" Then    
 .TypeText "   " &  strPhone & " | "
-.Hyperlinks.Add .range, strWeb
+.Hyperlinks.Add .range, "www.platinuminvest.com.br"
 .TypeText(Chr(11))
 Else
 .TypeText "   " & "ERRO AO GERAR ASSINATURA" & " | " 
@@ -126,9 +130,9 @@ With .Font
 .Color = RGB(128, 128, 128)
 End With
 
-.TypeText "   " &  "Matriz – Filial – Città América Office" & Chr(11)
-.TypeText "   " &  "Av. das Américas, 700 | 2º Andar | Sala 201" & Chr(11)
-.TypeText "   " &  "Barra da Tijuca – 22430-041" & Chr(11)
+.TypeText "   " &  "Shopping Cassino Atlântico" & Chr(11)
+.TypeText "   " &  "Av. Atlântica 4240 | 3º Andar | Sala 326" & Chr(11)
+.TypeText "   " &  "Copacabana – 22070-002" & Chr(11)
 
 'fb / tw
 .TypeText "   "
