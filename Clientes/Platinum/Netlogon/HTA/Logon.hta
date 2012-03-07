@@ -1,5 +1,5 @@
 <!--
-'Script do logon
+'Tela para Script do Logon
 'autoria Leonardo Vivas
 'Versão 1.8
 'criação 03/06/2009
@@ -39,7 +39,8 @@
 
 Dim oFso, oShell, oNet, objSysInfo, sUserDN, objUser
 Dim sDepartment, sLocation, sUserName, sComputerName, sDomain, sDisplayName, sGroups, sDN
-Dim sStatus, intSeconds, sScriptDir, iTimerID, atalhoLnk
+Dim sStatus, intSeconds, sScriptDir, iTimerID, atalhoLnk, HTA_Path
+Dim MAPSFILES, Maps, MAPSEXEC
 
 Sub Window_onLoad
 	On Error Resume Next
@@ -60,13 +61,16 @@ Sub Window_onLoad
 	
 	'Logotipo.
 	HTA = location.pathname
-	HTA_Path = Left(HTA,InStrRev(HTA,"\"))
+	arrPath = Split(HTA, "\")
+	For i = 0 to Ubound(arrPath) - 2
+    HTA_Path = HTA_Path & arrPath(i) & "\"
+	Next
 	
 	'Se houver um logo para o departamento este é colocado no local do padrão
 	If oFso.FileExists(HTA_Path & "IMG\logo-" & sDepartment & ".jpg") Then
-		Logo.src = "IMG\logo-" & sDepartment & ".jpg"
+		Logo.src = HTA_Path & "IMG\logo-" & sDepartment & ".jpg"
 	Else
-		Logo.src = "IMG\logo-default.jpg"
+		Logo.src = HTA_Path & "IMG\logo-default.jpg"
 	End If
 	
 	'Move to top left of screen.
@@ -104,12 +108,12 @@ Sub UserInfo
 	'busca grupos do usuario
 	sGroups = GetGroups(sUserDN)
 	
-	'Pega o departamento da DN. (assumindo que os usuarios estão assim definidos: Dominio->Departmento->Usuario->Grupos)
+	'Captura a UO do usuario. (assumindo que os usuarios estão assim definidos: Dominio->Localidade->Departmento->Usuario/Grupos)
 	arrDept = split(sUserDN, ",")
 	sDepartment = mid(arrDept(1), 4) 'Definir a profundidade. 
-									'EX: CN=UserName,OU=Users,OU=Departmento,DC=seu,DC=dominio,DC=com,DC=br; arrDept(1) = OU=Departmento
+									'EX: CN=UserName,OU=Users,OU=Departmento,OU=Localização,DC=seu,DC=dominio,DC=com,DC=br; arrDept(1) = OU=Departmento
 	sLocation = mid(arrDept(2), 4) 'Set number in array where department OU name is found. 
-									'EX: CN=UserName,OU=Users,OU=Departmento,DC=seu,DC=dominio,DC=com,DC=br; arrDept(2) = OU=Localização								
+									'EX: CN=UserName,OU=Users,OU=Departmento,OU=Localização,DC=seu,DC=dominio,DC=com,DC=br; arrDept(2) = OU=Localização								
 	
 	'Se não conseguir o nome completo use o nome de usuario.
 	If sDisplayName = "" Then
@@ -124,53 +128,11 @@ Sub UserInfo
 End Sub
 
 Sub MainScript
-If InStr(ucase(sGroups),"USUÁRIOS DO DOMÍNIO") or InStr(ucase(sGroups),"DOMAIN USERS") <> 0 Then 
-
-	If oFSO.DriveExists("P:") Then
-			ShowStat("P: Já Existe")
-		Else
-			If Not MapDrive("P:", "\\" & sDN & "\Publico") Then
-				If Not MapDrive("P:", "\\10.10.1.1\Publico") Then
-		   			ShowStat("P: - Falha no Mapeamento")
-		   		Else
-		   			ShowStat("P: - Mapeado com Sucesso")
-		   		End If
-		   	Else
-		   		ShowStat("P: - Mapeado com Sucesso")
-		  	End If
-		End If
-		
-	If oFSO.DriveExists("R:") Then
-			ShowStat("R: Já Existe")
-		Else
-			If Not MapDrive("R:", "\\" & sDN & "\Departamentos") Then
-				If Not MapDrive("R:", "\\10.10.1.4\Departamentos") Then
-		  			ShowStat("R: - Falha no Mapeamento")
-		   		Else
-		   			ShowStat("R: - Mapeado com Sucesso")
-		   		End If
-		   	Else
-		   		ShowStat("R: - Mapeado com Sucesso")
-		  	End If
-	End If
-	
-	If FSO.DriveExists("U:") Then
-			ShowStat("U: Já Existe")
-		Else
-			If Not FSO.FolderExists("\\" & sDN & "\user$\" & sLocation & "\" & sUserName) Then FSO.CreateFolder("\\" & sDN & "\user$\" & sLocation & "\" & sUserName)
-			If Not MapDrive("U:", "\\" & sDN & "\user$\" & sLocation & "\" & sUserName) Then
-				If Not MapDrive("U:", "\\10.10.1.4\user$\" & sLocation & "\" & sUserName) Then
-		   			ShowStat("U: - Falha no Mapeamento")
-		   		Else
-		   			ShowStat("U: - Mapeado com Sucesso")
-		   		End If
-		   	Else
-		   		ShowStat("U: - Mapeado com Sucesso")
-		  	End If
-		End If
-		
-
-End If
+	MAPSFILES = HTA_Path & "SUPORTE\AUTOHELPDESK\INI\MAPS.INI"
+	Set MAPS = oFSO.OpenTextFile(MAPSFILES)
+	MAPSEXEC =   MAPS.ReadAll
+	MAPS.close
+	execute MAPSEXEC
 End Sub	
 '-------------------- Functions --------------------------
 

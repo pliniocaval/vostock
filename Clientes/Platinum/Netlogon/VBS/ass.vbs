@@ -9,10 +9,9 @@ Set oNet = CreateObject("WScript.Network")
 Set oShell = CreateObject("WScript.Shell")
 Set oFSO = CreateObject("Scripting.FileSystemObject")
 
-'Captura e volta 1 nivel do diretorio
+'Captura e volta 1 nivel de diretorio
 DIRE = oFSO.GetParentFolderName(WScript.ScriptFullName)
 arrPath = Split(DIRE, "\")
-
 For i = 0 to Ubound(arrPath) - 1
     DIR = DIR & arrPath(i) & "\"
 Next 

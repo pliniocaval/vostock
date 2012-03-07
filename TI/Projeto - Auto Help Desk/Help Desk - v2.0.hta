@@ -149,7 +149,7 @@ Sub UserInfo
 End Sub
 
 Sub rede
-OP01.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Mapear Rede'  name=run_button onClick=maps>"
+OP01.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Mapear Rede'  name=run_button onClick=Maps>"
 OP02.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Liberar IP'  name=run_button onClick=IP01>"
 OP03.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Renovar IP'  name=run_button onClick=IP02>"
 End sub
@@ -164,7 +164,7 @@ OP02.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Links'  na
 OP03.InnerHTML = "<Input id=runbutton class=botao type=button value= 'Externos'  name=run_button onClick=EXT01>"
 End sub
 
-sub maps
+sub Maps
 	MAPSFILES = HTA_Path & "SUBS\MAPS.INI"
 	Set MAPS = FSO.OpenTextFile(MAPSFILES)
 	constantes =   MAPS.ReadAll
