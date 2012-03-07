@@ -77,7 +77,12 @@ Set objSignatureEntries = objSignatureObject.EmailSignatureEntries
 With objSelection
 objTable.Cell(2, 1).Range.InlineShapes.AddPicture DIR & "\IMG\agente.jpg"
 objTable.Cell(2, 1).Range.TypeText(Chr(11))
-objTable.Cell(2, 1).Range.InlineShapes.AddPicture DIR & "\IMG\Platinum.jpg"
+'Se houver um logo para o departamento este é colocado no local do padrão
+'If oFso.FileExists(DIR & "IMG\logo-" & sDepartment & ".jpg") Then
+'objTable.Cell(2, 1).Range.InlineShapes.AddPicture DIR & "IMG\logo-" & sDepartment & ".jpg"
+'Else
+objTable.Cell(2, 1).Range.InlineShapes.AddPicture DIR & "IMG\logo-default.jpg"
+'End If
 objTable.Columns(1).Width = objWord.InchesToPoints(1)
 .ParagraphFormat.Alignment = wdAlignParagraphRight
 	  
