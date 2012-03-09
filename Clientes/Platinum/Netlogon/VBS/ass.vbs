@@ -136,7 +136,7 @@ End With
 
 .TypeText "   " &  "Shopping Cassino Atlântico" & Chr(11)
 .TypeText "   " &  "Av. Atlântica 4240 | 3º Andar | Sala 326" & Chr(11)
-.TypeText "   " &  "Copacabana – 22070-002" & Chr(11)
+.TypeText "   " &  "Copacabana – CEP:22070-002" & Chr(11)
 
 'fb / tw
 .TypeText "   "
