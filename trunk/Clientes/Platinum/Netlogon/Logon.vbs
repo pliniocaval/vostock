@@ -30,7 +30,7 @@ varfile = DIR & "\SYS\FNC.INI"
   execute FNCFILE
   
 'msgbox "Remover drivers mapeados"
-RemoveDrivesRede	
+'RemoveDrivesRede	
 
 'msgbox "Criando pastas"
 CriaPasta(TI)
