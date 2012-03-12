@@ -38,13 +38,16 @@ CriaPasta(HTA)
 CriaPasta(IMG)
 CriaPasta(PROGS)
 CriaPasta(SUPORTE)
+CriaPasta(SUPORTE & "\AUTOHELPDESK")
+CriaPasta(SUPORTE & "\AUTOHELPDESK\INI")
 CriaPasta(LOGS)
 CriaPasta(USERLOGS)
+CriaPasta(SRVLOG)
 
 'MsgBox "Tela de Logon"
 TelaLogon
 
-'MsgBox "Apaga logs Grandes demais
+'MsgBox "Apaga logs Grandes demais"
 ApagaArquivos2M(USERLOGS)
 
 'MsgBox "Para Pelo Nome da Estação ou Servidor"
@@ -55,3 +58,6 @@ BGINFO
 
 'MsgBox "Executa Outros VBS"
 ExecutaVBS(DIR & "\VBS")
+
+'MsgBox "Sincroniza arquivos de Log"
+SyncLog(USERLOGS)

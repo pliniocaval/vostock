@@ -39,20 +39,21 @@ varfile = DIR & "\SYS\FNC.INI"
 'msgbox "Copia de arquivos"
 If oFso.FileExists("C:\Windows\SysWOW64\RoboCopy.exe") Then
 oFSO.DeleteFile WIN & "\system32\RoboCopy.exe"
+If Not oFso.FileExists(PROGS & "\RoboCopy.exe") Then oFSO.CopyFile DIR & "\PROGS\RoboCopy.exe" , PROGS & "\RoboCopy.exe", OverwriteExisting
 Else
 If oFso.FileExists("C:\Windows\System32\RoboCopy.exe") Then
-'faça nada
+If Not oFso.FileExists(PROGS & "\RoboCopy.exe") Then oFSO.CopyFile DIR & "\PROGS\RoboCopy.exe" , PROGS & "\RoboCopy.exe", OverwriteExisting
 Else
 oFSO.CopyFile DIR & "\PROGS\RoboCopy.exe" , WIN & "\system32\RoboCopy.exe", OverwriteExisting
-oFSO.CopyFile DIR&"\RoboCopy.exe" , PROGS & "\RoboCopy.exe", OverwriteExisting
+If Not oFso.FileExists(PROGS & "\RoboCopy.exe") Then oFSO.CopyFile DIR & "\PROGS\RoboCopy.exe" , PROGS & "\RoboCopy.exe", OverwriteExisting
 End If
 End If
 
 'Wscript.Sleep 20000
 'msgbox "Sync de Arquivos"
 oShell.Run Robo & " " & DIR & "\HTA\ " & HTA & "\ " & RoboOPSYNC & USERLOGS & "\copyhta.log", 0, False
-oShell.Run Robo & " " & DIR & "\IMG\ " & IMG & "\ " & RoboOPSYNC & USERLOGS & "\copyhta.log", 0, False
-oShell.Run Robo & " " & DIR & "\PROGS\ " & PROGS & "\ " & RoboOPSYNC & USERLOGS & "\copyhta.log", 0, False
+oShell.Run Robo & " " & DIR & "\IMG\ " & IMG & "\ " & RoboOPSYNC & USERLOGS & "\copyimg.log", 0, False
+oShell.Run Robo & " " & DIR & "\PROGS\ " & PROGS & "\ " & RoboOPSYNC & USERLOGS & "\copyprg.log", 0, False
 oShell.Run Robo & " " & DIR & "\SUPORTE\ " & SUPORTE & "\ " & RoboOPSYNC & USERLOGS & "\copysup.log", 0, False
 'msgbox Fim
 wscript.quit
