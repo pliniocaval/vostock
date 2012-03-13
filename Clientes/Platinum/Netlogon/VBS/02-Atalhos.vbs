@@ -1,4 +1,4 @@
-'Script Para Geração de Copia de Arquivos
+'Script Para Geração de Atalhos no desktop
 'autoria Leonardo Vivas
 'Versão 2.0
 'criação 03/06/2009
@@ -36,18 +36,19 @@ varfile = DIR & "\SYS\FNC.INI"
   FNC.close
   execute FNCFILE
 
+'MsgBox "Atalho para Auto Help Desk "  
+Set ReparoLnk = oShell.CreateShortcut(DESK & "\Auto Help Desk.lnk")
+ReparoLnk.TargetPath = suploc&"\HelpDesk.hta"
+ReparoLnk.Description = "Auto Help Desk"
+ReparoLnk.WorkingDirectory = HTA
+ReparoLnk.WindowStyle = 1
+ReparoLnk.IconLocation = htaloc &"\img\logo.ico"
+ReparoLnk.Save
 
-'MsgBox "Sync Pastas"
-oFSO.CopyFolder DIR & "\HTA\*.*", HTA & "\" , OverwriteExisting
-oFSO.CopyFolder DIR & "\IMG\*.*", IMG & "\" , OverwriteExisting
-oFSO.CopyFolder DIR & "\PROGS\*.*", PROGS & "\" , OverwriteExisting
-oFSO.CopyFolder DIR & "\SUPORTE\*.*", SUPORTE & "\" , OverwriteExisting
-
-'msgbox "Sync de Arquivos"
-oFSO.CopyFile DIR & "\HTA\*.*", HTA & "\" , OverwriteExisting
-oFSO.CopyFile DIR & "\IMG\*.*", IMG & "\" , OverwriteExisting
-oFSO.CopyFile DIR & "\PROGS\*.*", PROGS & "\" , OverwriteExisting
-oFSO.CopyFile DIR & "\SUPORTE\*.*", SUPORTE & "\" , OverwriteExisting
-
-'msgbox Fim
-wscript.quit
+'msgbox "Atalho no Desktop para a Rede."
+Set DepLnk = oShell.CreateShortcut(DESK & "\Departamentos " & DOMI & ".lnk")
+DepLnk.TargetPath = "M:\"
+DepLnk.Description = "Atalho para " & DOMI
+DepLnk.WorkingDirectory = "M:\"
+DepLnk.WindowStyle = 1
+DepLnk.Save
