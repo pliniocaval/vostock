@@ -31,6 +31,7 @@ varfile = DIR & "\SYS\FNC.INI"
 
 'msgbox "Criando pastas"
 CriaPasta(TI)
+CriaPasta(TIVER)
 CriaPasta(HTA)
 CriaPasta(IMG)
 CriaPasta(PROGS)
