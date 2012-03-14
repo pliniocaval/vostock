@@ -10,7 +10,7 @@ Set oShell = CreateObject("WScript.Shell")
 Set oFSO = CreateObject("Scripting.FileSystemObject")
 
 'msgbox "Não parar em caso de erros"
-'On Error Resume Next
+On Error Resume Next
 
 'MsgBox "Capturando Diretorio do Script"
 DIR = oFSO.GetParentFolderName(WScript.ScriptFullName)
@@ -28,9 +28,9 @@ varfile = DIR & "\SYS\FNC.INI"
   FNCFILE =   FNC.ReadAll
   FNC.close
   execute FNCFILE
-  
+
 'msgbox "Remover drivers mapeados"
-'RemoveDrivesRede	
+RemoveDrivesRede	
 
 'msgbox "Criando pastas"
 CriaPasta(TI)
@@ -46,6 +46,9 @@ CriaPasta(SRVLOG)
 
 'MsgBox "Tela de Logon"
 TelaLogon
+
+'MsgBox "Limpa Versão anterior do Script"
+'oFSO.DeleteFolder "c:\ti"
 
 'MsgBox "Apaga logs Grandes demais"
 ApagaArquivos2M(USERLOGS)
