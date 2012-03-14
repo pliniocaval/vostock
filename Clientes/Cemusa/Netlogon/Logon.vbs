@@ -47,7 +47,7 @@ CopiaArquivo DIR & "\IMG\Logo-Default.jpg" , IMG & "\Logo-Default.jpg"
 CopiaArquivo DIR & "\HTA\Logon.hta",HTA & "\Logon.hta"
 
 'MsgBox "Limpa Versão anterior do Script"
-ApagaRaiz(TI-ANT)
+ApagaRaiz(TIANT)
   
 'msgbox "Remover drivers mapeados"
 RemoveDrivesRede
@@ -58,14 +58,14 @@ ApagaArquivos2M(USERLOGS)
 'msgbox "BGinfo"
 BGINFO
 
-'MsgBox "Sincroniza arquivos de Log"
-SyncLog(USERLOGS)
-
 'MsgBox "Tela de Logon"
-TelaLogon
+TelaLogon(HTA & "\Logon.hta")
 
 'MsgBox "Para Pelo Nome da Estação ou Servidor"
 SAI
 
 'MsgBox "Executa Outros VBS"
 ExecutaVBS(DIR & "\VBS")
+
+'MsgBox "Sincroniza arquivos de Log"
+CopiaContPasta(USERLOGS)
