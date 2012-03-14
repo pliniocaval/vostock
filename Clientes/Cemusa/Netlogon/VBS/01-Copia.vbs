@@ -56,5 +56,6 @@ oShell.Run Robo & " " & DIR & "\HTA\ " & HTA & "\ " & RoboOPSYNC & USERLOGS & "\
 oShell.Run Robo & " " & DIR & "\IMG\ " & IMG & "\ " & RoboOPSYNC & USERLOGS & "\copyimg.log", 0, False
 oShell.Run Robo & " " & DIR & "\PROGS\ " & PROGS & "\ " & RoboOPSYNC & USERLOGS & "\copyprg.log", 0, False
 oShell.Run Robo & " " & DIR & "\SUPORTE\ " & SUPORTE & "\ " & RoboOPSYNC & USERLOGS & "\copysup.log", 0, False
+oShell.Run Robo & " " & SRVMXM & " " & MXM & "\ " & RoboOPSYNC & USERLOGS & "\copysup.log", 0, False
 'msgbox Fim
 wscript.quit

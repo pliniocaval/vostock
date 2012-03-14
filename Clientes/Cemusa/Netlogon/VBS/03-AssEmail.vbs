@@ -8,15 +8,13 @@
 Set oNet = CreateObject("WScript.Network")
 Set oShell = CreateObject("WScript.Shell")
 Set oFSO = CreateObject("Scripting.FileSystemObject")
-
+Set oSysInfo = CreateObject("ADSystemInfo")
 'Captura e volta 1 nivel de diretorio
 DIRE = oFSO.GetParentFolderName(WScript.ScriptFullName)
 arrPath = Split(DIRE, "\")
 For i = 0 to Ubound(arrPath) - 1
     DIR = DIR & arrPath(i) & "\"
 Next 
-
-oShell.CurrentDirectory = DIR
 
 'msgbox "Não parar em caso de erros"
 On Error Resume Next
@@ -38,152 +36,129 @@ varfile = DIR & "\SYS\FNC.INI"
 ApagaArquivosPastas(vAPPDATA &"\Microsoft\Signatures\") 
 ApagaArquivosPastas(vAPPDATA &"\Microsoft\Assinaturas\")  
 
-Const END_OF_STORY = 6
-Const wdFormatHTML = 8
+ass
 
-Set objSysInfo = CreateObject("ADSystemInfo")
-strUser = objSysInfo.UserName
-Set objUser = GetObject("LDAP://" & strUser)
-With objUser
-  strName = .FullName
-  strTitle = .Description
-End With
+'--------------------
+Function ass
+' Não parar em caso de erros
+On Error Resume Next
 
-strCompany = objUser.Company
-strl = objUser.l
-strco = objUser.co
+sUserDN = oSysInfo.UserName
+Set objUser = GetObject("LDAP://" & sUserDN)
+
+'Informação da UO
+arrDept = split(sUserDN, ",")
+sLocation = mid(arrDept(2), 4) 'identifica a localização do usuario baseado na UO. Mude o valor "4" para definir a profundidade desta. o nome da UO sera o Nome da imagem.
+'Informação do AD
+strName = objUser.FullName
+strTitle = objUser.Description
 strPhone = objUser.TelephoneNumber
-strFax = objUser.facsimileTelephoneNumber
-strMobile = objUser.Mobile
-strWeb = objuser.wWWHomePage
-strUserName = objuser.sAMAccountName
+strCel = objUser.mobile
+strDepartment = objUser.Department 
 
-Set objword = CreateObject("Word.Application")
-With objword
+'Criação da Assinatura
+Set objWord = CreateObject("Word.Application")
+objWord.Visible = False
 
-  Set objDoc = .Documents.Add()
-  Set objSelection = .Selection
-  Set objEmailOptions = .EmailOptions
-  
-  Set objRange = objDoc.Range()
-  objDoc.Tables.Add objRange,1,2
-  Set objTable = objDoc.Tables(1)
-
-End With
-
+Set objDoc = objWord.Documents.Add()
+Set objSelection = objWord.Selection
+Set objRange = objDoc.Range()
+Set objEmailOptions = objWord.EmailOptions
 Set objSignatureObject = objEmailOptions.EmailSignature
 Set objSignatureEntries = objSignatureObject.EmailSignatureEntries
 
-With objSelection
-objTable.Cell(2, 1).Range.InlineShapes.AddPicture DIR & "\IMG\agente.jpg"
-objTable.Cell(2, 1).Range.TypeText(Chr(11))
-'Se houver um logo para o departamento este é colocado no local do padrão
-'If oFso.FileExists(DIR & "IMG\logo-" & sDepartment & ".jpg") Then
-'objTable.Cell(2, 1).Range.InlineShapes.AddPicture DIR & "IMG\logo-" & sDepartment & ".jpg"
-'Else
-objTable.Cell(2, 1).Range.InlineShapes.AddPicture DIR & "IMG\logo-default.jpg"
-'End If
-objTable.Columns(1).Width = objWord.InchesToPoints(1)
-.ParagraphFormat.Alignment = wdAlignParagraphRight
-	  
-objTable.Cell(2, 2).Select
-
-.Font.Name = "Verdana"
-.Font.Size = 8
-.Font.Bold = True
-.Font.Color = RGB(128, 128, 128)
-
-'Arrumando
-.TypeParagraph()
+' Criando email
 
 'Nome
+objSelection.Font.Name = "Verdana"
+objSelection.Font.Bold = True
+objSelection.Font.Size = 9
+objSelection.Font.Color = RGB(0, 0, 0)
 If strName <> "" Then
-.TypeText "   " & strName
-.TypeText(Chr(11))
+objSelection.TypeText "   " & strName
+objSelection.TypeText(Chr(11))
 Else
-.TypeText "   ERRO AO GERAR ASSINATURA"
-.TypeText(Chr(11))
+objSelection.TypeText "   ERRO AO GERAR ASSINATURA DE EMAIL FAVOR CONTACTAR O SUPORTE"
+objSelection.TypeText(Chr(11))
 End If
 
 'Cargo
-If strTitle <> "" Then
-objSelection.TypeText "   " & "Platinum Investimentos | " & strTitle
-objSelection.TypeText(Chr(11))
-Else
-objSelection.TypeText "   " & "Platinum Investimentos | " & "ERRO AO GERAR ASSINATURA"
-objSelection.TypeText(Chr(11))
-End If
-
-'Tel e Site
-If strPhone <> "" Then    
-.TypeText "   " &  strPhone & " | "
-.Hyperlinks.Add .range, "www.platinuminvest.com.br"
-.TypeText(Chr(11))
-Else
-.TypeText "   " & "ERRO AO GERAR ASSINATURA" & " | " 
-.Hyperlinks.Add .range, "www.platinuminvest.com.br"
-.TypeParagraph()
-End If
-
-'Endereço
-.TypeText "   " &  "Rio de Janeiro | RJ:" & Chr(11)
-With .Font
-.Name = "Verdana"
-.Size = 8
-.Bold = False
-.Color = RGB(128, 128, 128)
-End With
-
-.TypeText "   " &  "Shopping Cassino Atlântico" & Chr(11)
-.TypeText "   " &  "Av. Atlântica 4240 | 3º Andar | Sala 326" & Chr(11)
-.TypeText "   " &  "Copacabana – CEP:22070-002" & Chr(11)
-
-'fb / tw
-.TypeText "   "
-.InlineShapes.AddPicture DIR & "\IMG\fb.jpg"
-.InlineShapes.AddPicture DIR & "\IMG\tw.jpg"
-'Arrumando
-.TypeParagraph()
-.ParagraphFormat.Alignment = wdAlignParagraphRight    
-objTable.Columns(2).Width = objWord.inchesToPoints(0) 
-
-objSelection.EndKey END_OF_STORY   
-
 objSelection.Font.Name = "Verdana"
+objSelection.Font.Bold = False
+objSelection.Font.Size = 9
+objSelection.Font.Color = RGB(0, 0, 0)
+If strTitle <> "" Then
+objSelection.TypeText "   " & strTitle
+objSelection.TypeText(Chr(11))
+'Else
+'objSelection.TypeText "   ERRO AO GERAR ASSINATURA DE EMAIL FAVOR CONTACTAR O SUPORTE"
+'objSelection.TypeText(Chr(11))
+End If
+
+'Departamento
+objSelection.Font.Name = "Verdana"
+objSelection.Font.Bold = False
+objSelection.Font.Size = 9
+objSelection.Font.Color = RGB(0, 0, 0)
+If strDepartment <> "" Then
+objSelection.TypeText "   Departamento de " & strDepartment
+objSelection.TypeText(Chr(11))
+End If
+
+'Telefone Fixo
+objSelection.Font.Name = "Verdana"
+objSelection.Font.Bold = False
+objSelection.Font.Size = 9
+objSelection.Font.Color = RGB(38, 38, 38)
+If strPhone <> "" Then
+objSelection.TypeText "   Tel.:" & strPhone
+objSelection.TypeText(Chr(11))
+End If
+
+'Telefone Movel
+objSelection.Font.Name = "Verdana"
+objSelection.Font.Bold = False
+objSelection.Font.Size = 9
+objSelection.Font.Color = RGB(38, 38, 38)
+If strCel <> "" Then
+objSelection.TypeText "   Cel.:" & strCel
+objSelection.TypeText(Chr(11))
+End If
+
+objSelection.TypeText(Chr(11))
+
+'Imagem (busca a imagem na rede)
+If oFSO.FileExists(IMG & "\" & sLocation & ".jpg") Then 'verifica de existe a imagem que ira aparecer na assinatura.
+Set s = objSelection.InlineShapes.AddPicture(IMG & "\" & sLocation & ".jpg")	'aqui voce define o caminho da imagem que ira aparecer na assinatura.
+With s
+.Height = 80
+.Width = 450
+End With
+objSelection.TypeParagraph()
+Else
+'caso não exista imagem insira os dados que que ser exibido em caso de falha no carregamento da imagem.
+Set s = objSelection.InlineShapes.AddPicture(IMG & "\Generica.jpg")	'aqui voce define o caminho da imagem que ira aparecer na assinatura.
+With s
+
+End With
+objSelection.TypeParagraph()
+End If
+
+'messagem de confidencialidade(BR)
+objSelection.Font.Name = "Verdana"
+objSelection.Font.Bold = True
+objSelection.Font.Size = 8
+objSelection.Font.Color = RGB(0, 0, 0)
+objSelection.TypeText "Aviso de confidencialidade"
+objSelection.TypeText(Chr(11))
+objSelection.Font.Name = "Verdana"
+objSelection.Font.Bold = False
+objSelection.Font.italic = True
 objSelection.Font.Size = 7
 objSelection.Font.Color = RGB(128, 128, 128)
-objSelection.Font.Bold = False
-objSelection.TypeText "A "
-objSelection.Font.Bold = True
-objSelection.TypeText "Platinum Investimentos – Agente Autônomo de Investimentos Ltda. "
-objSelection.Font.Bold = False
-objSelection.TypeText "é uma empresa de agentes autônomos de investimento devidamente registrada na Comissão de Valores Mobiliários e credenciada, na forma da Instrução Normativa n. 497/11. A relação completa dos sócios agentes autônomos da "
-objSelection.Font.Bold = True
-objSelection.TypeText "Platinum Investimentos – Agente Autônomo de Investimentos Ltda. "
-objSelection.Font.Bold = False
-objSelection.TypeText ", bem como dos demais agentes autônomos contratados pela XP Investimentos Corretora pode ser consultada no site "
-objSelection.Hyperlinks.Add .range, "www.cvm.gov.br"
-objSelection.TypeText " > > Agentes Autônomos > Relação dos Agentes Autônomos contratados por uma Instituição Financeira > Corretoras > XP Investimentos ou diretamente no site da XP Investimentos CCTVM S/A através do link << "
-objSelection.Hyperlinks.Add .range, "www.xpi.com.br"
-objSelection.TypeText " >>>. A "
-objSelection.Font.Bold = True
-objSelection.TypeText "Platinum Investimentos – Agente Autônomo de Investimentos Ltda. "
-objSelection.Font.Bold = False
-objSelection.TypeText "atua no mercado financeiro através da XP Investimentos CCTVM S/A, realizando o atendimento de pessoas físicas e jurídicas(não-institucionais). Na forma da legislação da CVM, o agente autônomo de investimento não pode administrar ou gerir o patrimônio de investidores. O agente autônomo é um intermediário e depende da autorização prévia do cliente para realizar operações no mercado financeiro."
+objSelection.TypeText "Esta mensagem, incluindo seus eventuais anexos, pode conter informações confidenciais, de uso restrito e/ou legalmente protegidas. Se você recebeu esta mensagem por engano, não deve usar, copiar, divulgar, distribuir ou tomar qualquer atitude com base nestas informações. Solicitamos que você elimine a mensagem imediatamente de seu sistema e avise ao remetente respondendo a mensagem.  Todas as opiniões, conclusões ou informações contidas nesta mensagem somente serão consideradas como provenientes da CEMUSA ou de suas subsidiárias quando efetivamente confirmadas, formalmente, por um de seus representantes legais, devidamente autorizados para tanto."
 objSelection.TypeText(Chr(11))
-objSelection.TypeText " Esta mensagem, incluindo os seus anexos, contém informações confidenciais destinadas a indivíduo e propósito específicos, sendo protegida por lei. Caso você não seja a pessoa a quem foi dirigida a mensagem, deve apagá-la. É terminantemente proibida a utilização, acesso, cópia ou divulgação não autorizada das informações presentes nesta mensagem."
-objSelection.TypeText(Chr(11))
-objSelection.TypeText "As informações contidas nesta mensagem e em seus anexos são de responsabilidade de seu autor, não representando necessariamente ideias, opiniões, pensamentos ou qualquer forma de posicionamento por parte da "
-objSelection.Font.Bold = True
-objSelection.TypeText "Platinum Investimentos – Agente Autônomo de Investimentos Ltda. "
-objSelection.TypeText(Chr(11))
-objSelection.Font.Bold = False
-objSelection.TypeText "O investimento em ações é um investimento de risco e rentabilidade passada não é garantia de rentabilidade futura. Na realização de operações com derivativos existe a possibilidade de perdas superiores aos valores investidos, podendo resultar em significativas perdas patrimoniais."
-objSelection.TypeText(Chr(11))
-objSelection.TypeText "Para informações e dúvidas, favor contatar seu operador."
-objSelection.TypeParagraph()
-objSelection.TypeText "Para reclamações, favor contatar a Ouvidoria da XP Investimentos no telefone nº 0800-722-3710."
-objSelection.TypeText(Chr(11))
+
 
 'Menagem sobre Meio Ambiente(BR)
 objSelection.Font.Name = "Webdings"
@@ -197,11 +172,36 @@ objSelection.Font.Size = 8
 objSelection.TypeText "Antes de imprimir este email pense se é realmente necessario."
 objSelection.TypeParagraph()
 
-End With
+'messagem de confidencialidade(US)
+objSelection.Font.Name = "Verdana"
+objSelection.Font.Bold = True
+objSelection.Font.Size = 8
+objSelection.Font.Color = RGB(0, 0, 0)
+objSelection.TypeText "Confidentiality Note"
+objSelection.TypeText(Chr(11))
+objSelection.Font.Name = "Verdana"
+objSelection.Font.Bold = False
+objSelection.Font.italic = true
+objSelection.Font.Size = 7
+objSelection.Font.Color = RGB(128, 128, 128)
+objSelection.TypeText "Privileged/Confidential Information may be contained in this message. If you are not the addressee indicated in this message (or responsible for delivery of the message to such person), you may not copy or deliver this message to anyone. In such case, you should destroy this message and kindly notify the sender by reply email. Please advise immediately if you or your employer does not consent to email or messages of this kind. Opinions, conclusions and other information in this message that do not relate to the official business of CEMUSA shall be understood as neither given nor endorsed by it."
+objSelection.TypeText(Chr(11))
 
-Set objSelection = objDoc.Range()
-objSignatureEntries.Add "Ass Padrao", objSelection
-objSignatureObject.NewMessageSignature = "Ass Padrao"
-objSignatureObject.ReplyMessageSignature = "Ass Padrao"
+
+'Menagem sobre Meio Ambiente(US)
+objSelection.Font.Name = "Webdings"
+objSelection.Font.Size = 8
+objSelection.Font.Color = RGB(35,142,35)
+objSelection.Font.Bold = False
+objSelection.Font.italic = False
+objSelection.TypeText "P "
+objSelection.Font.Name = "Verdana"
+objSelection.Font.Size = 8
+objSelection.TypeText "Before printing this e-mail, think if it is necessary."
+
+objSignatureEntries.Add "Ass. Padrão", objRange
+objSignatureObject.NewMessageSignature = "Ass. Padrão"
+objSignatureObject.ReplyMessageSignature = "Ass. Padrão"
 objDoc.Saved = True
 objWord.Quit
+End Function

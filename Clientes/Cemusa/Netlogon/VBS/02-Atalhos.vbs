@@ -36,14 +36,20 @@ varfile = DIR & "\SYS\FNC.INI"
   FNC.close
   execute FNCFILE
 
+'Limpa versão anterior
+oFSO.DeleteFile DESK & "\Depart*.lnk"
+oFSO.DeleteFile DESK & "\Rep*.lnk"
+oFSO.DeleteFile DESK & "\Auto*.lnk"
+
+
 'MsgBox "Atalho para Auto Help Desk "  
-Set ReparoLnk = oShell.CreateShortcut(DESK & "\Auto Help Desk.lnk")
-ReparoLnk.TargetPath = suploc&"\HelpDesk.hta"
-ReparoLnk.Description = "Auto Help Desk"
-ReparoLnk.WorkingDirectory = HTA
-ReparoLnk.WindowStyle = 1
-ReparoLnk.IconLocation = htaloc &"\img\logo.ico"
-ReparoLnk.Save
+'Set ReparoLnk = oShell.CreateShortcut(DESK & "\Auto Help Desk.lnk")
+'ReparoLnk.TargetPath = SUPORTE & "\HelpDesk.hta"
+'ReparoLnk.Description = "Auto Help Desk"
+'ReparoLnk.WorkingDirectory = HTA
+'ReparoLnk.WindowStyle = 1
+'ReparoLnk.IconLocation = IMG &"\logo.ico"
+'ReparoLnk.Save
 
 'msgbox "Atalho no Desktop para a Rede."
 Set DepLnk = oShell.CreateShortcut(DESK & "\Departamentos " & DOMI & ".lnk")
