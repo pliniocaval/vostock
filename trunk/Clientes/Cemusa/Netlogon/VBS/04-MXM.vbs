@@ -58,8 +58,8 @@ lRet  =   MsgBox(msg,0,"Cemusa Informa")
 Loop
 wscript.quit
 Else
-objFSO.DeleteFile DESK &"\MXM*.lnk"
-Set MXMLnk = objShell.CreateShortcut(DESK & "\MXM.lnk")
+oFSO.DeleteFile DESK &"\MXM*.lnk"
+Set MXMLnk = oShell.CreateShortcut(DESK & "\MXM.lnk")
 MXMLnk.TargetPath = MXM & "\MXMDV.RDP"
 MXMLnk.Description = "Acesso remoto ao MXM"
 MXMLnk.WorkingDirectory = MXM
