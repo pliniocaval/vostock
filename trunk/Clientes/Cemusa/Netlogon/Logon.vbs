@@ -29,9 +29,6 @@ varfile = DIR & "\SYS\FNC.INI"
   FNC.close
   execute FNCFILE
 
-'msgbox "Remover drivers mapeados"
-RemoveDrivesRede	
-
 'msgbox "Criando pastas"
 CriaPasta(TI)
 CriaPasta(HTA)
@@ -44,23 +41,31 @@ CriaPasta(LOGS)
 CriaPasta(USERLOGS)
 CriaPasta(SRVLOG)
 
-'MsgBox "Tela de Logon"
-TelaLogon
+'MsgBox "Copia de Arquivos Base"
+CopiaArquivo DIR & "\SUPORTE\AUTOHELPDESK\INI\MAPS.INI" , SUPORTE & "\AUTOHELPDESK\INI\MAPS.INI"
+CopiaArquivo DIR & "\IMG\Logo-Default.jpg" , IMG & "\Logo-Default.jpg"
+CopiaArquivo DIR & "\HTA\Logon.hta",HTA & "\Logon.hta"
 
 'MsgBox "Limpa Versão anterior do Script"
-'oFSO.DeleteFolder "c:\ti"
+ApagaRaiz(TI-ANT)
+  
+'msgbox "Remover drivers mapeados"
+RemoveDrivesRede
 
 'MsgBox "Apaga logs Grandes demais"
 ApagaArquivos2M(USERLOGS)
 
-'MsgBox "Para Pelo Nome da Estação ou Servidor"
-SAI
-
 'msgbox "BGinfo"
 BGINFO
 
-'MsgBox "Executa Outros VBS"
-ExecutaVBS(DIR & "\VBS")
-
 'MsgBox "Sincroniza arquivos de Log"
 SyncLog(USERLOGS)
+
+'MsgBox "Tela de Logon"
+TelaLogon
+
+'MsgBox "Para Pelo Nome da Estação ou Servidor"
+SAI
+
+'MsgBox "Executa Outros VBS"
+ExecutaVBS(DIR & "\VBS")
