@@ -20,7 +20,7 @@ Next
 oShell.CurrentDirectory = DIR
 
 'msgbox "Não parar em caso de erros"
-'On Error Resume Next
+On Error Resume Next
 
 'msgbox "Carregando variaveis"
 varfile = DIR & "\SYS\LOGON.INI"
@@ -38,13 +38,13 @@ varfile = DIR & "\SYS\FNC.INI"
 
 'msgbox "Copia de arquivos"
 If oFso.FileExists("C:\Windows\SysWOW64\RoboCopy.exe") Then
-'oFSO.DeleteFile WIN & "\system32\RoboCopy.exe"
-If Not oFso.FileExists(PROGS & "\RoboCopy.exe") Then oFSO.CopyFile DIR & "\PROGS\RoboCopy.exe" , PROGS & "\RoboCopy.exe", OverwriteExisting
+oFSO.DeleteFile WIN & "\system32\RoboCopy.exe"
+Copia DIR & "\PROGS\RoboCopy.exe" , PROGS & "\RoboCopy.exe"
 Else
 If oFso.FileExists("C:\Windows\System32\RoboCopy.exe") Then
-If Not oFso.FileExists(PROGS & "\RoboCopy.exe") Then oFSO.CopyFile DIR & "\PROGS\RoboCopy.exe" , PROGS & "\RoboCopy.exe", OverwriteExisting
+Copia DIR & "\PROGS\RoboCopy.exe" , PROGS & "\RoboCopy.exe"
 Else
-If Not oFso.FileExists(PROGS & "\RoboCopy.exe") Then oFSO.CopyFile DIR & "\PROGS\RoboCopy.exe" , PROGS & "\RoboCopy.exe", OverwriteExisting
+Copia DIR & "\PROGS\RoboCopy.exe" , PROGS & "\RoboCopy.exe"
 Robo = PROGS & "\RoboCopy.exe"
 End If
 End If
