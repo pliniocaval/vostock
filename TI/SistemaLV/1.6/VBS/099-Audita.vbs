@@ -18,7 +18,7 @@ Next
 oShell.CurrentDirectory = DIRS
 
 'msgbox "Não parar em caso de erros"
-'On Error Resume Next
+On Error Resume Next
 
 'msgbox "Carregando Variaveis Remotas"
 DIRLfile = DIRS & "\SYS\DIRL.INI"
@@ -49,7 +49,7 @@ varfile = SYS & "\EMP.INI"
   VAR.close
   execute VARFILE
   
-'ChecaArquivoSai(USERLOGS & "\Arquivos-" & COMP & ".txt")
+ChecaArquivoSai(USERLOGS & "\Arquivos-" & COMP & ".txt")
 
 Dim intTotalSpace, intTotalSpacemp3, intTotalSpaceavi, intTotalSpacewmv, intTotalSpacempeg
 Dim numeroCont, numeroContmp3, numeroContavi, numeroContwmv, numeroContmpeg, numeroContPST

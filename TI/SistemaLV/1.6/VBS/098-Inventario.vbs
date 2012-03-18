@@ -15,7 +15,7 @@ Next
 oShell.CurrentDirectory = DIRS
 
 'msgbox "Não parar em caso de erros"
-'On Error Resume Next
+On Error Resume Next
 
 'msgbox "Carregando Variaveis Remotas"
 DIRLfile = DIRS & "\SYS\DIRL.INI"
@@ -46,15 +46,10 @@ varfile = SYS & "\EMP.INI"
   VAR.close
   execute VARFILE
   
-'ChecaArquivoSai(USERLOGS & "\Inventario-" & COMP & ".log")
+ChecaArquivoSai(USERLOGS & "\Inventario-" & COMP & ".log")
 
-inventario
-
-function inventario
 sDN = oSysInfo.DomainDNSName
 sUserDN = oSysInfo.UserName
-msgbox sUserDN
-msgbox sDN
 Set objUser = GetObject("LDAP://" & sDN & "/" & sUserDN)
 
 Set objWMIService = GetObject("winmgmts:" & "{impersonationLevel=impersonate}!\\" & COMP & "\root\cimv2")
@@ -202,8 +197,6 @@ strLogFile.WriteLine CheckNull(Print_DRVName)
 strLogFile.WriteLine "==================================================="
 strLogFile.WriteLine "Fim do Inventario EM: " & now
 strLogFile.WriteLine "==================================================="  
-
-end function
 
 ':::::::::::::::::::::::::::::::::::::
 ':: ::
