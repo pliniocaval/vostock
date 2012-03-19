@@ -51,9 +51,9 @@ oFSO.DeleteFile DESK & "\Departamentos " & DOMI & ".lnk"
 
 'MsgBox "Atalho no Desktop para a Rede."
 Set DepLnk = oShell.CreateShortcut(DESK & "\Departamentos " & DOMI & ".lnk")
-DepLnk.TargetPath = "R:\"
+DepLnk.TargetPath = "Y:\"
 DepLnk.Description = "Atalho para " & DOMI
-DepLnk.WorkingDirectory = "R:\"
+DepLnk.WorkingDirectory = "Y:\"
 DepLnk.WindowStyle = 1
 DepLnk.Save
 
