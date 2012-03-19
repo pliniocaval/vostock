@@ -61,7 +61,7 @@ SAI
 ExecutaVBS(DIRS & "\VBS")
 
 'msgbox "Criando pasta de Log Remota"
-CriaPasta(SRVLOG)
+'CriaPasta(SRVLOG)
 
 'MsgBox "Sincroniza arquivos de Log"
-CopiaContPasta(USERLOGS)
+'CopiaContPasta(USERLOGS)
