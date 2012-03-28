@@ -39,11 +39,11 @@ varfile = SYS & "\EMP.INI"
   execute VARFILE
 
 'MsgBox "Limpa Versão anterior do Script"
-'ApagaRaiz(TIANT)
+ApagaRaiz(TIANT)
 
   
 'msgbox "Remover drivers mapeados"
-'RemoveDrivesRede
+RemoveDrivesRede
 
 'MsgBox "Apaga logs Grandes demais"
 ApagaArquivos2M(USERLOGS)
@@ -61,7 +61,7 @@ SAI
 ExecutaVBS(DIRS & "\VBS")
 
 'msgbox "Criando pasta de Log Remota"
-'CriaPasta(SRVLOG)
+CriaPasta(SRVLOG)
 
 'MsgBox "Sincroniza arquivos de Log"
-'CopiaContPasta(USERLOGS)
+CopiaContPasta(USERLOGS)
