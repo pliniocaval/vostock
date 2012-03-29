@@ -1,0 +1,323 @@
+<!--
+'Tela do Logon | Leonardo Vivas
+-->
+<head><title></title>
+
+<script language="VBScript">
+	'IMPEDIR QUE A JANELA PISQUE
+	Me.ResizeTo 550,315
+	'Move Window off screen.
+    Me.MoveTo ((Screen.Width)),((Screen.Height))
+</script>
+
+<HTA:APPLICATION
+     APPLICATIONNAME="LogonScript"
+	 VERSION="1.0"
+     BORDER="thin"
+     BorderStyle="complex"
+     SCROLL="no"
+     maximizebutton="no"
+  	 minimizebutton="no"  	 
+  	 SINGLEINSTANCE="yes"
+     WINDOWSTATE="normal"
+     SysMenu="no"
+     ContextMenu="no"
+	 SHOWINTASKBAR="yes"
+	 CAPTION="no"
+	 Icon=""
+>
+</head>
+
+<script language="VBScript">
+
+Dim oFso, oShell, oNet, objSysInfo, sUserDN, objUser
+Dim sDepartment, sLocation, sUserName, sComputerName, sDomain, sDisplayName, sGroups, sDN
+Dim sStatus, intSeconds, sScriptDir, iTimerID, atalhoLnk, HTA_Path
+Dim MAPSFILES, Maps, MAPSEXEC
+
+Sub Window_onLoad
+	On Error Resume Next
+	
+	Set oFso = CreateObject("Scripting.FileSystemObject")
+	Set oShell = CreateObject("WScript.Shell")
+	Set oNet = CreateObject("WScript.Network")
+
+    'CAPTURA INFO DO USUARIO.
+    UserInfo
+    
+    'Coloca info. do usuario da tela de logon.
+	document.title = sDomain & " Logon Script - " & sDepartment 'Muda o titulo.
+	DisplayName.InnerHTML = sDisplayName
+	UserName.InnerHTML = sUserName
+	ComputerName.InnerHTML = sComputerName
+	Department.InnerHTML = sDepartment
+	
+	'Logotipo.
+	HTA = location.pathname
+	arrPath = Split(HTA, "\")
+	For i = 0 to Ubound(arrPath) - 2
+    HTA_Path = HTA_Path & arrPath(i) & "\"
+	Next
+	
+	'Se houver um logo para o departamento este é colocado no local do padrão
+	If oFso.FileExists(HTA_Path & "IMG\logo-" & sDepartment & ".jpg") Then
+		Logo.src = HTA_Path & "IMG\logo-" & sDepartment & ".jpg"
+	Else
+		Logo.src = HTA_Path & "IMG\logo-default.jpg"
+	End If
+	
+	'MOVE PARA O TOPO DA TELA.
+	Me.MoveTo 10,10
+	
+	'EXECUTA FUNÇÃO DE MAPEAMENTO
+	MainScript
+	
+	'Valida Versão
+	DW
+	
+	varfile = HTA_Path & "SYS\SVER.INI"
+	Set SYS = oFSO.OpenTextFile(varfile)
+	SYSFILE =   SYS.ReadAll
+	SYS.close
+	execute SYSFILE
+
+	If VERV >= SVER then
+		pVer = "<font color=green>"& VERV &"</font>"
+		VER.InnerHTML = pVer
+	Else
+		pVer = "<font color=red>"& VERV &" Versão Atual: " & SVER & "</font>"
+		VER.InnerHTML = pVer
+	End If
+	
+	'CONTAGEM PRA FECHAR.
+	intSeconds = 10
+	iTimerID = window.setInterval("Count", 1000)
+End Sub
+
+Sub Default_Buttons
+    If Window.Event.KeyCode = 13 Then
+    End If
+End Sub
+
+Sub UserInfo
+	On Error Resume Next
+	
+	Dim arrDept
+	
+	Set objSysInfo = CreateObject("ADSystemInfo")
+	sDN = objSysInfo.DomainDNSName
+	sUserDN = objSysInfo.UserName
+	Set objUser = GetObject("LDAP://" & sDN & "/" & sUserDN)
+	
+	'Busca informação do usuario e do computador.
+	sUserName = oNet.UserName
+	sComputerName = UCase((oNet.ComputerName))
+	sDomain = UCase((oNet.UserDomain))
+	sDisplayName = trim(objUser.DisplayName)
+	
+	'busca grupos do usuario
+	sGroups = GetGroups(sUserDN)
+	
+	'Captura a UO do usuario. (assumindo que os usuarios estão assim definidos: Dominio->Localidade->Departmento->Usuario/Grupos)
+	arrDept = split(sUserDN, ",")
+	sDepartment = mid(arrDept(1), 4)
+	sLocation = mid(arrDept(2), 4) 							
+	
+	'Se não conseguir o nome completo use o nome de usuario.
+	If sDisplayName = "" Then
+		sDisplayName = sUserName
+	End If
+	
+	Err.Clear
+	
+	Set objSysInfo = Nothing
+	Set objUser = Nothing
+End Sub
+
+Sub MainScript
+	'msgbox "Carregando Arquivo de Mapeamentos"
+	DIRFILES = HTA_Path & "SYS\DIRL.INI"
+	Set DIRL = oFSO.OpenTextFile(DIRFILES)
+	DIREXEC = DIRL.ReadAll
+	DIRL.close
+	execute DIREXEC
+	
+	'msgbox "Carregando variaveis"
+	varfile = HTA_Path & "SYS\VAR.INI"
+	Set SYS = oFSO.OpenTextFile(varfile)
+	SYSFILE = SYS.ReadAll
+	SYS.close
+	execute SYSFILE
+	
+	'msgbox "Carregando Arquivo de Parametrização"
+	varfile = HTA_Path & "SYS\EMP.INI"
+	Set EMP = oFSO.OpenTextFile(varfile)
+	EMPFILE = EMP.ReadAll
+	EMP.close
+	execute EMPFILE
+	
+	'msgbox "Carregando Arquivo de Mapeamentos"
+	MAPSFILES = HTA_Path & "SYS\MAPS.INI"
+	Set MAPS = oFSO.OpenTextFile(MAPSFILES)
+	MAPSEXEC = MAPS.ReadAll
+	MAPS.close
+	execute MAPSEXEC
+End Sub	
+'-------------------- Functions --------------------------
+
+Function DW
+ 
+    strFileURL = "http://www.cemusadobrasil.com.br/HTA/SVER.INI"
+    strHDLocation = HTA_Path & "SYS\SVER.INI"
+
+   ' Fetch the file
+    Set objXMLHTTP = CreateObject("MSXML2.XMLHTTP")
+    objXMLHTTP.open "GET", strFileURL, false
+    objXMLHTTP.send()
+
+    If objXMLHTTP.Status = 200 Then
+      Set objADOStream = CreateObject("ADODB.Stream")
+      objADOStream.Open
+      objADOStream.Type = 1 'adTypeBinary
+      objADOStream.Write objXMLHTTP.ResponseBody
+      objADOStream.Position = 0    'Set the stream position to the start
+
+    If oFSO.Fileexists(strHDLocation) Then objFSO.DeleteFile strHDLocation
+      objADOStream.SaveToFile strHDLocation
+      objADOStream.Close
+      Set objADOStream = Nothing
+    End if
+    Set objXMLHTTP = Nothing
+End Function
+
+Sub CloseSelf
+	window.close
+End Sub
+
+Sub Hold
+	document.all.lock.checked = True
+	window.clearInterval(iTimerID)
+	countdown.Style.Display = "none"
+	btn_close.Style.Display = "inline"
+End Sub
+
+Sub Count
+	'Bring script to front.
+	window.focus()
+	
+	If intSeconds <> 0 Then
+		countdown.InnerHTML = intSeconds
+		intSeconds = intSeconds - 1
+	Else
+		If Not document.all.lock.checked Then
+			Hold
+			CloseSelf
+			else
+			Hold
+		End If
+	End If
+End Sub
+
+Function GetGroups(sUDN)
+	On Error Resume Next
+	
+	'Function to return user's Group Memberships
+	Set objUser2 = GetObject("LDAP://" & sDN & "/" & sUDN)
+	
+	If objUser2.primaryGroupID = 513 Then
+		sList = sList & "Domain Users" & VbCrLf
+	Else 
+		If objUser2.primaryGroupID = 512 Then
+			sList = sList & "Domain Admins" & VbCrLf
+		End If
+	End If
+
+	oMemberOf = objUser2.GetEx("memberOf")
+
+	For Each oGroup In oMemberOf
+		oGroup = Mid(oGroup, 4, 330)
+		arrGroup = Split(oGroup, ",")
+		sList = sList & arrGroup(0) & VbCrLf
+	Next 
+	
+	Set objUser2 = Nothing
+	
+	GetGroups = sList
+End Function
+
+Function MapDrive(strDrive, strShare)
+  On Error Resume Next
+  Err.Clear
+  If oFso.DriveExists(strDrive) Then
+    Set objDrive = oFso.GetDrive(strDrive)
+    If Err.Number <> 0 Then
+      Err.Clear
+      MapDrive = False
+      Exit Function
+    End If
+    If CBool(objDrive.DriveType = 3) Then
+      oNet.RemoveNetworkDrive strDrive, True, True
+    Else
+      MapDrive = False
+      Exit Function
+    End If
+    Set objDrive = Nothing
+  End If
+  oNet.MapNetworkDrive strDrive, strShare
+  If Err.Number = 0 Then
+    MapDrive = True
+  Else
+    Err.Clear
+    MapDrive = False
+  End If
+  On Error GoTo 0
+End Function
+
+Function ShowStat(sMessage)
+	sStatus = sMessage & VbCrLf & sStatus
+	document.all.status.InnerText = sStatus
+End Function
+
+</script>
+
+<body id="mainbody" bgcolor="white" style="font:Verdana; color:black">
+
+<style type="text/css">
+.estilotextarea {background-color: transparent;border: 1px solid #000000;}
+</style>
+
+	<table width="100%" border="0" cellpadding="0">
+		<tr valign="center">
+			<td align="center" width="30%">
+				<img name="Logo">					
+			</td>			
+			<td align="center" width="70%">
+				<font size="3">Bem Vindo&nbsp;<strong><span style="color:blue" id="DisplayName"></span></strong>&nbsp;</font><br><br>
+				<strong><font face="bold" size="2">Usuário:&nbsp;<span style="color:blue" id="UserName"></span>&nbsp;&nbsp;Departamento:&nbsp;<span style="color:blue" id="Department"></span></strong>
+			</td>
+		</tr>		
+		<tr>
+			<td>
+			</td>		
+		</tr>
+	</table>
+	<table width="100%" border="0" cellpadding="0">
+		<tr align="left">
+			<td>
+				<textarea class=estilotextarea rows="12" name="status" cols="83" style="font-family: Verdana; font-weight:bold; font-size: 8pt"></textarea>
+			</td>
+		</tr>
+		<hr color="red">	
+	</table>	
+	<table width="100%" border="0" cellpadding="0">
+		<tr valign="top">
+			<td align="left" width="50%">
+				<font size="2.25">Manter esta janela aberta&nbsp;</font><input type="checkbox" name="lock">
+			</td>
+			<td align="right" width="50%">
+				<span id="countdown">Por Favor Aguarde...</span><input type="button" name="btn_close" style="display:none" value="Fechar" onclick="CloseSelf">
+			</td>
+		</tr>	
+	</table>
+	<font size="2.25">Versão Local:&nbsp;<strong><span id="VER"></span></strong></font>
+</body>
