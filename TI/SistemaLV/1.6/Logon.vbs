@@ -5,7 +5,7 @@ Set oShell = CreateObject("WScript.Shell")
 Set oFSO = CreateObject("Scripting.FileSystemObject")
 
 'msgbox "Não parar em caso de erros"
-'On Error Resume Next
+On Error Resume Next
 
 'MsgBox "Capturando Diretorio do Script"
 DIRS = oFSO.GetParentFolderName(WScript.ScriptFullName)

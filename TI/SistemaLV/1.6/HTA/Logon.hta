@@ -36,7 +36,7 @@ Dim sStatus, intSeconds, sScriptDir, iTimerID, atalhoLnk, HTA_Path
 Dim MAPSFILES, Maps, MAPSEXEC
 
 Sub Window_onLoad
-	'On Error Resume Next
+	On Error Resume Next
 	
 	Set oFso = CreateObject("Scripting.FileSystemObject")
 	Set oShell = CreateObject("WScript.Shell")
