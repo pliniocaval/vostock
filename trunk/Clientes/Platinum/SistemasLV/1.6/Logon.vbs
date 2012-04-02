@@ -17,6 +17,17 @@ varfile = DIRS & "\SYS\DIRL.INI"
   VAR.close
   execute VARFILE
 
+'MsgBox "Testa se o scritp de StartUP foi bem sucedido"
+If Not oFso.FolderExists(TIATU) Then
+oShell.Run ("cmd.exe /C rmdir /s /q" & " " & TI),0 , True
+oShell.Run (DIRS & "\Startup.vbs"),0 , True
+Else
+Set START = oFso.GetFile(TIATU & "\LOGS\STARTUP.log")
+If DateDiff("d", START.DateLastModified, Now) > 3 Then
+oShell.Run (DIRS & "\Startup.vbs"),0 , True
+End If
+End If
+
 'msgbox "Carregando Variaveis Locais"
 varfile = SYS & "\VAR.INI"
   Set VAR = oFSO.OpenTextFile(varfile)
@@ -65,3 +76,6 @@ CriaPasta(SRVLOG)
 
 'MsgBox "Sincroniza arquivos de Log"
 CopiaContPasta(USERLOGS)
+
+'MsgBox "Verifica rede"
+TestaDrive("H:")

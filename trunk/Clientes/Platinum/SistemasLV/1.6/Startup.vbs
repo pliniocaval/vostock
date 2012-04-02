@@ -26,14 +26,14 @@ CriaPasta(PROGS)
 CriaPasta(LOGS)
 CriaPasta(USERLOGS)
 
+'MsgBox "Limpa Versão anterior do Script"
+ApagaRaiz(TIANT)
+
 'MsgBox "Copia Robocopy por garantia"
 CopiaArquivo DIRS & "\PROGS\RoboCopy.exe",PROGS & "\RoboCopy.exe"
 
 'MsgBox "sincroniza arquivos"
-oShell.Run Robo & " " & DIRS & "\ " & TIATU & "\ " & RoboOPSYNC & LOGS & "\STARTUP.log", 0, False
-
-'MsgBox "Limpa Versão anterior do Script"
-ApagaRaiz(TIANT)
+oShell.Run Robo & " " & DIRS & "\ " & TIATU & "\ " & RoboOPSYNC & USERLOGS & "\STARTUP.log", 0, False
 
 Function CriaPasta(pasta)
  If Not oFso.FolderExists(pasta) Then oFso.CreateFolder(pasta)

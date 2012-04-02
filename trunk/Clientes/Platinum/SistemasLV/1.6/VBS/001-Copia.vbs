@@ -14,7 +14,7 @@ Next
 oShell.CurrentDirectory = DIRS
 
 'msgbox "Não parar em caso de erros"
-'On Error Resume Next
+On Error Resume Next
 
 'msgbox "Carregando Variaveis Remotas"
 DIRLfile = DIRS & "\SYS\DIRL.INI"
@@ -63,7 +63,8 @@ oShell.Run Robo & " " & DIRS & "\HTA\ " & HTA & "\ " & RoboOPSYNC & USERLOGS & "
 oShell.Run Robo & " " & DIRS & "\IMG\ " & IMG & "\ " & RoboOPSYNC & USERLOGS & "\copyimg.log", 0, False
 oShell.Run Robo & " " & DIRS & "\PROGS\ " & PROGS & "\ " & RoboOPSYNC & USERLOGS & "\copyprg.log", 0, False
 oShell.Run Robo & " " & DIRS & "\SYS\ " & SYS & "\ " & RoboOPSYNC & USERLOGS & "\copyprg.log", 0, False
-oShell.Run Robo & " " & DIRS & "\ " & TIATU & "\ " & RoboOPSYNC & USERLOGS & "\copyTI.log", 0, False
+MSGBOX Robo & " " & DIRS & "\SUPORTE\ " & SUPORTE & "\ " & RoboOPSYNC & USERLOGS & "\copysup.log", 0, False
+oShell.Run Robo & " " & DIRS & "\SUPORTE\ " & SUPORTE & "\ " & RoboOPSYNC & USERLOGS & "\copysup.log", 0, False
 'msgbox Fim
 wscript.quit
 
