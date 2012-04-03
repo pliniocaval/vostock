@@ -34,6 +34,18 @@ CriaPasta(SUPORTE)
 CriaPasta(USERLOGS)
 
 'MsgBox "sincroniza arquivos"
+If oFso.FileExists("C:\Windows\SysWOW64\RoboCopy.exe") Then
+Else
+If oFso.FileExists("C:\Windows\System32\RoboCopy.exe") Then
+Else
+If oFso.FileExists(PROGS & "\RoboCopy.exe") Then
+Else
+CopiaArquivo DIRS & "\PROGS\RoboCopy.exe",PROGS & "\RoboCopy.exe"
+Robo = PROGS & "\RoboCopy.exe"
+End If
+End If
+End If
+
 oShell.Run Robo & " " & DIRS & "\ " & TIATU & "\ " & RoboOPSYNC & LOGS & "\STARTUP.log", 0, True
 
 Function CriaPasta(pasta)
@@ -73,3 +85,22 @@ For Each objFile in colFiles
 oFSO.CopyFile (origem & "\" & objFile.Name),  (destino & "\" & objFile.Name), OverwriteExisting
 Next
 End Function
+
+Function CopiaArquivo(Origem,Destino)
+Do Until Carquivo = True
+	If not oFSO.FileExists(Destino) Then
+	Carquivo = False
+	oFSO.CopyFile Origem , Destino, OverwriteExisting
+	wscript.sleep 2500
+	Else
+	set FOrigem = oFSO.getFile (Origem)
+	set FDestino = oFSO.getFile (Destino)
+	If FOrigem.dateLastModified > FDestino.dateLastModified Then
+	oFSO.CopyFile Origem , Destino, OverwriteExisting
+	End If
+	Carquivo = True
+	End If
+ Loop
+End Function
+
+
