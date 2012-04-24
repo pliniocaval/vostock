@@ -19,7 +19,7 @@ robocopy = "robocopy.exe"
 '===========================================================================================================================
 '=======================EDITE AS VARIVEIS CONTIDAS ABAIXO PARA O CORRETO FUNCIONAMENTO DO SCRIPT============================ 
 ' Local do BKP
-BKPSERVER = "\\csrv06\bkp$"
+BKPSERVER = "\\cemusa-srv\users$"
 'Letra da unidade de Rede que ira representar o servidor de BKP
 strShare = "Z:"  
 'pasta do BKP
@@ -141,3 +141,4 @@ objShell.Run "taskkill /F /IM outlook.exe", 1, True
 objShell.Run "taskkill /F /IM outlook.exe", 1, True
 objShell.Run objPSTfile, 1, True
 
+MsgBox "Backup Terminado"
